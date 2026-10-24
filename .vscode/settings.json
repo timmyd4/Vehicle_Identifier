@@ -2,12 +2,14 @@
     // Use the project's virtual environment for running and analyzing Python.
     "python.defaultInterpreterPath": "${workspaceFolder}/.venv/Scripts/python.exe",
 
-    // Don't search inside the dataset or the venv (Ctrl+Shift+F).
+    // Don't search inside the dataset, the venv, or generated output (Ctrl+Shift+F).
     "search.exclude": {
         "data/**": true,
         ".venv/**": true,
-        "checkpoints/**": true,
-        "runs/**": true
+        "**/checkpoints/**": true,
+        "**/runs/**": true,
+        "app/target/**": true,
+        "app/models/**": true
     },
 
     // Don't watch these folders for file changes (hundreds of thousands of images would slow VS Code down).
@@ -15,14 +17,17 @@
         "**/data/**": true,
         "**/.venv/**": true,
         "**/checkpoints/**": true,
-        "**/runs/**": true
+        "**/runs/**": true,
+        "**/app/target/**": true,
+        "**/app/models/**": true
     },
 
     // Don't let the Python language server (Pylance) index these folders.
     "python.analysis.exclude": [
         "data",
         ".venv",
-        "checkpoints",
-        "runs"
+        "**/checkpoints",
+        "**/runs",
+        "app"
     ]
 }

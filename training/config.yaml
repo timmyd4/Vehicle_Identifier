@@ -1,0 +1,6 @@
+# Settings for the Python training scripts. Every script in training/ reads this file.
+# Paths are relative to the project root (the folder above training/).
+
+paths:
+  dataset_dir: data/VMMRdb   # one folder per class, e.g. honda_civic_2005/
+  runs_dir: training/runs    # generated output: reports, logs, charts
