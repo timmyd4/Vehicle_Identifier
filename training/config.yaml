@@ -6,6 +6,7 @@ paths:
   splits_dir: data/splits    # train/val/test CSVs written by build_subset.py
   runs_dir: training/runs    # generated output: reports, logs, charts
   checkpoints_dir: training/checkpoints   # saved model weights (best.pt, last.pt)
+  models_dir: models         # exported files the Java app loads (export_onnx.py writes them)
 
 # build_subset.py: which images and classes to train on, and how to split them.
 subset:

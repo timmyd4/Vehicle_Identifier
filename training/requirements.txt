@@ -30,3 +30,8 @@ pyyaml==6.0.3             # reading the config.yaml settings file
 # --- Progress and plots ---
 tqdm==4.70.1              # progress bars for long loops
 matplotlib==3.11.2        # charts (class distribution, training curves)
+
+# --- Export for Java (Phase 2.5) ---
+onnx==1.23.2              # the ONNX model file format
+onnxscript==0.7.2         # used by PyTorch's ONNX exporter (torch.onnx.export)
+onnxruntime==1.31.0       # runs .onnx files; SAME version as the Java library, to check the export
