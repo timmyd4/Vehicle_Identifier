@@ -13,11 +13,12 @@
     },
 
     // Don't watch these folders for file changes (hundreds of thousands of images would slow VS Code down).
+    // runs/ is NOT listed: it holds a few small reports and charts, and watching it
+    // makes new output files appear in the Explorer as soon as a script writes them.
     "files.watcherExclude": {
         "**/data/**": true,
         "**/.venv/**": true,
         "**/checkpoints/**": true,
-        "**/runs/**": true,
         "**/app/target/**": true,
         "**/app/models/**": true
     },

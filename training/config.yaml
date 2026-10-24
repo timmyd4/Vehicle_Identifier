@@ -5,6 +5,7 @@ paths:
   dataset_dir: data/VMMRdb   # one folder per class, e.g. honda_civic_2005/
   splits_dir: data/splits    # train/val/test CSVs written by build_subset.py
   runs_dir: training/runs    # generated output: reports, logs, charts
+  checkpoints_dir: training/checkpoints   # saved model weights (best.pt, last.pt)
 
 # build_subset.py: which images and classes to train on, and how to split them.
 subset:
@@ -18,3 +19,20 @@ subset:
     val: 0.1
     test: 0.1
   seed: 42                   # fixed random seed so the split is the same every run
+
+# train.py / evaluate.py / predict.py: the model and how images are fed to it.
+training:
+  # Pretrained model from timm (downloaded from Hugging Face's official timm/ org on first use).
+  # ConvNeXt-Tiny, pretrained on ImageNet-22k (~14M photos) then fine-tuned on ImageNet-1k.
+  model_name: convnext_tiny.fb_in22k_ft_in1k
+  image_size: 224            # images are resized to image_size x image_size pixels before the model sees them
+  num_workers: 8             # CPU processes that load + augment images in parallel while the GPU trains
+
+  # How long and how hard to train. See the comments in train.py for what each one means.
+  epochs: 20                 # full passes over the training images
+  batch_size: 128            # images per training step (fits easily in the 4090's 24 GB)
+  learning_rate: 0.0003      # peak step size for the optimizer (small, because we're fine-tuning)
+  weight_decay: 0.05         # gently pulls weights toward zero, discouraging memorization
+  warmup_epochs: 1           # ramp the learning rate up from ~0 over the first epoch
+  label_smoothing: 0.1       # don't demand 100% confidence - helps with VMMRdb's noisy labels
+  seed: 42                   # makes the random parts (weight init of the new layer, shuffling) repeatable
