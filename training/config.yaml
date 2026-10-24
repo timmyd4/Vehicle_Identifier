@@ -3,4 +3,18 @@
 
 paths:
   dataset_dir: data/VMMRdb   # one folder per class, e.g. honda_civic_2005/
+  splits_dir: data/splits    # train/val/test CSVs written by build_subset.py
   runs_dir: training/runs    # generated output: reports, logs, charts
+
+# build_subset.py: which images and classes to train on, and how to split them.
+subset:
+  min_year: 1950             # drop folders outside this range (e.g. "1900" placeholders)
+  max_year: 2016
+  year_bucket_size: 3        # 1 = each year is its own class, 3 = 2001-2003 etc., 0 = merge all years
+  min_images_per_class: 50   # drop classes with fewer images than this (after cleaning)
+  min_image_side: 100        # drop images whose width or height is below this many pixels
+  split:                     # fractions of each class that go to each split (must sum to 1)
+    train: 0.8
+    val: 0.1
+    test: 0.1
+  seed: 42                   # fixed random seed so the split is the same every run

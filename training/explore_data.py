@@ -25,40 +25,14 @@ import matplotlib
 matplotlib.use("Agg")  # draw charts straight to image files, no pop-up window
 import matplotlib.pyplot as plt
 import pandas as pd
-import yaml
 
-# The project root is the folder above training/. Building paths from here
-# (instead of the current directory) means the script works no matter
-# where you run it from.
-PROJECT_ROOT = Path(__file__).resolve().parent.parent
+from common import load_config, parse_class_name, project_path
 
 # VMMRdb says it covers 1950-2016; anything outside that is worth a look.
 EXPECTED_YEARS = range(1950, 2017)
 
 # Thresholds to compare when choosing the minimum images per class (step 4).
 THRESHOLDS = [10, 20, 50, 100, 200]
-
-
-def load_config():
-    with open(PROJECT_ROOT / "training" / "config.yaml", encoding="utf-8") as f:
-        return yaml.safe_load(f)
-
-
-def parse_class_name(folder_name):
-    """Split a folder name into (make, model, year).
-
-    Makes use spaces, not underscores ("mercedes benz"), but models can contain
-    underscores ("a4_avant_wagon"). So: make = first part, year = last part,
-    model = everything in between.
-
-        "honda_civic_2005"         -> ("honda", "civic", 2005)
-        "audi_a4_avant_wagon_2001" -> ("audi", "a4_avant_wagon", 2001)
-    """
-    parts = folder_name.split("_")
-    make = parts[0]
-    model = "_".join(parts[1:-1])
-    year = int(parts[-1])
-    return make, model, year
 
 
 def scan_dataset(dataset_dir):
@@ -191,8 +165,8 @@ def plot_distribution(df, out_path):
 
 def main():
     config = load_config()
-    dataset_dir = PROJECT_ROOT / config["paths"]["dataset_dir"]
-    out_dir = PROJECT_ROOT / config["paths"]["runs_dir"] / "explore"
+    dataset_dir = project_path(config["paths"]["dataset_dir"])
+    out_dir = project_path(config["paths"]["runs_dir"]) / "explore"
     out_dir.mkdir(parents=True, exist_ok=True)
 
     print(f"Scanning {dataset_dir} ...")
