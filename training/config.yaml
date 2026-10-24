@@ -36,3 +36,12 @@ training:
   warmup_epochs: 1           # ramp the learning rate up from ~0 over the first epoch
   label_smoothing: 0.1       # don't demand 100% confidence - helps with VMMRdb's noisy labels
   seed: 42                   # makes the random parts (weight init of the new layer, shuffling) repeatable
+
+# detect.py: find the car in a photo and crop to it before identifying it.
+# Uses a pretrained object detector from torchvision (trained on the COCO dataset). No training needed.
+detector:
+  model: fasterrcnn_mobilenet_v3_large_fpn   # fast + accurate enough to find the main car
+  labels: [car, truck]       # COCO calls many SUVs and pickups "truck", so accept both
+  min_score: 0.5             # ignore detections the detector is less than 50% sure about
+  crop_margin: 0.1           # widen the box by 10% on each side, so the crop keeps a little background
+                             # (training photos weren't cropped tight either)
