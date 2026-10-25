@@ -211,6 +211,19 @@
             </plugin>
 
             <!--
+              Tests don't run from the jar, so the manifest entry above doesn't apply to them.
+              surefire starts a separate JVM for the tests; argLine adds JVM options to it,
+              here the same native-access permission for ONNX Runtime.
+            -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <argLine>--enable-native-access=ALL-UNNAMED</argLine>
+                </configuration>
+            </plugin>
+
+            <!--
               Turns the normal jar into a runnable "fat jar".
 
               A normal jar only contains OUR classes, so `java -jar` would fail with
