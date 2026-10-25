@@ -78,6 +78,15 @@
              so every module stays on 17 to keep server and client code compatible. -->
         <maven.compiler.release>17</maven.compiler.release>
 
+        <!-- Read by maven-compiler-plugin: compile with javac's "parameters" option, which
+             keeps method parameter names in the .class files (javac drops them by default).
+             Spring uses those names to match request parameters and config values to method
+             arguments, e.g. @RequestParam boolean fallback reads ?fallback=... by its name.
+             spring-boot-starter-parent turns this on for you; we import Spring Boot's BOM
+             instead of inheriting that parent, and a BOM only supplies versions, not compiler
+             settings, so we turn it on ourselves. -->
+        <maven.compiler.parameters>true</maven.compiler.parameters>
+
         <!-- Read by the compiler and resources plugins. Without it, Maven uses the OS
              default encoding (cp1252 on Windows) and warns that the build is platform dependent. -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
