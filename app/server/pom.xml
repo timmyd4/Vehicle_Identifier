@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  SERVER MODULE: the Spring Boot backend.
+
+  Big picture:
+    This is the program that actually runs. It will:
+      - load the ONNX models from models/ and identify cars (POST /identify, Phase 4)
+      - serve the client's compiled UI files to the browser (end of Phase 3)
+    Its build produces the ONE runnable jar: `java -jar car-identifier-server.jar`.
+
+  Right now it is a skeleton: a Spring Boot app on Jetty with no endpoints yet.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- Inherit config from app/pom.xml, same as the client. -->
+    <parent>
+        <groupId>io.github.timmyd4</groupId>
+        <artifactId>car-identifier-parent</artifactId>
+        <version>0.1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>car-identifier-server</artifactId>
+
+    <!-- A normal jar. (spring-boot-maven-plugin will later turn it into a runnable "fat jar".) -->
+    <packaging>jar</packaging>
+
+    <name>Car Identifier (server)</name>
+
+    <!--
+      The Spring Boot BOM, imported HERE instead of in the parent, so its version
+      rules apply only to this module. It pins Spring, Jackson, Jetty 12.1, JUnit, ...
+      to versions tested together. ${spring-boot.version} is inherited from the parent.
+
+      This module's dependencyManagement is MERGED with the one it inherits from the
+      parent, so onnxruntime (managed in the parent) is still available here too.
+
+      Why not inherit spring-boot-starter-parent instead, like most Spring Boot apps?
+      A POM can only have ONE parent, and ours is car-identifier-parent. Importing the
+      BOM gets the same version management without taking the parent slot.
+      Catch: a BOM manages DEPENDENCY versions only, not plugin versions, which is why
+      spring-boot-maven-plugin is pinned in the parent's pluginManagement.
+    -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <!--
+          STARTERS: Spring Boot's "starter" artifacts contain almost no code. Each is a
+          curated bundle of dependencies for one job. webmvc = everything for a web app
+          with REST controllers: Spring MVC, Jackson (JSON), and an embedded web server.
+
+          EXCLUSIONS: the webmvc starter depends on spring-boot-starter-tomcat, so Tomcat
+          arrives transitively. An <exclusion> cuts that one branch out of the
+          dependency tree: "bring everything you normally would, EXCEPT this."
+          No version is needed in an exclusion: it removes the artifact whatever its version.
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webmvc</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!--
+          ...and Jetty takes its place. At startup Spring Boot looks at the classpath,
+          finds Jetty (and no Tomcat), and starts an embedded Jetty server. Our code
+          never mentions Jetty or Tomcat, so swapping servers is a POM-only change.
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jetty</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!--
+              Turns the normal jar into a runnable "fat jar".
+
+              A normal jar only contains OUR classes, so `java -jar` would fail with
+              ClassNotFoundException for Spring, Jetty, etc. The repackage goal (bound
+              to the package phase) rebuilds the jar with every dependency inside
+              (BOOT-INF/lib/) plus a small launcher that knows how to load them.
+              Version is pinned in the parent's pluginManagement.
+            -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

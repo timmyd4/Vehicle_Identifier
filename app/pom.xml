@@ -64,6 +64,7 @@
     -->
     <modules>
         <module>client</module>
+        <module>server</module>
     </modules>
 
     <!--
@@ -82,7 +83,9 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <!-- Library versions (our own property names, used further down). -->
+        <!-- Library versions (our own property names, used further down).
+             spring-boot.version is defined here but only USED by the server module
+             (BOM import) and the spring-boot-maven-plugin pin below. -->
         <spring-boot.version>4.1.2</spring-boot.version>
         <gwt.version>2.13.1</gwt.version>
         <!-- Matches the onnxruntime version Python used for the parity check. -->
@@ -122,24 +125,15 @@
               BOM IMPORT: a BOM ("bill of materials") is a POM that contains only a big
               dependencyManagement section. type=pom + scope=import copies all of its
               managed versions into ours.
-              Spring Boot's BOM pins hundreds of libraries (Spring, Jackson, Tomcat,
-              JUnit, H2...) to versions tested together, so we never pick them by hand.
 
-              Why not inherit spring-boot-starter-parent instead? A POM can only have
-              ONE parent, and our modules' parent is this file. Importing the BOM gets
-              the same version management without taking the parent slot.
-              Catch: the BOM manages DEPENDENCY versions only, not plugin versions,
-              which is why plugins are pinned in pluginManagement below.
+              GWT's BOM keeps gwt-user, gwt-dev, etc. on the same version as each other.
+
+              The Spring Boot BOM used to be imported here too, but a BOM in the parent
+              applies to EVERY module: it overrode GWT's Jetty 9.4 with Jetty 12.1 in
+              the client. It now lives in server/pom.xml, the only module that needs it.
+              (GWT's BOM stays here: it only manages GWT artifacts, and the server never
+              uses those, so it can't interfere.)
             -->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring-boot.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <!-- GWT's BOM: keeps gwt-user, gwt-dev, etc. on the same version as each other. -->
             <dependency>
                 <groupId>org.gwtproject</groupId>
                 <artifactId>gwt</artifactId>

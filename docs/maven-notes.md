@@ -237,7 +237,57 @@ break GWT dev mode (which runs on Jetty 9.4).
 **Rule:** import a BOM only in the modules that need it. Spring Boot's BOM belongs in the server
 module, not the shared parent. Always check `dependency:tree` after adding a BOM.
 
-## 18. Diagnostic commands
+**The fix we made:** the Spring Boot BOM moved from the parent to `server/pom.xml`. A module's own
+`dependencyManagement` is **merged** with the inherited one, so the server gets Spring's versions
+plus the parent's (onnxruntime, SmartGWT), and the client only gets the parent's.
+Afterwards: client = all Jetty 9.4, server = all Jetty 12.1.
+
+## 18. Starters and exclusions (Tomcat → Jetty)
+
+**Starters** (`spring-boot-starter-*`) contain almost no code. Each is a curated bundle of
+dependencies for one job. `spring-boot-starter-webmvc` = Spring MVC + Jackson + an embedded server.
+
+**Exclusions** cut one branch out of the dependency tree:
+
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-webmvc</artifactId>
+    <exclusions>
+        <exclusion>  <!-- "everything you normally bring, EXCEPT Tomcat" -->
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+        </exclusion>
+    </exclusions>
+</dependency>
+<dependency>  <!-- ...and Jetty instead -->
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-jetty</artifactId>
+</dependency>
+```
+
+- No version in an exclusion: it removes the artifact whatever its version.
+- Spring Boot **auto-configuration** starts whichever server it finds on the classpath, so the
+  swap is POM-only. Proof at runtime: `Jetty started on port 8080`.
+- Read full artifactIds: `tomcat-embed-el` is an expression-language library that the Tomcat
+  project publishes, not the Tomcat server (`tomcat-embed-core`).
+
+## 19. Fat jars (spring-boot-maven-plugin)
+
+A normal jar holds only your classes, so `java -jar` fails with `ClassNotFoundException`.
+The `repackage` goal (bound to `package`, runs after `jar:jar`) rebuilds it with every
+dependency in `BOOT-INF/lib/` plus a launcher. The small original is kept as `*.jar.original`.
+
+```bash
+java -jar server/target/car-identifier-server-0.1.0-SNAPSHOT.jar
+```
+
+## 20. Building part of the reactor: `-pl`
+
+`mvn package -pl server` builds **only** the listed module(s) (comma-separated), skipping the
+slow GWT compile. (`-am` "also make" adds the modules it depends on; needed once server depends on client.)
+
+## 21. Diagnostic commands
 
 | Command | Use it to |
 |---|---|
@@ -247,4 +297,4 @@ module, not the shared parent. Always check `dependency:tree` after adding a BOM
 
 ---
 
-*More sections to come: exclusions (Tomcat → Jetty), dependency scopes, inter-module dependencies, `-pl`/`-am`, ...*
+*More sections to come: dependency scopes, inter-module dependencies, `-am`, ...*
