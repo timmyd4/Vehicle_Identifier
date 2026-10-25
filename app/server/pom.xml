@@ -99,6 +99,21 @@
         </dependency>
 
         <!--
+          Testing tools: JUnit 5 (runs tests), AssertJ (readable assertions), Mockito, and
+          Spring's test support. Another starter, so again no version: the Spring Boot BOM.
+
+          scope=test: only on the classpath while compiling and running src/test/java.
+          Your main code can't even import JUnit, and none of it goes into the fat jar.
+          (Compare the scopes table in the client dependency below.)
+          surefire:test (the "test" phase) finds and runs the tests automatically.
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!--
           INTER-MODULE DEPENDENCY: the server needs the client's compiled UI files.
           Declaring this does two jobs:
             1. Build order: the reactor now MUST build client before server
