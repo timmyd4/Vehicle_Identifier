@@ -58,6 +58,12 @@
             <groupId>org.gwtproject</groupId>
             <artifactId>gwt-dev</artifactId>
         </dependency>
+        <!-- SmartGWT widgets. Version comes from the parent's dependencyManagement.
+             Maven finds it in ~/.m2 (where Isomorphic's plugin installed it), not on Central. -->
+        <dependency>
+            <groupId>com.isomorphic.smartgwt.lgpl</groupId>
+            <artifactId>smartgwt-lgpl</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

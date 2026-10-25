@@ -14,10 +14,18 @@
     <moduleName> io.github.timmyd4.carid.App set in pom.xml.
 -->
 <module rename-to="app">
-    <!-- Like Java imports, but for GWT modules. User brings in the widget library
-         (Label, Button, RootPanel...); Core is the minimal runtime underneath. -->
-    <inherits name="com.google.gwt.core.Core"/>
+    <!-- Like Java imports, but for GWT modules. User is GWT's standard library. -->
     <inherits name="com.google.gwt.user.User"/>
+
+    <!-- SmartGWT without a theme. SmartGWT's widgets are really a big JavaScript library
+         (SmartClient: ISC_Core.js, ISC_Grids.js, ...) with a Java API on top. This module
+         copies those scripts into our output and injects them into the page automatically. -->
+    <inherits name="com.smartgwt.SmartGwtNoTheme"/>
+
+    <!-- The look and feel. Tahoe is SmartClient's modern flat theme; it ships inside
+         smartgwt-lgpl (the separate smartgwt-skins jar only has older themes).
+         Switching themes = changing this one line. -->
+    <inherits name="com.smartclient.theme.tahoe.Tahoe"/>
 
     <!-- The class whose onModuleLoad() runs when the page loads: GWT's main(). -->
     <entry-point class="io.github.timmyd4.carid.client.App"/>

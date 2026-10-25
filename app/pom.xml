@@ -87,6 +87,10 @@
         <gwt.version>2.13.1</gwt.version>
         <!-- Matches the onnxruntime version Python used for the parity check. -->
         <onnxruntime.version>1.31.0</onnxruntime.version>
+        <!-- NOT on Maven Central: installed into ~/.m2 by Isomorphic's plugin (see docs/maven-notes.md).
+             "p20261024" = the patch build from that date. Upgrading means re-running the
+             install command with the new build, then changing this number. -->
+        <smartgwt.version>14.1-p20261024</smartgwt.version>
 
         <!-- Plugin versions (checked on Maven Central 2026-10-24). -->
         <maven-clean-plugin.version>3.5.0</maven-clean-plugin.version>
@@ -152,7 +156,14 @@
                 <version>${onnxruntime.version}</version>
             </dependency>
 
-            <!-- SmartGWT goes here once we install it into ~/.m2 (later in Phase 3). -->
+            <!-- SmartGWT LGPL: the UI widget library (grids, forms, layouts) the client uses.
+                 Its POM lists no dependencies, so it doesn't pull in GWT; we supply GWT ourselves.
+                 (Isomorphic's own template pairs this build with GWT 2.12.1; we use 2.13.1.) -->
+            <dependency>
+                <groupId>com.isomorphic.smartgwt.lgpl</groupId>
+                <artifactId>smartgwt-lgpl</artifactId>
+                <version>${smartgwt.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

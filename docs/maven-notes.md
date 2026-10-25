@@ -189,13 +189,62 @@ Each plugin goal that runs prints a line:
 - Transitive dependencies: when a library or plugin needs other libraries, Maven downloads
   those too (`.pom` first to learn the dependencies, then the `.jar`).
 
-## 15. Diagnostic commands
+## 15. Libraries that aren't on Maven Central (SmartGWT)
+
+Maven resolves a dependency by checking `~/.m2/repository` **first**, then remote repositories.
+So a library that isn't published anywhere can still be used: put it into `~/.m2` yourself.
+
+SmartGWT LGPL is a zip download, not a Maven artifact. Isomorphic's plugin converts it:
+
+```bash
+# run OUTSIDE a multi-module project, or the goal runs once per module
+mvn com.isomorphic:isc-maven-plugin:1.5.5:install -Dproduct=SMARTGWT -Dlicense=LGPL -DbuildNumber=14.1p
+```
+
+1. downloads `smartgwt-14.1p.zip` from smartclient.com
+2. unpacks it, writes a POM for each jar
+3. **installs** them into `~/.m2/repository/com/isomorphic/...` (version `14.1-p20261024`)
+
+- One-time per machine. Builds afterwards never run the plugin; they just read `~/.m2`.
+- Re-run on a new machine, to upgrade, or if `~/.m2` is wiped
+  (symptom: `Could not find artifact com.isomorphic...`).
+- Calling a plugin not declared in any POM needs **full coordinates**: `groupId:artifactId:version:goal`.
+- `-Dname=value` passes settings to the plugin. A typo (`-Dlicense-LGPL`) gives
+  "parameters 'license' ... are missing or invalid".
+
+**Local repository layout:** `groupId` dots become folders, then artifactId, then version:
+`~/.m2/repository/org/gwtproject/gwt-user/2.13.1/gwt-user-2.13.1.jar` (+ `.pom`, `.sha1` checksums).
+
+## 16. `mvn dependency:tree` and transitive dependencies
+
+Shows every library a module ends up with, and **who pulled it in**:
+
+```
++- org.gwtproject:gwt-user:jar:2.13.1:compile        <- we declared this
+|  +- com.google.jsinterop:jsinterop-annotations...  <- gwt-user's POM declared this (transitive)
+\- com.isomorphic.smartgwt.lgpl:smartgwt-lgpl:...    <- empty POM, so nothing underneath
+```
+
+A library's POM lists its own dependencies; Maven follows them recursively.
+
+## 17. Lesson: a BOM in the parent applies to EVERY module
+
+The tree showed Jetty `9.4.58` (what GWT asked for) mixed with Jetty `12.1.14` in the client.
+Why: the Spring Boot BOM was imported in the **parent**, so its version rules applied to the
+client too and overrode GWT's transitive versions. It didn't break the GWT compile, but it would
+break GWT dev mode (which runs on Jetty 9.4).
+
+**Rule:** import a BOM only in the modules that need it. Spring Boot's BOM belongs in the server
+module, not the shared parent. Always check `dependency:tree` after adding a BOM.
+
+## 18. Diagnostic commands
 
 | Command | Use it to |
 |---|---|
 | `mvn help:effective-pom` | See the final merged POM: Super POM defaults, imported BOMs, resolved properties, bound plugins |
 | `mvn help:effective-pom \| grep -A1 <name>` | Answer "what version/setting is Maven *actually* using for X?" |
+| `mvn dependency:tree` | See every dependency per module and which one pulled it in; spot version conflicts |
 
 ---
 
-*More sections to come: installing into `~/.m2`, dependency scopes, `dependency:tree`, `-pl`/`-am`, ...*
+*More sections to come: exclusions (Tomcat → Jetty), dependency scopes, inter-module dependencies, `-pl`/`-am`, ...*
