@@ -6,10 +6,10 @@
   small GWT loader), and the loader picks the right compiled version for this
   browser (one of the *.cache.js "permutations") and runs App.onModuleLoad().
 
-  TEMPORARY HOME: the gwt-app build does NOT package this file (its .war only
-  contains GWT's compiler output). For now we copy it next to the output by hand
-  to test the client on its own. When the Spring Boot server module exists, this
-  page moves to server/src/main/resources/static/, where the server serves it.
+  Where it lives: server/src/main/resources/static/. Spring Boot serves every file
+  in static/ automatically, and index.html is served for "/" (the "welcome page").
+  The app/ folder it points to is NOT in source control: the server's build unpacks
+  it from the client module's output into target/classes/static/app/ (see server/pom.xml).
 -->
 <html>
 <head>

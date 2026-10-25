@@ -282,12 +282,54 @@ dependency in `BOOT-INF/lib/` plus a launcher. The small original is kept as `*.
 java -jar server/target/car-identifier-server-0.1.0-SNAPSHOT.jar
 ```
 
-## 20. Building part of the reactor: `-pl`
+## 20. Building part of the reactor: `-pl` and `-am`
 
-`mvn package -pl server` builds **only** the listed module(s) (comma-separated), skipping the
-slow GWT compile. (`-am` "also make" adds the modules it depends on; needed once server depends on client.)
+- `mvn package -pl server` builds **only** the listed module(s) (comma-separated).
+- `-am` ("also make") adds the modules they depend on: `mvn package -pl server -am` builds
+  client + server. Without `-am`, Maven looks for the client's war in `~/.m2`, where it was
+  never installed, and fails to resolve it.
 
-## 21. Diagnostic commands
+## 21. Inter-module dependencies, scopes, and unpacking (how the UI gets into the server jar)
+
+The server declares the client as a dependency:
+
+```xml
+<dependency>
+    <groupId>io.github.timmyd4</groupId>
+    <artifactId>car-identifier-client</artifactId>
+    <version>${project.version}</version>
+    <type>war</type>              <!-- the client's output is a .war, not a jar -->
+    <scope>provided</scope>       <!-- don't pack the war itself into the fat jar -->
+    <exclusions>                  <!-- don't inherit the client's GWT/SmartGWT/Jetty 9.4 deps -->
+        <exclusion><groupId>*</groupId><artifactId>*</artifactId></exclusion>
+    </exclusions>
+</dependency>
+```
+
+- **Build order:** the reactor now builds client before server.
+- **Scopes** say where a dependency is used:
+
+| Scope | Compile | Tests | Packaged / at run time |
+|---|---|---|---|
+| `compile` (default) | yes | yes | yes |
+| `provided` | yes | yes | no ("someone else provides it") |
+| `runtime` | no | yes | yes |
+| `test` | no | yes | no |
+
+- **Unpacking:** `maven-dependency-plugin:unpack-dependencies`, bound to `process-resources`,
+  extracts `app/**` from the war into `target/classes/static/`. `jar:jar` then zips it, and
+  Spring Boot serves anything in `static/` (`index.html` for `/`).
+- An `<execution>` with an `<id>` binds a plugin goal to a phase; the id appears in build output.
+
+## 22. Properties can be overridden with `-D`
+
+```xml
+<gwt.style>PRETTY</gwt.style>     <!-- client/pom.xml -->
+<style>${gwt.style}</style>       <!-- plugin config -->
+```
+`mvn package -Dgwt.style=OBFUSCATED` overrides it for one build: command line beats `<properties>`.
+
+## 23. Diagnostic commands
 
 | Command | Use it to |
 |---|---|
@@ -297,4 +339,15 @@ slow GWT compile. (`-am` "also make" adds the modules it depends on; needed once
 
 ---
 
-*More sections to come: dependency scopes, inter-module dependencies, `-am`, ...*
+## Phase 3 recap: one command, one jar
+
+```
+mvn clean package          (from app/)
+  parent  [pom]      nothing to build; shares versions + plugin pins
+  client  [gwt-app]  App.java --javac--> .class --GWT--> JavaScript --> client .war
+  server  [jar]      unpack war's app/ into static/ + compile + jar + repackage --> fat jar
+
+java -jar server/target/car-identifier-server-0.1.0-SNAPSHOT.jar   → http://localhost:8080
+```
+
+*Next (Phase 4): test-scope dependencies (JUnit via spring-boot-starter-test), ONNX Runtime in the server.*

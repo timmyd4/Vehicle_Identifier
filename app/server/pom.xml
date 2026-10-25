@@ -86,10 +86,81 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jetty</artifactId>
         </dependency>
+
+        <!--
+          INTER-MODULE DEPENDENCY: the server needs the client's compiled UI files.
+          Declaring this does two jobs:
+            1. Build order: the reactor now MUST build client before server
+               (you'll see it in "Reactor Build Order").
+            2. It makes the client's .war available to the unpack step in <build> below.
+
+          type=war: the client's output file is a .war (from gwt-app packaging), not a jar.
+
+          scope=provided: SCOPES control where a dependency is used.
+              compile  (default) - compile, test, run, AND packaged into the fat jar
+              provided - available while compiling, but NOT packaged ("someone else provides it")
+              runtime  - not for compiling, but packaged and used at run time
+              test     - only for compiling/running tests (JUnit etc.)
+            We don't want the .war itself packed into BOOT-INF/lib/ (it's 13 MB and useless
+            there); we only want the files we unpack from it. provided keeps it out.
+
+          The wildcard exclusion: Maven would otherwise also pull in the CLIENT'S
+          dependencies (gwt-user, gwt-dev with its Jetty 9.4, SmartGWT) as transitive
+          dependencies of the server: the leak problem again, from a different direction.
+          groupId=* artifactId=* means "bring in this artifact only, none of its dependencies."
+        -->
+        <dependency>
+            <groupId>io.github.timmyd4</groupId>
+            <artifactId>car-identifier-client</artifactId>
+            <version>${project.version}</version>
+            <type>war</type>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
     </dependencies>
 
     <build>
         <plugins>
+            <!--
+              Copies the client's compiled UI into the server, so the jar can serve it.
+
+              unpack-dependencies opens the client .war (declared above) and extracts
+              only its app/ folder (app.nocache.js, *.cache.js, sc/ ...) into
+              target/classes/static/. Result: target/classes/static/app/..., right next
+              to index.html, which resources:resources copies from src/main/resources/static/.
+
+              phase=process-resources: run it in the same phase as resource copying, so
+              it's done before compile, test and package. The jar:jar goal (package phase)
+              then zips target/classes, UI files included.
+            -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <!-- An execution id is just a name; it shows in the build output. -->
+                        <id>unpack-client-ui</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>unpack-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <!-- Only the client, not every dependency. -->
+                            <includeArtifactIds>car-identifier-client</includeArtifactIds>
+                            <!-- Only the GWT output folder, not the war's META-INF/ etc. -->
+                            <includes>app/**</includes>
+                            <!-- ${project.build.outputDirectory} = target/classes -->
+                            <outputDirectory>${project.build.outputDirectory}/static</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
             <!--
               Turns the normal jar into a runnable "fat jar".
 

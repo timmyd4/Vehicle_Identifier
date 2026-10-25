@@ -41,6 +41,20 @@
 
     <name>Car Identifier (client)</name>
 
+    <properties>
+        <!--
+          How the GWT compiler writes JavaScript:
+            OBFUSCATED - short meaningless names (Wq, Ab). Smallest files. GWT's default; for production.
+            PRETTY     - real names (onModuleLoad) and indentation. Readable in browser DevTools.
+            DETAILED   - like PRETTY, plus full class names on everything. Very verbose.
+          PRETTY while we're learning and debugging. Because it's a property, it can be
+          overridden for one build without editing this file:
+            mvn package -Dgwt.style=OBFUSCATED
+          (A -D on the command line beats a value set in <properties>.)
+        -->
+        <gwt.style>PRETTY</gwt.style>
+    </properties>
+
     <!--
       DEPENDENCIES: libraries this module actually uses. No <version> tags: the GWT
       BOM imported in the parent's dependencyManagement supplies 2.13.1 for both.
@@ -84,6 +98,8 @@
                     <moduleName>io.github.timmyd4.carid.App</moduleName>
                     <!-- Short name used for the output folder and the JS file names. -->
                     <moduleShortName>app</moduleShortName>
+                    <!-- JavaScript output style, from the property above. -->
+                    <style>${gwt.style}</style>
                 </configuration>
             </plugin>
         </plugins>
