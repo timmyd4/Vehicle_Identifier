@@ -24,8 +24,14 @@ runs/
 # Created by training/export_onnx.py; the README explains how to get them.
 models/
 
-# Maven build output (compiled classes, packaged jar)
-app/target/
+# Maven build output (compiled classes, packaged jar).
+# No leading "app/" so it matches EVERY module's target folder:
+# app/target/, app/server/target/, app/client/target/.
+target/
+
+# GWT compiler cache. GWT keeps compiled pieces here between builds to speed up
+# recompiles; it's regenerated automatically and can get large.
+gwt-unitCache/
 
 # IntelliJ IDEA project files
 .idea/

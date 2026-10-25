@@ -8,8 +8,8 @@
         ".venv/**": true,
         "**/checkpoints/**": true,
         "**/runs/**": true,
-        "app/target/**": true,
-        "app/models/**": true
+        "**/target/**": true,
+        "models/**": true
     },
 
     // Don't watch these folders for file changes (hundreds of thousands of images would slow VS Code down).
@@ -19,8 +19,8 @@
         "**/data/**": true,
         "**/.venv/**": true,
         "**/checkpoints/**": true,
-        "**/app/target/**": true,
-        "**/app/models/**": true
+        "**/target/**": true,
+        "**/models/**": true
     },
 
     // Don't let the Python language server (Pylance) index these folders.

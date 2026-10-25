@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  PARENT POM for the Java side of the Car Identifier.
+
+  Big picture:
+    Python (training/) trains the models and exports them to ONNX in models/.
+    This Maven project (app/) is the Java app that loads those ONNX files and
+    serves predictions. It will have two modules:
+      - server: Spring Boot REST API that runs the models with ONNX Runtime
+      - client: SmartGWT web UI, compiled from Java to JavaScript by GWT
+    Running `mvn clean package` here will build both and produce ONE runnable jar.
+
+  What a parent POM is for:
+    This file contains no Java code. It is shared configuration that every module
+    inherits, like an abstract base class in Java: versions, compiler settings and
+    plugin setup are defined once here instead of being copy-pasted into each
+    module's pom.xml.
+
+  Right now it has NO modules yet. That's on purpose, so we can validate it and
+  inspect what Maven makes of it (`mvn help:effective-pom`) before adding code.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <!-- Version of the POM file format itself (not our project). Always 4.0.0 for Maven 3. -->
+    <modelVersion>4.0.0</modelVersion>
+
+    <!--
+      COORDINATES: groupId + artifactId + version uniquely identify this project,
+      like a fully qualified class name plus a version number.
+        groupId:    who owns it. Convention is a reversed domain you control. We
+                    don't own a domain, but GitHub gives us timmyd4.github.io, so
+                    io.github.timmyd4 is the standard choice for GitHub projects.
+        artifactId: the name of this specific artifact.
+        version:    "-SNAPSHOT" means "work in progress, may change". Maven treats
+                    snapshots as mutable; a release version (0.1.0) never changes
+                    once published.
+      Modules inherit groupId and version from here, so they only declare artifactId.
+    -->
+    <groupId>io.github.timmyd4</groupId>
+    <artifactId>car-identifier-parent</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
+
+    <!--
+      PACKAGING decides what the build produces. The default is "jar". "pom" means
+      this project produces no jar, only this POM file, which is what a parent or
+      aggregator project needs.
+    -->
+    <packaging>pom</packaging>
+
+    <name>Car Identifier (parent)</name>
+    <description>Identifies a car's make, model and year range from a photo using ONNX models.</description>
+
+    <!--
+      PROPERTIES are named values, like constants. You use them elsewhere as ${name}.
+      Keeping every version number here means an upgrade is a one-line change.
+      Some property names are special: Maven plugins read them directly.
+    -->
+    <properties>
+        <!-- Read by maven-compiler-plugin: compile for Java 17 (passes javac release 17).
+             We have JDK 25 installed, but GWT can only translate Java up to level 17,
+             so every module stays on 17 to keep server and client code compatible. -->
+        <maven.compiler.release>17</maven.compiler.release>
+
+        <!-- Read by the compiler and resources plugins. Without it, Maven uses the OS
+             default encoding (cp1252 on Windows) and warns that the build is platform dependent. -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <!-- Library versions (our own property names, used further down). -->
+        <spring-boot.version>4.1.2</spring-boot.version>
+        <gwt.version>2.13.1</gwt.version>
+        <!-- Matches the onnxruntime version Python used for the parity check. -->
+        <onnxruntime.version>1.31.0</onnxruntime.version>
+
+        <!-- Plugin versions (checked on Maven Central 2026-10-24). -->
+        <maven-clean-plugin.version>3.5.0</maven-clean-plugin.version>
+        <maven-resources-plugin.version>3.5.0</maven-resources-plugin.version>
+        <maven-compiler-plugin.version>3.16.0</maven-compiler-plugin.version>
+        <maven-surefire-plugin.version>3.6.0</maven-surefire-plugin.version>
+        <maven-jar-plugin.version>3.5.1</maven-jar-plugin.version>
+        <maven-install-plugin.version>3.2.0</maven-install-plugin.version>
+        <!-- Newest stable 3.x. (Central also lists 4.0.0 betas/milestones; those target Maven 4.) -->
+        <maven-deploy-plugin.version>3.2.0</maven-deploy-plugin.version>
+        <maven-site-plugin.version>3.22.0</maven-site-plugin.version>
+        <maven-help-plugin.version>3.5.2</maven-help-plugin.version>
+        <maven-dependency-plugin.version>3.11.0</maven-dependency-plugin.version>
+        <gwt-maven-plugin.version>1.3.0</gwt-maven-plugin.version>
+    </properties>
+
+    <!--
+      DEPENDENCY MANAGEMENT vs DEPENDENCIES (the key idea in this file):
+        <dependencies>           = "this project USES these libraries" (added to the classpath).
+        <dependencyManagement>   = "IF a module uses one of these, use THIS version".
+                                   It adds nothing to any classpath by itself.
+      So the parent pins versions here, and each module lists only the libraries it
+      actually needs, with no <version> tag. That keeps server and client on the
+      same versions.
+    -->
+    <dependencyManagement>
+        <dependencies>
+            <!--
+              BOM IMPORT: a BOM ("bill of materials") is a POM that contains only a big
+              dependencyManagement section. type=pom + scope=import copies all of its
+              managed versions into ours.
+              Spring Boot's BOM pins hundreds of libraries (Spring, Jackson, Tomcat,
+              JUnit, H2...) to versions tested together, so we never pick them by hand.
+
+              Why not inherit spring-boot-starter-parent instead? A POM can only have
+              ONE parent, and our modules' parent is this file. Importing the BOM gets
+              the same version management without taking the parent slot.
+              Catch: the BOM manages DEPENDENCY versions only, not plugin versions,
+              which is why plugins are pinned in pluginManagement below.
+            -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- GWT's BOM: keeps gwt-user, gwt-dev, etc. on the same version as each other. -->
+            <dependency>
+                <groupId>org.gwtproject</groupId>
+                <artifactId>gwt</artifactId>
+                <version>${gwt.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- ONNX Runtime isn't in either BOM, so we manage its version ourselves.
+                 The server module will run our .onnx models with it. -->
+            <dependency>
+                <groupId>com.microsoft.onnxruntime</groupId>
+                <artifactId>onnxruntime</artifactId>
+                <version>${onnxruntime.version}</version>
+            </dependency>
+
+            <!-- SmartGWT goes here once we install it into ~/.m2 (later in Phase 3). -->
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <!--
+          PLUGIN MANAGEMENT works like dependencyManagement but for plugins: it pins
+          versions and shared settings without activating anything.
+          Why pin core plugins at all? Maven has built-in default versions for them,
+          but those defaults depend on which Maven version you run. Pinning them
+          makes the build behave the same on any machine (reproducible builds).
+          Every Maven action is done by a plugin "goal": compiling is
+          maven-compiler-plugin's compile goal, tests are surefire's test goal, and so on.
+        -->
+        <pluginManagement>
+            <plugins>
+                <!-- Deletes target/ (`mvn clean`). -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>${maven-clean-plugin.version}</version>
+                </plugin>
+                <!-- Copies src/main/resources (config files etc.) into target/classes. -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>${maven-resources-plugin.version}</version>
+                </plugin>
+                <!-- Runs javac. Picks up maven.compiler.release from the properties above. -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin.version}</version>
+                </plugin>
+                <!-- Runs unit tests (JUnit) during the test phase. -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven-surefire-plugin.version}</version>
+                </plugin>
+                <!-- Packages compiled classes into a .jar during the package phase. -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>${maven-jar-plugin.version}</version>
+                </plugin>
+                <!-- Copies built artifacts into your local repository (~/.m2) during `mvn install`. -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-install-plugin</artifactId>
+                    <version>${maven-install-plugin.version}</version>
+                </plugin>
+                <!-- Uploads artifacts to a remote repository (`mvn deploy`). We won't publish
+                     anything, but the effective POM showed Maven binds this plugin for every
+                     project, using a version built into Maven itself unless we pin it. -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>${maven-deploy-plugin.version}</version>
+                </plugin>
+                <!-- Generates a project documentation website (`mvn site`). Same reason as deploy. -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>${maven-site-plugin.version}</version>
+                </plugin>
+                <!-- Diagnostics: `mvn help:effective-pom` shows the final merged POM. -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-help-plugin</artifactId>
+                    <version>${maven-help-plugin.version}</version>
+                </plugin>
+                <!-- Diagnostics: `mvn dependency:tree` shows which library pulled in which. -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>${maven-dependency-plugin.version}</version>
+                </plugin>
+                <!-- Compiles the client module's Java into JavaScript (used by the client module). -->
+                <plugin>
+                    <groupId>net.ltgt.gwt.maven</groupId>
+                    <artifactId>gwt-maven-plugin</artifactId>
+                    <version>${gwt-maven-plugin.version}</version>
+                </plugin>
+                <!-- Repackages the server jar into one runnable "fat jar" with all dependencies inside. -->
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring-boot.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+</project>
