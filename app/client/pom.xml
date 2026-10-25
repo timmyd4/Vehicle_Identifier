@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  CLIENT MODULE: the web UI.
+
+  Big picture:
+    You write the UI in Java, and the GWT compiler translates it into JavaScript
+    that runs in the browser. Later, this module's JavaScript output gets copied
+    into the server jar, so the Spring Boot server can serve the UI itself.
+
+  Right now this is a SMOKE TEST: the smallest GWT app possible (shows "Hello"),
+  to prove GWT 2.13.1 works on our JDK 25 before we build the real UI on it.
+  SmartGWT gets added once this works.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!--
+      PARENT (inheritance): "take my config from this POM". Maven finds it at
+      ../pom.xml by default (the <relativePath> default), which is exactly where
+      app/pom.xml sits. We inherit groupId, version, properties, dependencyManagement
+      and pluginManagement from it, so none of those are repeated below.
+    -->
+    <parent>
+        <groupId>io.github.timmyd4</groupId>
+        <artifactId>car-identifier-parent</artifactId>
+        <version>0.1.0-SNAPSHOT</version>
+    </parent>
+
+    <!-- Only the artifactId is new; groupId and version come from the parent. -->
+    <artifactId>car-identifier-client</artifactId>
+
+    <!--
+      "gwt-app" is not a built-in Maven packaging type. gwt-maven-plugin provides it
+      (that's what <extensions>true</extensions> below enables). It binds GWT's goals
+      to the lifecycle, so `mvn package` compiles Java to class files AND then runs
+      the GWT compiler to produce JavaScript, ending up in target/ as a .war file.
+    -->
+    <packaging>gwt-app</packaging>
+
+    <name>Car Identifier (client)</name>
+
+    <!--
+      DEPENDENCIES: libraries this module actually uses. No <version> tags: the GWT
+      BOM imported in the parent's dependencyManagement supplies 2.13.1 for both.
+      (Take the version out of the BOM and Maven fails with "version is missing".)
+    -->
+    <dependencies>
+        <!-- The GWT API we write against: widgets (Label, Button), RootPanel, EntryPoint, ... -->
+        <dependency>
+            <groupId>org.gwtproject</groupId>
+            <artifactId>gwt-user</artifactId>
+        </dependency>
+        <!-- The GWT compiler itself (Java to JavaScript). The plugin runs it from here.
+             It's only needed at build time; the browser never sees it. -->
+        <dependency>
+            <groupId>org.gwtproject</groupId>
+            <artifactId>gwt-dev</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!--
+              ACTIVATING a plugin: listing it under <build><plugins> (not pluginManagement)
+              turns it on for this module. No <version> needed, because the parent's
+              pluginManagement already pins it to 1.3.0.
+            -->
+            <plugin>
+                <groupId>net.ltgt.gwt.maven</groupId>
+                <artifactId>gwt-maven-plugin</artifactId>
+                <!-- Lets this plugin add new packaging types (gwt-app) to Maven. -->
+                <extensions>true</extensions>
+                <configuration>
+                    <!-- The full name of our GWT module (defined in src/main/module.gwt.xml).
+                         GWT's equivalent of a "main class": which app to compile. -->
+                    <moduleName>io.github.timmyd4.carid.App</moduleName>
+                    <!-- Short name used for the output folder and the JS file names. -->
+                    <moduleShortName>app</moduleShortName>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

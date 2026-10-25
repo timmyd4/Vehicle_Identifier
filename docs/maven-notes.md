@@ -141,12 +141,61 @@ validate → compile → test → package → verify → install → deploy
   by all projects on the machine. Download once, reuse everywhere. That's why a second
   run is fast and shows no `Downloading` lines.
 
-## 12. Diagnostic commands
+## 12. Modules, aggregation and the reactor
+
+A multi-module project is one parent folder with several sub-projects, built by one command.
+
+```
+app/pom.xml            <modules><module>client</module></modules>
+app/client/pom.xml     <parent>car-identifier-parent</parent>
+```
+
+Two separate ideas, usually in the same POM:
+
+| | Declared in | Direction | Meaning |
+|---|---|---|---|
+| **Aggregation** | parent's `<modules>` | parent → child | "Build these along with me" |
+| **Inheritance** | child's `<parent>` | child → parent | "Copy my config from there" (like `extends`) |
+
+- The set of projects built together is the **reactor**. Maven sorts it so anything a
+  module depends on is built first (`Reactor Build Order` in the output).
+- `Reactor Summary` at the end shows SUCCESS / FAILURE / SKIPPED per module.
+- `<parent>` finds the parent at `../pom.xml` by default (`<relativePath>`).
+
+## 13. Plugin-supplied packaging types
+
+Plugins can add new packaging types. Our client uses `<packaging>gwt-app</packaging>`,
+which comes from `gwt-maven-plugin` declared with `<extensions>true</extensions>`.
+That packaging binds GWT goals into the lifecycle, so plain `mvn package` also runs the
+Java-to-JavaScript compiler.
+
+Also: listing a plugin under `<build><plugins>` **activates** it. Listing it under
+`<pluginManagement>` only pins its version/settings.
+
+## 14. Reading build output
+
+Each plugin goal that runs prints a line:
+
+```
+--- gwt:1.3.0:compile (default-compile) @ car-identifier-client ---
+    prefix:version:goal (execution id)   @ module
+```
+
+- `default-...` execution ids = bound automatically by the packaging type.
+- **Run phases, not goals.** `mvn package` runs everything up to package in order.
+  `mvn gwt:compile` runs only that goal and skips javac etc. Direct goals are for
+  diagnostics like `help:effective-pom`.
+- `[debug release 17]` on the compiler line confirms `maven.compiler.release` was applied.
+- Transitive dependencies: when a library or plugin needs other libraries, Maven downloads
+  those too (`.pom` first to learn the dependencies, then the `.jar`).
+
+## 15. Diagnostic commands
 
 | Command | Use it to |
 |---|---|
 | `mvn help:effective-pom` | See the final merged POM: Super POM defaults, imported BOMs, resolved properties, bound plugins |
+| `mvn help:effective-pom \| grep -A1 <name>` | Answer "what version/setting is Maven *actually* using for X?" |
 
 ---
 
-*More sections to come: modules and reactor builds, dependency scopes, `dependency:tree`, `-pl`/`-am`, ...*
+*More sections to come: installing into `~/.m2`, dependency scopes, `dependency:tree`, `-pl`/`-am`, ...*

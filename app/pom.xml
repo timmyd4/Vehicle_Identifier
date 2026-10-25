@@ -53,6 +53,20 @@
     <description>Identifies a car's make, model and year range from a photo using ONNX models.</description>
 
     <!--
+      MODULES turn this POM into an AGGREGATOR: running mvn here also builds every
+      listed module, in one command. That set of projects is called the "reactor".
+      Each entry is a folder name relative to this file, containing its own pom.xml.
+
+      Aggregation and inheritance are two separate ideas that happen to share this file:
+        aggregation (this <modules> list): parent -> child, "build these with me"
+        inheritance (<parent> in the child): child -> parent, "copy my config from there"
+      Most multi-module projects use one POM for both jobs, like we do.
+    -->
+    <modules>
+        <module>client</module>
+    </modules>
+
+    <!--
       PROPERTIES are named values, like constants. You use them elsewhere as ${name}.
       Keeping every version number here means an upgrade is a one-line change.
       Some property names are special: Maven plugins read them directly.

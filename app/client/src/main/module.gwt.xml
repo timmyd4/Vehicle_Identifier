@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  GWT MODULE DEFINITION: tells the GWT compiler what our app is made of.
+
+  Big picture:
+    Maven's pom.xml describes the BUILD; this file describes the GWT APP: which
+    GWT libraries it uses, which class starts it, and which Java packages GWT
+    should translate to JavaScript. GWT can't translate just any Java (no file
+    access, no threads, ...), so it only looks at the source folders listed here.
+
+  Why it lives in src/main/ and not with the Java code:
+    gwt-maven-plugin treats this as a TEMPLATE. During the build it copies it to
+    target/classes/io/github/timmyd4/carid/App.gwt.xml, which matches the
+    <moduleName> io.github.timmyd4.carid.App set in pom.xml.
+-->
+<module rename-to="app">
+    <!-- Like Java imports, but for GWT modules. User brings in the widget library
+         (Label, Button, RootPanel...); Core is the minimal runtime underneath. -->
+    <inherits name="com.google.gwt.core.Core"/>
+    <inherits name="com.google.gwt.user.User"/>
+
+    <!-- The class whose onModuleLoad() runs when the page loads: GWT's main(). -->
+    <entry-point class="io.github.timmyd4.carid.client.App"/>
+
+    <!-- Translate only the "client" subpackage (io.github.timmyd4.carid.client) to JavaScript. -->
+    <source path="client"/>
+</module>
