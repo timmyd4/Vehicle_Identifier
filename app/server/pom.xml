@@ -178,7 +178,9 @@
               ONNX Runtime is a C++ engine that Java loads with System.load(). Since JDK 24
               the JVM warns when code loads native libraries without permission, and a
               future JDK will block it. This grants the permission for `java -jar`, the same
-              as the --enable-native-access=ALL-UNNAMED flag the warning suggests.
+              as the "enable-native-access=ALL-UNNAMED" command-line flag the warning suggests.
+              (Note: XML comments may not contain two dashes in a row, so the flag's
+              leading dashes are left out here.)
               (repackage keeps this entry when it rebuilds the fat jar.)
             -->
             <plugin>
