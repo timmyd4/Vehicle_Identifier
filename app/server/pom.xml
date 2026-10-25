@@ -88,6 +88,17 @@
         </dependency>
 
         <!--
+          ONNX Runtime: runs the .onnx models exported from Python (training/export_onnx.py).
+          Version 1.31.0 comes from the parent's dependencyManagement and matches the
+          Python onnxruntime used for the parity check. This is the CPU build; the GPU
+          build (onnxruntime_gpu) is a later step once we've measured CPU speed.
+        -->
+        <dependency>
+            <groupId>com.microsoft.onnxruntime</groupId>
+            <artifactId>onnxruntime</artifactId>
+        </dependency>
+
+        <!--
           INTER-MODULE DEPENDENCY: the server needs the client's compiled UI files.
           Declaring this does two jobs:
             1. Build order: the reactor now MUST build client before server
@@ -159,6 +170,27 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+
+            <!--
+              Adds a line to the jar's manifest (META-INF/MANIFEST.MF):
+                Enable-Native-Access: ALL-UNNAMED
+              ONNX Runtime is a C++ engine that Java loads with System.load(). Since JDK 24
+              the JVM warns when code loads native libraries without permission, and a
+              future JDK will block it. This grants the permission for `java -jar`, the same
+              as the --enable-native-access=ALL-UNNAMED flag the warning suggests.
+              (repackage keeps this entry when it rebuilds the fat jar.)
+            -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <Enable-Native-Access>ALL-UNNAMED</Enable-Native-Access>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
             </plugin>
 
             <!--
