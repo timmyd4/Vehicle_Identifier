@@ -28,7 +28,7 @@ from collections import Counter
 
 import pandas as pd
 
-from common import load_config, parse_class_name, project_path
+from common import car_model, load_config, load_merges, parse_class_name, project_path
 from wikimedia_check import api_get
 
 WIKIPEDIA_API = "https://en.wikipedia.org/w/api.php"
@@ -93,11 +93,15 @@ def vmmrdb_year_counts(dataset_dir):
     return counts
 
 
-def photos_for_model(counts, make, model):
-    """Add up the year counts of a base model and its trims (corolla + corolla_s + corolla_le)."""
+def photos_for_model(counts, make, model, merges):
+    """Add up the year counts of every folder that becomes this model in our labels.
+
+    corolla + corolla_s + corolla_le for "corolla"; 325i + 328i + ... for "3 series"
+    (common.car_model decides, the same rule build_subset.py uses).
+    """
     total = Counter()
     for (m, folder_model), years in counts.items():
-        if m == make and (folder_model == model or folder_model.startswith(model + "_")):
+        if m == make and car_model(make, folder_model, [model], merges) == model:
             total += years
     return total
 
@@ -293,6 +297,7 @@ def main():
 
     print("Counting VMMRdb photos...")
     counts = vmmrdb_year_counts(dataset_dir)
+    merges = load_merges()
 
     flagged = 0
     for (make, model), rows in table.groupby(["make", "model"], sort=False):
@@ -301,7 +306,7 @@ def main():
         for problem in check_table(rows):
             print(f"  ⚠ TABLE: {problem}")
 
-        photos = photos_for_model(counts, make, model)
+        photos = photos_for_model(counts, make, model, merges)
         covered = {y for _, r in rows.iterrows() for y in range(r.first_year, r.last_year + 1)}
         uncovered = {y: n for y, n in photos.items() if y not in covered and y <= max_year}
         if uncovered:

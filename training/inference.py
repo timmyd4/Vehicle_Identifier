@@ -87,6 +87,14 @@ def display_name(class_name):
     return f"{make_text} {model_text} ({years})"
 
 
+# Model words the rule in format_model_word gets wrong (they have a vowel, so it would
+# write "Es" and "Is"). Merged Lexus names from model_merges.csv.
+MODEL_WORDS = {
+    "es": "ES",
+    "is": "IS",
+}
+
+
 def make_name(make):
     """"honda" -> "Honda", "mercedes benz" -> "Mercedes-Benz" (the make part of display_name)."""
     return MAKE_NAMES.get(make, make.title())  # dict.get(key, default) - like Map.getOrDefault
@@ -99,6 +107,8 @@ def format_model_word(word):
     short words with no vowels (mdx -> MDX, tl -> TL, cts -> CTS).
     Everything else gets a capital first letter (cherokee -> Cherokee, fit -> Fit).
     """
+    if word in MODEL_WORDS:
+        return MODEL_WORDS[word]
     has_digit = any(ch.isdigit() for ch in word)
     is_letter_code = len(word) <= 3 and not any(ch in "aeiou" for ch in word)
     return word.upper() if has_digit or is_letter_code else word.title()

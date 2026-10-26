@@ -132,7 +132,17 @@ public class App implements EntryPoint {
             } else {
                 guesses.append("<h3>No vehicle found: guessing from the whole photo</h3>");
             }
-            guesses.append("<ol>");
+            // The verdict first, big: this is what a person wants to read. "Not sure" in grey,
+            // so it looks like an honest shrug and not like a car name.
+            boolean notSure = "NOT_SURE".equals(v.answer.level);
+            guesses.append("<div style='font-size:16px;font-weight:bold;margin:4px 0;color:")
+                    .append(notSure ? "#888" : "#000").append("'>")
+                    .append(SafeHtmlUtils.htmlEscape(v.answer.text))
+                    .append(" <span style='font-weight:normal'>").append(percent(v.answer.confidence))
+                    .append("</span></div>");
+
+            // Then the raw detail behind it: the five most likely single classes.
+            guesses.append("<div style='color:#666;margin-top:6px'>Top guesses:</div><ol style='margin-top:2px'>");
             for (Prediction p : v.predictions) {
                 guesses.append("<li>").append(SafeHtmlUtils.htmlEscape(p.name))
                         .append(": <b>").append(percent(p.probability)).append("</b></li>");

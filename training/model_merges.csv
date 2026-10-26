@@ -1,0 +1,53 @@
+# Models that look the same, merged into one label ("visual identity").
+#
+# WHY: VMMRdb names folders by what the car was SOLD as (325i, 328i, F350). Many of those
+# differ only in engine or towing rating: same body, same lights, a small badge at most.
+# Asking the model to tell them apart from a photo teaches it noise, and different trims
+# of one body got labeled differently (BMW E39: 528i "single", 540i "pre/facelift").
+# Merged, every photo of one body teaches the same lesson, and each class gets more photos.
+#
+# RULE: merge only what a person can't tell apart from a normal photo. Sport versions
+# (M3, S4, WRX, Trans Am) and long-wheelbase SUVs (Suburban, Yukon XL) look different
+# enough, so they stay separate. Exact variants (F350 vs F250, dually) are a later job for
+# extra checks after the classifier: badge text (OCR), dually / lug-count detection.
+#
+# Columns: make, the model as in VMMRdb / the old table, the merged model it becomes.
+# Folder trims still work as before: "325i_convertible" -> 325i -> 3 series.
+# Read through common.load_merges(); decided with the user 2026-10-26.
+make,model,merged_model,reason
+bmw,323i,3 series,engine badge only
+bmw,325i,3 series,engine badge only
+bmw,328i,3 series,engine badge only
+bmw,330i,3 series,engine badge only
+bmw,335i,3 series,engine badge only
+bmw,525i,5 series,engine badge only
+bmw,528i,5 series,engine badge only
+bmw,530i,5 series,engine badge only
+bmw,535i,5 series,engine badge only
+bmw,540i,5 series,engine badge only
+bmw,740i,7 series,engine badge only
+bmw,750i,7 series,engine badge only
+mercedes benz,c230,c-class,engine badge only
+mercedes benz,c240,c-class,engine badge only
+mercedes benz,c300,c-class,engine badge only
+mercedes benz,c320,c-class,engine badge only
+mercedes benz,e320,e-class,engine badge only
+mercedes benz,e350,e-class,engine badge only
+mercedes benz,ml320,m-class,engine badge only
+mercedes benz,ml350,m-class,engine badge only
+mercedes benz,s430,s-class,engine badge only
+mercedes benz,s500,s-class,engine badge only
+lexus,es300,es,engine badge only
+lexus,es350,es,engine badge only
+lexus,is250,is,engine badge only
+lexus,is300,is,engine badge only
+infiniti,g35,g,engine badge only (2007-2008 G35 sedan = G37 body)
+infiniti,g37,g,engine badge only
+ford,f250,f250-f350,towing rating; same body (exact variant: later badge/dually check)
+ford,f350,f250-f350,towing rating; same body (exact variant: later badge/dually check)
+dodge,ram_2500,ram_hd,towing rating; same body
+dodge,ram_3500,ram_hd,towing rating; same body
+gmc,sierra_2500,sierra_hd,towing rating; same body
+gmc,sierra_3500,sierra_hd,towing rating; same body
+chevrolet,c-k1500,silverado,same GMT400 truck under its older name
+volkswagen,newbeetle,beetle,same car under two VMMRdb names

@@ -37,7 +37,7 @@ import sys
 import webbrowser
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
-from common import load_config, parse_class_name, project_path
+from common import load_config, load_merges, parse_class_name, project_path
 from wikimedia_check import api_get, files_in_tree, year_from_filename
 
 PORT = 8765
@@ -54,15 +54,19 @@ def vmmrdb_photos(dataset_dir, make, model, years, rng):
     Pick random photo paths from the base model's VMMRdb folders for a range of years.
 
     Only the base model (corolla, not corolla_s), so trims don't muddy the comparison.
+    For a merged model ("3 series") that means the merged folders themselves (325i,
+    328i, ...), still without their trims.
     `rng` is a seeded random generator, so the same photos come up every time you run it.
     """
+    merges = load_merges()
     paths = []
     for folder in os.listdir(dataset_dir):
         try:
             f_make, f_model, year = parse_class_name(folder)
         except ValueError:
             continue
-        if f_make == make and f_model == model and years[0] <= year <= years[1]:
+        is_model = f_model == model or merges.get((f_make, f_model)) == model
+        if f_make == make and is_model and years[0] <= year <= years[1]:
             paths += [dataset_dir / folder / name for name in os.listdir(dataset_dir / folder)]
     return rng.sample(sorted(paths), min(PHOTOS_PER_SIDE, len(paths)))
 

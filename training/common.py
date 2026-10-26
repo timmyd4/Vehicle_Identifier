@@ -59,6 +59,38 @@ def base_model(folder_model, table_models):
     return max(matches, key=len) if matches else None
 
 
+def load_merges():
+    """Read training/model_merges.csv into {(make, model): merged_model}.
+
+        {("bmw", "325i"): "3 series", ("ford", "f350"): "f250-f350", ...}
+
+    A dict keyed by a tuple, like a Map<Pair<String, String>, String> in Java.
+    """
+    df = pd.read_csv(PROJECT_ROOT / "training" / "model_merges.csv", comment="#",
+                     skipinitialspace=True, keep_default_na=False)
+    return {(make, model): merged for make, model, merged in zip(df["make"], df["model"], df["merged_model"])}
+
+
+def car_model(make, folder_model, table_models, merges):
+    """The model a VMMRdb folder belongs to in OUR labels, or None if we don't cover it.
+
+    The ONE place that answers "which car is this folder?" for every script, in two steps:
+
+      1. trims:  "325i_convertible" -> "325i"      (base_model's prefix rule)
+      2. merges: "325i" -> "3 series"              (model_merges.csv)
+
+    Step 1 matches against the table's models AND the merge list's old names, because
+    after merging, "325i" is no longer in the table, but its folders still say 325i.
+
+    table_models: the table's models for this make. merges: from load_merges().
+    """
+    names = list(table_models) + [old for (m, old) in merges if m == make]
+    model = base_model(folder_model, names)
+    if model is None:
+        return None
+    return merges.get((make, model), model)  # unchanged if it isn't merged
+
+
 def load_generations():
     """Read training/generations.csv (one row = one look of a car) into a DataFrame.
 

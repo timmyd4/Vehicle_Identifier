@@ -54,7 +54,7 @@ from PIL import Image
 from sklearn.model_selection import train_test_split
 from tqdm import tqdm
 
-from common import base_model, load_config, load_generations, parse_class_name, project_path
+from common import car_model, load_config, load_generations, load_merges, parse_class_name, project_path
 
 
 # ---------------------------------------------------------------------------
@@ -203,11 +203,13 @@ def assign_generation_classes(df, table):
     never overlap within a model, so the years alone identify the look. The
     generation and phase are kept as extra columns for classes.csv.
     """
-    # Step A: map each folder model to its base model in the table.
+    # Step A: map each folder model to its model in our labels: trims folded in
+    # (corolla_s -> corolla), look-alikes merged (325i -> 3 series, model_merges.csv).
     # Done once per distinct (make, folder model) pair, not once per photo.
     table_models = table.groupby("make")["model"].apply(list).to_dict()  # make -> [models]
+    merges = load_merges()
     pairs = df[["make", "model"]].drop_duplicates()
-    pairs["base_model"] = [base_model(model, table_models.get(make, []))
+    pairs["base_model"] = [car_model(make, model, table_models.get(make, []), merges)
                            for make, model in zip(pairs["make"], pairs["model"])]
     df = df.merge(pairs, on=["make", "model"])
 

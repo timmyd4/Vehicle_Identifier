@@ -24,7 +24,20 @@ class IdentifyResult {
         public String vehicleType;
         public double detectorScore;
         public boolean detected;
+        public Answer answer;
         public Prediction[] predictions;
+    }
+
+    /**
+     * The server's LayeredAnswer: the most detailed thing the model is sure of. We only list
+     * the fields the page uses; JSON fields we don't declare are simply ignored.
+     */
+    @JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "Object")
+    static class Answer {
+        /** "NOT_SURE", "MAKE", "MODEL", "GENERATION" or "LOOK" (the enum's name, as text). */
+        public String level;
+        public String text;
+        public double confidence;
     }
 
     @JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "Object")

@@ -49,12 +49,12 @@ from PIL import Image
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 
-from common import base_model, load_config, load_generations, project_path
+from common import car_model, load_config, load_generations, load_merges, project_path
 from dataset import CarDataset
 from inference import display_name, eval_transform, load_trained_model, pick_device
 
 
-def car_of_class(class_name, table_models):
+def car_of_class(class_name, table_models, merges):
     """Which car (make, base model) a class belongs to, ignoring years, generation and trim.
 
         "honda_civic_2001-2003"        -> ("honda", "civic")
@@ -63,12 +63,13 @@ def car_of_class(class_name, table_models):
     WHY merge trims here: run 1 had separate classes for corolla and corolla_s. If
     "corolla_s" for a corolla photo counted as the wrong car, run 1 would look worse
     than run 2 for a reason that has nothing to do with how well it sees. Scoring
-    both runs with the same trim rule (common.base_model) keeps the comparison fair.
-    Models that aren't in generations.csv keep their folder name.
+    both runs with the same trim rule keeps the comparison fair. The same goes for
+    look-alike merges (model_merges.csv): run 2's "bmw_325i" class scores as a 3 Series,
+    just like run 3's "bmw_3 series". Models that aren't in our labels keep their folder name.
     """
     parts = class_name.split("_")
     make, model = parts[0], "_".join(parts[1:-1])
-    return make, base_model(model, table_models.get(make, [])) or model
+    return make, car_model(make, model, table_models.get(make, []), merges) or model
 
 
 @torch.no_grad()
@@ -105,14 +106,14 @@ def predict_all(model, loader, device, class_to_car, num_cars):
     return torch.cat(all_indices), torch.cat(all_probs), torch.cat(all_cars)
 
 
-def accuracy_report(test, class_names, top5_indices, car_names, best_car, table_models):
+def accuracy_report(test, class_names, top5_indices, car_names, best_car, table_models, merges):
     """Add prediction columns to the test table and compute accuracy at each level."""
     classes = pd.Series(class_names)
     # Column 0 of top5_indices is the best guess for each image. Map number -> class name.
     test["pred_class"] = classes[top5_indices[:, 0].numpy()].values
 
-    true_car = test["class_name"].map(lambda name: car_of_class(name, table_models))
-    pred_car = test["pred_class"].map(lambda name: car_of_class(name, table_models))
+    true_car = test["class_name"].map(lambda name: car_of_class(name, table_models, merges))
+    pred_car = test["pred_class"].map(lambda name: car_of_class(name, table_models, merges))
     summed_car = pd.Series(car_names)[best_car.numpy()].values   # the app's way: probabilities added per car
 
     # Convert each image's true class name to its number, to compare against the top 5.
@@ -199,7 +200,8 @@ def main():
 
     # Give every car (make + base model) a number, and note which car each class belongs to.
     table_models = load_generations().groupby("make")["model"].apply(list).to_dict()
-    cars = [car_of_class(name, table_models) for name in class_names]
+    merges = load_merges()
+    cars = [car_of_class(name, table_models, merges) for name in class_names]
     car_names = sorted(set(cars))
     car_to_index = {car: i for i, car in enumerate(car_names)}
     class_to_car = torch.tensor([car_to_index[car] for car in cars])
@@ -213,7 +215,7 @@ def main():
 
     test = pd.read_csv(test_csv)
     test["pred_confidence"] = top5_probs[:, 0].numpy()
-    metrics = accuracy_report(test, class_names, top5_indices, car_names, best_car, table_models)
+    metrics = accuracy_report(test, class_names, top5_indices, car_names, best_car, table_models, merges)
 
     out_dir = project_path(config["paths"]["runs_dir"]) / args.out_name
     out_dir.mkdir(parents=True, exist_ok=True)
