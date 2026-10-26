@@ -42,7 +42,8 @@ UPDATE_WORDS = r"facelift|refresh|update|restyl|redesign"
 
 # "10th gen" in our table -> "tenth generation" in Wikipedia's headings.
 ORDINALS = {1: "first", 2: "second", 3: "third", 4: "fourth", 5: "fifth", 6: "sixth",
-            7: "seventh", 8: "eighth", 9: "ninth", 10: "tenth", 11: "eleventh", 12: "twelfth"}
+            7: "seventh", 8: "eighth", 9: "ninth", 10: "tenth", 11: "eleventh", 12: "twelfth",
+            13: "thirteenth", 14: "fourteenth", 15: "fifteenth"}
 
 YEAR = re.compile(r"(?<!\d)(19[5-9]\d|20[0-3]\d)(?!\d)")
 
@@ -221,8 +222,12 @@ def check_generation(rows, main_text):
     """Return (flags, evidence lines) for one generation (its pre/facelift/single rows)."""
     flags, evidence = [], []
     source, text = generation_text(rows, main_text)
+    # Rows already settled have "photo review" (a human compared photos in
+    # review_boundaries.py) or "decided" (settled from Wikipedia's text) in their notes.
+    # Their answer wins, so we only show evidence for them, no flags.
+    settled = any(re.search(r"photo review|decided", str(n), re.I) for n in rows.notes)
     if text is None:
-        return ["no Wikipedia text found for this generation"], []
+        return ([] if settled else ["no Wikipedia text found for this generation"]), []
     evidence.append(f"source: {source}")
 
     gen_first, gen_last = rows.first_year.min(), rows.last_year.max()
@@ -231,7 +236,7 @@ def check_generation(rows, main_text):
         evidence.append(f"Wikipedia model years: {years[0]}-{years[1]}")
         # Wikipedia's box often covers several countries, so it may be WIDER than the US
         # years. Only flag when our range sticks out beyond Wikipedia's.
-        if gen_first < years[0] or gen_last > years[1]:
+        if not settled and (gen_first < years[0] or gen_last > years[1]):
             flags.append(f"table says {gen_first}-{gen_last}, outside Wikipedia's {years[0]}-{years[1]}")
     else:
         evidence.append("Wikipedia model years: not found")
@@ -240,17 +245,15 @@ def check_generation(rows, main_text):
     found = mentioned_years(snippets)
     for _, row in rows[rows.phase.str.startswith("facelift")].iterrows():
         # Facelifts are usually shown the year before the model year they're sold as.
-        if not found & {row.first_year - 1, row.first_year}:
+        if not settled and not found & {row.first_year - 1, row.first_year}:
             flags.append(f"facelift {row.first_year}: Wikipedia mentions no update in "
                          f"{row.first_year - 1} or {row.first_year}")
     # For one-look rows, only words that mean "the looks changed" count. Plain "update" is
-    # too common ("updated engine", "updated safety ratings"). Rows a human already compared
-    # in review_boundaries.py have "photo review" in their notes; that answer wins.
-    reviewed = any("photo review" in str(n).lower() for n in rows.notes)
-    if not reviewed and (rows.phase == "single").all() and any(
+    # too common ("updated engine", "updated safety ratings").
+    if not settled and (rows.phase == "single").all() and any(
             re.search(r"facelift|refresh|restyl", s, re.I) for s in snippets):
         flags.append("table says one look, but Wikipedia mentions a facelift (was it visible?)")
-    if any("CHECK" in str(n) for n in rows.notes):
+    if not settled and any("CHECK" in str(n) for n in rows.notes):
         flags.append("marked CHECK in the table")
     evidence += snippets[:6]
     return flags, evidence

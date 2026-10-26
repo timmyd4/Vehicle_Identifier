@@ -10,14 +10,22 @@ from the years AFTER it, with three buttons:
     One look  - they look the same, merge them into one label
     Skip      - can't tell; leave the boundary out of training
 
-Answers are saved to training/runs/review/boundary_answers.json as you click, so you can close
-the page any time. Photos come from VMMRdb (on disk), or from Wikimedia Commons for years
-VMMRdb doesn't have (your browser loads those straight from Commons).
+Each batch of models has its own questions file, training/runs/review/<batch>_questions.json,
+a list of questions like:
 
-The page only listens on 127.0.0.1, so nothing outside your computer can reach it.
+    {"id": "accord_6th_2001", "make": "honda", "model": "accord",
+     "before": [1998, 2000], "after": [2001, 2002], "source": "vmmrdb",
+     "hint": "What Wikipedia says about the change"}
+
+"source" is where the photos come from: "vmmrdb" (on disk), or "commons" plus a
+"commons_category" for years VMMRdb doesn't have (your browser loads those from Commons).
+
+Answers are saved to training/runs/review/<batch>_answers.json as you click, so you can close
+the page any time. The page only listens on 127.0.0.1, so nothing outside your computer can
+reach it.
 
 Usage (from the project root):
-    python training/review_boundaries.py
+    python training/review_boundaries.py batch2
 Then press Ctrl+C in the terminal when you're done.
 """
 
@@ -25,6 +33,7 @@ import html
 import json
 import os
 import random
+import sys
 import webbrowser
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
@@ -33,33 +42,7 @@ from wikimedia_check import api_get, files_in_tree, year_from_filename
 
 PORT = 8765
 PHOTOS_PER_SIDE = 8
-ANSWERS_FILE = project_path("training/runs/review/boundary_answers.json")
-
-# The questions: which model, which years on each side, and what Wikipedia said.
-# "source" is where the photos come from; Commons is for years VMMRdb doesn't have.
-QUESTIONS = [
-    dict(id="highlander_2004", make="toyota", model="highlander",
-         before=(2001, 2003), after=(2004, 2007), source="vmmrdb",
-         hint="Wikipedia only mentions a new engine and gearbox for 2004. Did the front change?"),
-    dict(id="corolla_e80_1986", make="toyota", model="corolla",
-         before=(1984, 1985), after=(1986, 1987), source="vmmrdb",
-         hint="Wikipedia: facelifted in May 1985 with larger headlights."),
-    dict(id="corolla_e90_1990", make="toyota", model="corolla",
-         before=(1988, 1989), after=(1990, 1992), source="vmmrdb",
-         hint="Wikipedia: light facelift in May 1989, including larger bumpers."),
-    dict(id="corolla_e100_1996", make="toyota", model="corolla",
-         before=(1993, 1995), after=(1996, 1997), source="vmmrdb",
-         hint="Wikipedia: facelift for the 1996 model year."),
-    dict(id="civic_4th_1990", make="honda", model="civic",
-         before=(1988, 1989), after=(1990, 1991), source="vmmrdb",
-         hint="Wikipedia: 1990 minor refresh with a redesigned front bumper and new tail lights."),
-    dict(id="corolla_e210_2023", make="toyota", model="corolla",
-         before=(2020, 2022), after=(2023, 2026), source="commons",
-         commons_category="Category:Toyota Corolla (E210)",
-         hint="Wikipedia: June 2022 refresh with 'minor exterior design revisions'. "
-              "Photos are from Commons, sorted by the year in the filename, so a few may be "
-              "on the wrong side or be non-US versions."),
-]
+REVIEW_DIR = project_path("training/runs/review")
 
 
 # ---------------------------------------------------------------------------------------
@@ -155,13 +138,13 @@ Answers save as you click.</p>
 </body></html>"""
 
 
-def load_answers():
-    if ANSWERS_FILE.exists():
-        return json.loads(ANSWERS_FILE.read_text(encoding="utf-8"))
+def load_answers(answers_file):
+    if answers_file.exists():
+        return json.loads(answers_file.read_text(encoding="utf-8"))
     return {}
 
 
-def make_handler(questions, local_files):
+def make_handler(questions, local_files, answers_file):
     """
     Build the request handler class for http.server.
 
@@ -172,7 +155,8 @@ def make_handler(questions, local_files):
     class Handler(BaseHTTPRequestHandler):
         def do_GET(self):
             if self.path == "/":
-                self.send_bytes(build_page(questions, load_answers()).encode(), "text/html; charset=utf-8")
+                page = build_page(questions, load_answers(answers_file))
+                self.send_bytes(page.encode(), "text/html; charset=utf-8")
             elif self.path.startswith("/img/"):
                 index = int(self.path.removeprefix("/img/"))
                 self.send_bytes(local_files[index].read_bytes(), "image/jpeg")
@@ -183,10 +167,9 @@ def make_handler(questions, local_files):
             if self.path != "/answer":
                 return self.send_error(404)
             body = json.loads(self.rfile.read(int(self.headers["Content-Length"])))
-            answers = load_answers()
+            answers = load_answers(answers_file)
             answers[body["q"]] = body["a"]
-            ANSWERS_FILE.parent.mkdir(parents=True, exist_ok=True)
-            ANSWERS_FILE.write_text(json.dumps(answers, indent=2), encoding="utf-8")
+            answers_file.write_text(json.dumps(answers, indent=2), encoding="utf-8")
             print(f"  saved: {body['q']} = {body['a']}")
             self.send_bytes(b"ok", "text/plain")
 
@@ -204,12 +187,18 @@ def make_handler(questions, local_files):
 
 
 def main():
+    if len(sys.argv) != 2:
+        sys.exit("Usage: python training/review_boundaries.py <batch>   (e.g. batch2)")
+    batch = sys.argv[1]
+    questions = json.loads((REVIEW_DIR / f"{batch}_questions.json").read_text(encoding="utf-8"))
+    answers_file = REVIEW_DIR / f"{batch}_answers.json"
+
     dataset_dir = project_path(load_config()["paths"]["dataset_dir"])
     rng = random.Random(42)
     local_files = []  # photos on disk, served as /img/<index>
 
-    print("Picking photos...")
-    for q in QUESTIONS:
+    print(f"Picking photos for {len(questions)} questions...")
+    for q in questions:
         for side in ("before", "after"):
             if q["source"] == "vmmrdb":
                 srcs = []
@@ -220,9 +209,10 @@ def main():
                 srcs = commons_photos(q["commons_category"], q[side], rng)
             q[side + "_srcs"] = srcs
 
-    server = ThreadingHTTPServer(("127.0.0.1", PORT), make_handler(QUESTIONS, local_files))
+    handler = make_handler(questions, local_files, answers_file)
+    server = ThreadingHTTPServer(("127.0.0.1", PORT), handler)
     url = f"http://127.0.0.1:{PORT}/"
-    print(f"Open {url}  (answers go to {ANSWERS_FILE})\nPress Ctrl+C to stop.")
+    print(f"Open {url}  (answers go to {answers_file})\nPress Ctrl+C to stop.")
     webbrowser.open(url)
     try:
         server.serve_forever()
