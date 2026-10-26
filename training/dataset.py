@@ -30,6 +30,7 @@ import torch
 from PIL import Image
 from torch.utils.data import Dataset
 from torchvision import transforms
+from torchvision.transforms import v2  # newer transforms; v2.JPEG has no old-style version
 
 
 def load_class_names(splits_dir):
@@ -84,6 +85,10 @@ def build_transforms(image_size, mean, std, train):
 
     if train:
         return transforms.Compose([
+            # Tilt by up to 5 degrees: a phone is rarely held perfectly level.
+            # Done first, on the full photo, so the crop below cuts away most of the
+            # empty corners the rotation leaves behind.
+            v2.RandomRotation(degrees=5),
             # Pick a random rectangle covering 50-100% of the photo, then resize it to a square.
             # Simulates the car being closer, further, or off-center in the frame.
             transforms.RandomResizedCrop(image_size, scale=(0.5, 1.0)),
@@ -91,6 +96,14 @@ def build_transforms(image_size, mean, std, train):
             transforms.RandomHorizontalFlip(),
             # Randomly vary brightness/contrast/saturation by up to 30%: different light and cameras.
             transforms.ColorJitter(brightness=0.3, contrast=0.3, saturation=0.3),
+            # PHONE / LIVE-FEED DAMAGE. Listing photos are sharp and taken standing still;
+            # live camera frames are often blurred by motion or focus and heavily compressed.
+            # Each is applied to only some photos (p = chance), so the model also keeps
+            # seeing clean ones.
+            transforms.RandomApply([v2.GaussianBlur(kernel_size=5, sigma=(0.1, 2.0))], p=0.3),
+            # Re-save as a JPEG at quality 20-90 (100 = best): adds the blocky smudges of
+            # strong compression, like video frames and messaging apps.
+            transforms.RandomApply([v2.JPEG(quality=(20, 90))], p=0.3),
             *normalize,  # * unpacks the list, like passing its two items one by one
         ])
 

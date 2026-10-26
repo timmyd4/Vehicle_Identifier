@@ -7,6 +7,7 @@ Python finds this module because the scripts in training/ are run directly
 
 from pathlib import Path
 
+import pandas as pd
 import yaml
 
 # The project root is the folder above training/. Building paths from here
@@ -40,3 +41,31 @@ def parse_class_name(folder_name):
     model = "_".join(parts[1:-1])
     year = int(parts[-1])
     return make, model, year
+
+
+def base_model(folder_model, table_models):
+    """Return the table model a VMMRdb folder model belongs to, or None.
+
+    WHY: VMMRdb splits one car over trim and body-style folders (corolla, corolla_s,
+    corolla_le). They look the same, so the table only has the base model and
+    every trim folder is merged into it. build_subset.py uses this to label photos,
+    evaluate.py to score "right car?" the same way for every run.
+
+    HOW: a folder belongs to model M when it IS M or starts with "M_". If several
+    table models match, the longest wins, so "ram_1500_hd" goes to ram_1500, not ram.
+    """
+    matches = [m for m in table_models
+               if folder_model == m or folder_model.startswith(m + "_")]
+    return max(matches, key=len) if matches else None
+
+
+def load_generations():
+    """Read training/generations.csv (one row = one look of a car) into a DataFrame.
+
+    comment="#" skips the explanation lines at the top of the file.
+    keep_default_na=False stops pandas from turning the text "NA" into a missing
+    value. "NA" is a real generation name (the first Mazda Miata), and empty notes
+    then come through as "" instead of NaN.
+    """
+    return pd.read_csv(PROJECT_ROOT / "training" / "generations.csv", comment="#",
+                       skipinitialspace=True, keep_default_na=False)

@@ -54,7 +54,7 @@ from PIL import Image
 from sklearn.model_selection import train_test_split
 from tqdm import tqdm
 
-from common import load_config, parse_class_name, project_path
+from common import base_model, load_config, load_generations, parse_class_name, project_path
 
 
 # ---------------------------------------------------------------------------
@@ -190,6 +190,58 @@ def assign_classes(df, bucket_size, max_year):
     return df
 
 
+def assign_generation_classes(df, table):
+    """Label every photo with its look from generations.csv; drop photos the table doesn't cover.
+
+    WHY: year buckets made the model guess differences that often don't exist
+    (a 2014 and a 2016 Highlander look identical). Each row of the table is one
+    look the eye CAN tell apart, so those are the answers worth learning.
+
+    The class name keeps the old "make_model_years" shape, using the row's own
+    year range (toyota_highlander_2017-2019 = XU50 facelift). That way
+    display_name(), export_onnx.py and the Java app keep working unchanged. Rows
+    never overlap within a model, so the years alone identify the look. The
+    generation and phase are kept as extra columns for classes.csv.
+    """
+    # Step A: map each folder model to its base model in the table.
+    # Done once per distinct (make, folder model) pair, not once per photo.
+    table_models = table.groupby("make")["model"].apply(list).to_dict()  # make -> [models]
+    pairs = df[["make", "model"]].drop_duplicates()
+    pairs["base_model"] = [base_model(model, table_models.get(make, []))
+                           for make, model in zip(pairs["make"], pairs["model"])]
+    df = df.merge(pairs, on=["make", "model"])
+
+    not_in_table = df["base_model"].isna()
+    print(f"Dropped {not_in_table.sum():,} images of models that aren't in generations.csv "
+          f"({df.loc[not_in_table, 'folder'].nunique():,} folders)")
+    df = df[~not_in_table]
+
+    # Step B: join every photo to every row of its model, then keep the one row whose
+    # years contain the photo's year. Like SQL:
+    #   SELECT ... FROM photos p JOIN generations g ON p.make = g.make AND p.base_model = g.model
+    #   WHERE p.year BETWEEN g.first_year AND g.last_year
+    rows = table[["make", "model", "generation", "phase", "first_year", "last_year"]]
+    rows = rows.rename(columns={"model": "base_model"})
+    joined = df.merge(rows, on=["make", "base_model"])
+    joined = joined[joined["year"].between(joined["first_year"], joined["last_year"])]
+
+    # Photos whose year no row covers simply didn't survive the join: years where two
+    # looks were sold side by side, unclear changeover years, or a year with no US model.
+    print(f"Dropped {len(df) - len(joined):,} images from years no table row covers")
+
+    # Step C: build the answer. The base model replaces the trim folder name, so the
+    # make+model grouping in the app sees one Corolla, not corolla + corolla_s.
+    joined = joined.copy()
+    joined["model"] = joined["base_model"]
+    joined["year_start"] = joined["first_year"]
+    joined["year_end"] = joined["last_year"]
+    years = joined["year_start"].astype(str)
+    has_range = joined["year_end"] > joined["year_start"]
+    years[has_range] = years[has_range] + "-" + joined.loc[has_range, "year_end"].astype(str)
+    joined["class_name"] = joined["make"] + "_" + joined["model"] + "_" + years
+    return joined
+
+
 # ---------------------------------------------------------------------------
 # Step 5: duplicate photos
 # ---------------------------------------------------------------------------
@@ -291,8 +343,11 @@ def main():
     print(f"Dropped {(~big_enough).sum():,} images smaller than {settings['min_image_side']}px")
     df = df[big_enough].copy()
 
-    # Step 4: year buckets -> final class names (e.g. honda_civic_2001-2003).
-    df = assign_classes(df, settings["year_bucket_size"], settings["max_year"])
+    # Step 4: decide each photo's answer (see label_mode in config.yaml).
+    if settings["label_mode"] == "generations":
+        df = assign_generation_classes(df, load_generations())
+    else:
+        df = assign_classes(df, settings["year_bucket_size"], settings["max_year"])
 
     # Step 5: duplicates. This MUST happen before the split (step 7); otherwise
     # copies of the same photo could be dealt into different piles.
@@ -326,11 +381,14 @@ def main():
     # and the Java app will use the same order to turn numbers back into names.
     # groupby(...).agg(...) is like SQL: GROUP BY class_name, then for each group
     # take the first make/model/years and count the rows.
+    details = dict(make=("make", "first"), model=("model", "first"),
+                   year_start=("year_start", "first"), year_end=("year_end", "first"))
+    if settings["label_mode"] == "generations":
+        # Extra columns only generation labels have (e.g. "XU50", "facelift").
+        details.update(generation=("generation", "first"), phase=("phase", "first"))
     classes = (
         df.groupby("class_name")
-        .agg(make=("make", "first"), model=("model", "first"),
-             year_start=("year_start", "first"), year_end=("year_end", "first"),
-             num_images=("path", "size"))
+        .agg(**details, num_images=("path", "size"))   # ** unpacks the dict into keyword arguments
         .reset_index()          # turn class_name from the group key back into a normal column
         .sort_values("class_name")
     )

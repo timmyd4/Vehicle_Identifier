@@ -70,19 +70,26 @@ def parse_args():
     return parser.parse_args()
 
 
-def build_model(model_name, num_classes):
+def build_model(model_name, num_classes, drop_path_rate):
     """Download the pretrained model and replace its last layer for our classes.
 
     THIS IS THE TRANSFER LEARNING STEP. pretrained=True loads weights that already
-    recognize edges, shapes, wheels, windows, etc. num_classes=1168 tells timm to
+    recognize edges, shapes, wheels, windows, etc. num_classes tells timm to
     throw away the original 1,000-class ImageNet output layer and attach a fresh
-    one with 1,168 outputs. Only that new layer starts from random numbers;
+    one with one output per class. Only that new layer starts from random numbers;
     everything else starts from what ImageNet already taught it.
+
+    drop_path_rate (also called "stochastic depth"): during training, each of the
+    model's residual blocks is randomly skipped for some images, up to this chance for
+    the deepest blocks. The model can't lean on any single block, which makes it
+    harder to memorize training photos. It only acts during training; model.eval()
+    turns it off, so evaluation, export and the Java app are unaffected.
 
     The weights come from Hugging Face's official timm/ organization and are
     cached in ~/.cache/huggingface after the first download.
     """
-    return timm.create_model(model_name, pretrained=True, num_classes=num_classes)
+    return timm.create_model(model_name, pretrained=True, num_classes=num_classes,
+                             drop_path_rate=drop_path_rate)
 
 
 def make_loaders(config, class_names, mean, std, quick):
@@ -319,7 +326,8 @@ def main():
     print(f"Device: {device}" + (f" ({torch.cuda.get_device_name(0)})" if use_amp else " - training on CPU will be very slow"))
 
     class_names = load_class_names(project_path(config["paths"]["splits_dir"]))
-    model = build_model(settings["model_name"], num_classes=len(class_names))
+    model = build_model(settings["model_name"], num_classes=len(class_names),
+                        drop_path_rate=settings["drop_path_rate"])
     model = model.to(device, memory_format=torch.channels_last)
 
     # Read the normalization numbers from the pretrained model's own config, so they
