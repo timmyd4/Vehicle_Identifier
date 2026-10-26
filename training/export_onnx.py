@@ -10,7 +10,7 @@ The Java app uses Microsoft's ONNX Runtime library to run these files.
 
 This script writes four files to models/ - everything the Java app needs:
 
-    car_model.onnx       our classifier: 224x224 image in -> 1,168 scores out
+    car_model.onnx       our classifier: 224x224 image in -> one score per class out (836 in run 2)
     detector.onnx        the car detector: photo in -> boxes, labels, scores out
     labels.json          class number -> class name + readable name ("Honda Civic (2001-2003)")
     preprocessing.json   EXACTLY how to prepare a photo for each model. If Java prepares
@@ -39,7 +39,7 @@ from torchvision.transforms.functional import to_tensor
 
 from common import load_config, project_path
 from detect import crop_to_car, load_detector, open_photo
-from inference import display_name, eval_transform, load_trained_model
+from inference import display_name, eval_transform, load_trained_model, make_name
 
 # PyTorch's exporter prints emoji in its progress messages. The default Windows
 # console encoding (cp1252) can't print emoji and would crash, so switch to UTF-8.
@@ -102,9 +102,20 @@ def write_labels(class_names, splits_dir, out_path):
     """Write labels.json: a list where position i describes class i.
 
     The class ORDER comes from the checkpoint (the order the model was trained with),
-    never re-sorted. Details like make/model/years come from classes.csv.
+    never re-sorted. Details like make/model/years/generation/phase come from classes.csv.
+
+    generation is the table's name for that body ("YA4", "8th gen", "NA").
+    phase says where this class sits inside its generation:
+        single     the generation never had a facelift
+        pre        before the facelift
+        facelift   after it (facelift2/facelift3 for a second or third refresh)
+    Java needs both for the layered answer: it adds up probabilities per make,
+    per model, per generation, then per phase, and reports the deepest level it's sure of.
     """
-    details = pd.read_csv(splits_dir / "classes.csv").set_index("class_name")
+    # keep_default_na=False: pandas normally turns the text "NA" into a missing value
+    # (NaN). The Mazda Miata's first generation is literally called "NA", so without
+    # this it would vanish. Same trap common.load_generations() guards against.
+    details = pd.read_csv(splits_dir / "classes.csv", keep_default_na=False).set_index("class_name")
     labels = []
     for index, name in enumerate(class_names):
         row = details.loc[name]  # look up this class's row by name
@@ -112,10 +123,16 @@ def write_labels(class_names, splits_dir, out_path):
             "index": index,
             "class_name": name,
             "display_name": display_name(name),
+            # Readable names for the higher layers of the answer, so Java never has to
+            # re-implement Python's capitalization rules ("BMW", "Mercedes-Benz", "RAV4").
+            "make_name": make_name(row["make"]),                   # "Honda"
+            "car_name": display_name(name).rsplit(" (", 1)[0],     # "Honda Civic" (years cut off)
             "make": row["make"],
             "model": row["model"],
             "year_start": int(row["year_start"]),  # int(): numpy integers aren't JSON-serializable
             "year_end": int(row["year_end"]),
+            "generation": row["generation"],
+            "phase": row["phase"],
         })
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(labels, f, indent=2)

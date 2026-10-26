@@ -79,12 +79,17 @@ def display_name(class_name):
     make, years = parts[0], parts[-1]
     model_words = parts[1:-1]
 
-    make_text = MAKE_NAMES.get(make, make.title())  # dict.get(key, default) - like Map.getOrDefault
+    make_text = make_name(make)
     # Some model names use spaces as well as underscores ("accord_2 door"),
     # so join everything with spaces and then split into single words.
     words = " ".join(model_words).split()
     model_text = " ".join(format_model_word(w) for w in words)
     return f"{make_text} {model_text} ({years})"
+
+
+def make_name(make):
+    """"honda" -> "Honda", "mercedes benz" -> "Mercedes-Benz" (the make part of display_name)."""
+    return MAKE_NAMES.get(make, make.title())  # dict.get(key, default) - like Map.getOrDefault
 
 
 def format_model_word(word):

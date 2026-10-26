@@ -47,7 +47,9 @@ class IdentifyControllerTest {
 
     @Test
     void returnsVehiclesAsJson() throws Exception {
-        CarResult car = new CarResult(new Box(10, 20, 110, 80), "car", 0.97f, true,
+        LayeredAnswer answer = new LayeredAnswer(LayeredAnswer.Level.MODEL, "Toyota Corolla", 0.91f,
+                "toyota", "corolla", null, null, null, null);
+        CarResult car = new CarResult(new Box(10, 20, 110, 80), "car", 0.97f, true, answer,
                 List.of(new Prediction("Toyota Corolla (2007-2009)", "toyota", "corolla", 2007, 2009, 0.82f)));
         // "When identify is called with any image and fallback=true, return this list."
         when(pipeline.identify(any(RgbImage.class), eq(true))).thenReturn(List.of(car));
@@ -59,6 +61,9 @@ class IdentifyControllerTest {
                 .andExpect(jsonPath("$.height").value(100))
                 .andExpect(jsonPath("$.vehicles[0].vehicleType").value("car"))
                 .andExpect(jsonPath("$.vehicles[0].box.left").value(10))
+                // The enum goes out as its name; null fields stay in the JSON as null.
+                .andExpect(jsonPath("$.vehicles[0].answer.level").value("MODEL"))
+                .andExpect(jsonPath("$.vehicles[0].answer.text").value("Toyota Corolla"))
                 .andExpect(jsonPath("$.vehicles[0].predictions[0].name").value("Toyota Corolla (2007-2009)"))
                 .andExpect(jsonPath("$.vehicles[0].predictions[0].yearStart").value(2007));
     }

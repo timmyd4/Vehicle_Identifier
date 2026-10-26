@@ -12,17 +12,18 @@ import java.util.List;
  * @param vehicleType  what the detector called it: "car" or "truck"
  * @param detectorScore how sure the detector is that a vehicle is there (0-1)
  * @param detected     false when no vehicle was found and the whole photo was classified instead
- * @param predictions  the top guesses, most likely first
+ * @param answer       the verdict: the most detailed layer the model is sure of (see LayeredAnswer)
+ * @param predictions  the top single classes, most likely first: the raw detail behind the answer
  */
 public record CarResult(Box box, String vehicleType, float detectorScore, boolean detected,
-                        List<Prediction> predictions) {
+                        LayeredAnswer answer, List<Prediction> predictions) {
 
     /** A rectangle in pixels: left/top inclusive, right/bottom exclusive. */
     public record Box(int left, int top, int right, int bottom) {
     }
 
     /**
-     * One guess: which car, and how likely (0-1). The probabilities of all 1,168 classes
+     * One guess: which car, and how likely (0-1). The probabilities of all classes
      * add up to 1, so 0.82 means "82% of the model's belief is on this one".
      */
     public record Prediction(String name, String make, String model, int yearStart, int yearEnd,

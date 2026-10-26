@@ -42,7 +42,7 @@ class CarPipelineTest {
         assumeTrue(Files.exists(MODELS.resolve("car_model.onnx")), "models/ not found, skipping");
         // No Spring here: we build the two objects by hand, passing what Spring would inject.
         models = new OnnxModels(MODELS);
-        pipeline = new CarPipeline(models, MODELS);
+        pipeline = new CarPipeline(models, MODELS, 0.7f);
     }
 
     @AfterAll
@@ -53,19 +53,22 @@ class CarPipelineTest {
     }
 
     /**
-     * Expected values come from Python's ONNX pipeline run on the SAME pixels Java decodes
-     * (verified 2026-10-25): car 94%, then Mazda 3 Hatchback 5.9%, Toyota Corolla
-     * (2010-2012) 4.0%, Toyota Corolla (2007-2009) 2.5%. Java matches exactly.
+     * GOLDEN VALUES: expected outputs saved from a known-good run. They belong to ONE model,
+     * so they must be re-made after every retrain. When this test fails right after a new
+     * export, that's the test correctly noticing the model changed, not necessarily a bug.
      *
-     * <p>Why not compare with predict.py's output directly: Java's JPEG decoder (ImageIO)
-     * and Python's (PIL / libjpeg-turbo) turn the same file into slightly different pixels,
-     * mostly in color detail (measured: 70% of values differ, by ~2 levels on average). On
-     * this photo the top two guesses are nearly tied, so predict.py ranks Corolla S first
-     * (5.9% vs 5.7%). That's a decoder difference, not a pipeline bug; the pipeline itself
-     * gives identical results on identical pixels.
+     * <p>Run 2 (generation labels, 2026-10-26): Java says Toyota Corolla (2009-2010) 91.4%,
+     * and predict.py says 91.2% with the same top 5 in the same order. The car is a 2009,
+     * so the full layered answer (E140, pre-facelift) is right.
+     *
+     * <p>Why Java and predict.py differ slightly: Java's JPEG decoder (ImageIO) and Python's
+     * (PIL / libjpeg-turbo) turn the same file into slightly different pixels, mostly in
+     * color detail (measured 2026-10-25: 70% of values differ, by ~2 levels on average). On
+     * identical pixels the two pipelines matched exactly (checked with run 1). It only
+     * matters when guesses are nearly tied, as run 1's were on this photo (5.9% vs 5.7%).
      */
     @Test
-    void corollaMatchesPythonOnSamePixels() throws Exception {
+    void corollaMatchesPython() throws Exception {
         List<CarResult> results = pipeline.identify(readPhoto("corolla_2009.jpg"), true);
         print("corolla_2009.jpg", results);
 
@@ -76,17 +79,22 @@ class CarPipelineTest {
         assertEquals(0.94, biggest.detectorScore(), 0.005);
 
         List<Prediction> top = biggest.predictions();
-        assertEquals("Mazda 3 Hatchback (2004-2006)", top.get(0).name());
-        assertEquals(0.059, top.get(0).probability(), 0.001);
-        assertEquals("Toyota Corolla (2010-2012)", top.get(1).name());
-        assertEquals(0.040, top.get(1).probability(), 0.001);
-        assertEquals("Toyota Corolla (2007-2009)", top.get(2).name());
+        assertEquals("Toyota Corolla (2009-2010)", top.get(0).name());
+        assertEquals(0.914, top.get(0).probability(), 0.005);
+        assertEquals("Scion TC (2005-2007)", top.get(1).name());
+
+        LayeredAnswer answer = biggest.answer();
+        assertEquals(LayeredAnswer.Level.LOOK, answer.level());
+        assertEquals("Toyota Corolla, E140, pre-facelift (2009-2010)", answer.text());
     }
 
     @Test
     void highlanderFindsAVehicle() throws Exception {
-        // No exact check: the 2017 Highlander has no class, so its guesses are all
-        // low and close together. This one just shows the output and timings.
+        // No exact check. A 2017 Highlander is the XU50 generation, which the model has no
+        // class for (VMMRdb ends in 2016). Run 2 answers the nearest thing it knows, the
+        // XU40 facelift, at 75%: right model, wrong generation, and sure of it. That's
+        // open-set recognition failing. Newer training photos (Commons) are the real fix;
+        // keep this photo as a check for run 3.
         List<CarResult> results = pipeline.identify(readPhoto("highlander_2017.jpg"), true);
         print("highlander_2017.jpg", results);
         assertTrue(results.get(0).detected());
@@ -103,6 +111,8 @@ class CarPipelineTest {
         System.out.println("\n" + photo + ": " + results.size() + " vehicle(s)");
         for (CarResult r : results) {
             System.out.printf("  %s %.0f%% at %s%n", r.vehicleType(), r.detectorScore() * 100, r.box());
+            System.out.printf("  answer: %s  [%s, %.1f%%]%n", r.answer().text(), r.answer().level(),
+                    r.answer().confidence() * 100);
             int rank = 1;
             for (Prediction p : r.predictions()) {
                 System.out.printf("    %d. %-42s %5.1f%%%n", rank++, p.name(), p.probability() * 100);

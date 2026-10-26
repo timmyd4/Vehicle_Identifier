@@ -24,8 +24,9 @@ import tools.jackson.databind.json.JsonMapper;
  * <pre>
  *   photo ──detector──▶ boxes around every car/truck
  *         ──crop each box (plus a margin)──▶ one small image per vehicle
- *         ──classifier, all crops in one batch──▶ 1,168 scores per vehicle
- *         ──softmax + top 5──▶ "Toyota Corolla (2007-2009)  82%", ...
+ *         ──classifier, all crops in one batch──▶ one score per class, per vehicle
+ *         ──softmax──▶ probabilities ──┬─ layered answer ▶ "Honda Civic, 8th gen (2006-2011)"
+ *                                       └─ top 5 classes ▶ "Honda Civic (2009-2011)  45%", ...
  * </pre>
  *
  * <p>This mirrors training/predict.py, with one difference made for live mode: Python keeps
@@ -48,6 +49,8 @@ public class CarPipeline {
     private final OnnxModels models;
     private final ModelSettings settings;
     private final CarLabel[] labels;
+    /** How sure a layer of the answer must be to be reported (see LayeredAnswer). */
+    private final float answerThreshold;
     /** COCO category number -> our name for it, e.g. 3 -> "car", 8 -> "truck". */
     private final Map<Long, String> vehicleTypes = new HashMap<>();
 
@@ -55,9 +58,14 @@ public class CarPipeline {
      * Spring passes in the already-loaded models (OnnxModels is a @Component too). That's
      * "dependency injection": we ask for what we need in the constructor instead of creating
      * it ourselves, so there's exactly one copy of the ~190 MB of models in memory.
+     *
+     * <p>@Value pulls a setting out of application.properties (or the command line) and
+     * converts it to the parameter's type: a Path, a float. Spring does that at startup.
      */
-    public CarPipeline(OnnxModels models, @Value("${carid.models-dir}") Path modelsDir) {
+    public CarPipeline(OnnxModels models, @Value("${carid.models-dir}") Path modelsDir,
+                       @Value("${carid.answer-threshold}") float answerThreshold) {
         this.models = models;
+        this.answerThreshold = answerThreshold;
         Path dir = modelsDir.toAbsolutePath().normalize();
 
         // Jackson turns JSON into Java objects: the files' structure matches our records.
@@ -74,8 +82,9 @@ public class CarPipeline {
         }
         settings.detector().acceptLabels().forEach((name, id) -> vehicleTypes.put(id.longValue(), name));
 
-        log.info("Loaded {} car classes; detector accepts {} at score >= {}",
-                labels.length, settings.detector().acceptLabels().keySet(), settings.detector().minScore());
+        log.info("Loaded {} car classes; detector accepts {} at score >= {}; answer threshold {}",
+                labels.length, settings.detector().acceptLabels().keySet(), settings.detector().minScore(),
+                answerThreshold);
     }
 
     /**
@@ -93,14 +102,16 @@ public class CarPipeline {
         List<CarResult> results = new ArrayList<>();
         if (!found.isEmpty()) {
             List<RgbImage> crops = found.stream().map(d -> cropWithMargin(photo, d)).toList();
-            List<List<Prediction>> guesses = classify(crops);
+            List<Guesses> guesses = classify(crops);
             for (int i = 0; i < found.size(); i++) {
                 Detection d = found.get(i);
-                results.add(new CarResult(d.box(), d.type(), d.score(), true, guesses.get(i)));
+                Guesses g = guesses.get(i);
+                results.add(new CarResult(d.box(), d.type(), d.score(), true, g.answer(), g.top()));
             }
         } else if (wholePhotoFallback) {
             Box whole = new Box(0, 0, photo.width(), photo.height());
-            results.add(new CarResult(whole, null, 0f, false, classify(List.of(photo)).get(0)));
+            Guesses g = classify(List.of(photo)).get(0);
+            results.add(new CarResult(whole, null, 0f, false, g.answer(), g.top()));
         }
         long classified = System.nanoTime();
 
@@ -175,8 +186,12 @@ public class CarPipeline {
 
     // ------------------------------------------------------------ classifier
 
+    /** What the classifier says about one image: the layered verdict and the top single classes. */
+    private record Guesses(LayeredAnswer answer, List<Prediction> top) {
+    }
+
     /** Classify several images in ONE model run (a "batch"), which is faster than one at a time. */
-    private List<List<Prediction>> classify(List<RgbImage> images) throws OrtException {
+    private List<Guesses> classify(List<RgbImage> images) throws OrtException {
         ModelSettings.Classifier cfg = settings.classifier();
         int w = cfg.resize().width();
         int h = cfg.resize().height();
@@ -194,11 +209,14 @@ public class CarPipeline {
         try (OnnxTensor tensor = OnnxTensor.createTensor(models.env(), FloatBuffer.wrap(batch), shape);
              OrtSession.Result out = models.classifier().run(Map.of(CLASSIFIER_INPUT, tensor))) {
 
-            // One row of 1,168 raw scores ("logits") per image.
+            // One row of raw scores ("logits") per image, one score per class.
             float[][] logits = (float[][]) out.get(CLASSIFIER_OUTPUT).orElseThrow().getValue();
-            List<List<Prediction>> all = new ArrayList<>();
+            List<Guesses> all = new ArrayList<>();
             for (float[] row : logits) {
-                all.add(topK(softmax(row)));
+                // The answer needs ALL the probabilities (it adds them up per layer),
+                // so it's computed before topK throws away everything but the best 5.
+                float[] probs = softmax(row);
+                all.add(new Guesses(LayeredAnswer.decide(labels, probs, answerThreshold), topK(probs)));
             }
             return all;
         }
@@ -228,7 +246,7 @@ public class CarPipeline {
 
     /** The TOP_K most likely classes, most likely first, with their names. */
     private List<Prediction> topK(float[] probs) {
-        // Picking the max K times is simplest, and fast enough for 1,168 values.
+        // Picking the max K times is simplest, and fast enough for ~1,000 values.
         boolean[] taken = new boolean[probs.length];
         List<Prediction> top = new ArrayList<>(TOP_K);
         for (int k = 0; k < Math.min(TOP_K, probs.length); k++) {

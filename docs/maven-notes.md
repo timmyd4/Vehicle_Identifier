@@ -288,6 +288,12 @@ java -jar server/target/car-identifier-server-0.1.0-SNAPSHOT.jar
 - `-am` ("also make") adds the modules they depend on: `mvn package -pl server -am` builds
   client + server. Without `-am`, Maven looks for the client's war in `~/.m2`, where it was
   never installed, and fails to resolve it.
+- Run ONE test class: `mvn -pl server -am test -Dtest=LayeredAnswerTest -Dsurefire.failIfNoSpecifiedTests=false`
+  - `-Dtest=` applies to every module in the build, and the client has no such test.
+    `failIfNoSpecifiedTests=false` stops that from failing the build.
+  - The trap (hit 2026-10-26): the same flag also hides a TYPO. `-Dtest=LayeredAnswerText`
+    ran zero tests and still said BUILD SUCCESS. Always check for the `Tests run: N` line.
+  - `test` is fast even with `-am`: GWT's Java -> JavaScript compile runs in `package`, after `test`.
 
 ## 21. Inter-module dependencies, scopes, and unpacking (how the UI gets into the server jar)
 
