@@ -277,8 +277,10 @@ def check_generation(rows, main_text):
 
 
 def main():
+    # keep_default_na=False: pandas would otherwise turn the text "NA" into a missing value,
+    # and "NA" is a real generation name (the first Mazda Miata).
     table = pd.read_csv(project_path("training/generations.csv"), comment="#",
-                        skipinitialspace=True)
+                        skipinitialspace=True, keep_default_na=False)
     if len(sys.argv) > 1:
         table = table[table.model.str.contains(sys.argv[1])]
 
