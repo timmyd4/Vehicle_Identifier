@@ -1072,3 +1072,202 @@ mercedes benz,c230,W203,facelift,2005,2007,Mercedes-Benz type 203,photo review: 
 mercedes benz,c230,W204,single,2008,2009,Mercedes-Benz type 204,decided: checker can't find this Wikipedia page; from known model history
 acura,rsx,DC5,pre,2002,2004,Acura RSX (DC5),
 acura,rsx,DC5,facelift,2005,2006,Acura RSX (DC5),decided: checker can't find this Wikipedia page; from known model history (2005 new front)
+saab,9-3,1st gen,single,1999,2002,Saab 9-3 (YS3D),the 1st-gen convertible was also sold as a 2003
+saab,9-3,2nd gen,pre,2003,2007,Saab 9-3 (YS3F),
+saab,9-3,2nd gen,facelift,2008,2011,Saab 9-3 (YS3F),
+oldsmobile,alero,Alero,single,1999,2004,Oldsmobile Alero,decided: checker can't find this Wikipedia page; from known model history
+bmw,525i,E34,single,1989,1995,BMW E34,photo review: 1994 grille change not visible
+bmw,525i,E39,single,2001,2003,BMW E39,decided: the 525i was only sold after the 2001 facelift
+bmw,525i,E60,single,2004,2007,BMW E60,the 525i ended before the 2008 facelift
+pontiac,bonneville,1958,single,1958,1958,1958 Pontiac Bonneville,decided: classic car (pre-1980) = generation level only
+pontiac,bonneville,1959,single,1959,1960,Pontiac Bonneville (1959–1960),decided: classic car (pre-1980) = generation level only
+pontiac,bonneville,1961,single,1961,1964,Pontiac Bonneville (1961–1964),decided: classic car (pre-1980) = generation level only
+pontiac,bonneville,1965,single,1965,1970,Pontiac Bonneville (1965–1970),decided: classic car (pre-1980) = generation level only
+pontiac,bonneville,1971,single,1971,1976,Pontiac Bonneville (1971–1976),decided: classic car (pre-1980) = generation level only
+pontiac,bonneville,1977,single,1977,1981,Pontiac Bonneville (1977–1981),decided: checker can't find this Wikipedia page; from known model history
+pontiac,bonneville,G-body,single,1982,1986,Pontiac Bonneville (A/G-body),decided: checker can't find this Wikipedia page; from known model history
+pontiac,bonneville,H-body 1987,single,1987,1991,Pontiac Bonneville (1987),decided: checker can't find this Wikipedia page; from known model history
+pontiac,bonneville,H-body 1992,pre,1992,1995,Pontiac Bonneville (1992),
+pontiac,bonneville,H-body 1992,facelift,1996,1999,Pontiac Bonneville (1992),photo review: 1996 update is visible
+pontiac,bonneville,H-body 2000,single,2000,2005,Pontiac Bonneville (2000),decided: checker can't find this Wikipedia page; from known model history
+mercury,cougar,1st gen,single,1967,1970,Mercury Cougar (first generation),decided: classic car (pre-1980) = generation level only
+mercury,cougar,2nd gen,single,1971,1973,Mercury Cougar (second generation),decided: classic car (pre-1980) = generation level only
+mercury,cougar,3rd gen,single,1974,1976,Mercury Cougar (third generation),decided: classic car (pre-1980) = generation level only
+mercury,cougar,4th gen,single,1977,1979,Mercury Cougar (fourth generation),decided: classic car (pre-1980) = generation level only
+mercury,cougar,5th gen,single,1980,1982,Mercury Cougar (fifth generation),
+mercury,cougar,6th gen,pre,1983,1986,Mercury Cougar (sixth generation),
+mercury,cougar,6th gen,facelift,1987,1988,Mercury Cougar (sixth generation),decided: checker can't find this Wikipedia page; from known model history (1987 new flush headlights)
+mercury,cougar,7th gen,pre,1989,1990,Mercury Cougar (7th generation),
+mercury,cougar,7th gen,facelift,1991,1997,Mercury Cougar (7th generation),"decided: Wikipedia says 1991 new headlamps, taillamps and front bumper; the 1994 change was the interior"
+mercury,cougar,8th gen,pre,1999,2000,Mercury Cougar (8th generation),
+mercury,cougar,8th gen,facelift,2001,2002,Mercury Cougar (8th generation),decided: Wikipedia says 2001 new headlights and fascias
+gmc,jimmy,K5 1st gen,single,1970,1972,GMC Jimmy (1st generation),decided: classic car (pre-1980) = generation level only
+gmc,jimmy,K5 2nd gen,pre,1973,1980,GMC Jimmy (2nd generation),decided: same split as the K5 Blazer and square-body pickups
+gmc,jimmy,K5 2nd gen,facelift,1981,1991,GMC Jimmy (3rd generation),decided: checker can't find this Wikipedia page; from known model history. Same split as the K5 Blazer. 1983-1991 are mixed with the smaller S-15 Jimmy
+gmc,jimmy,S-15 1st gen,single,1992,1994,GMC S-15 Jimmy (1st generation),decided: checker can't find this Wikipedia page; from known model history. The full-size Jimmy ended in 1991
+gmc,jimmy,S-15 2nd gen,pre,1995,1997,GMC S-15 Jimmy (2nd generation),
+gmc,jimmy,S-15 2nd gen,facelift,1998,2001,GMC S-15 Jimmy (2nd generation),decided: same split as the Chevrolet Blazer (1998 new front)
+suzuki,forenza,Forenza,single,2004,2008,Suzuki Forenza Sedan;Suzuki Forenza Wagon,decided: checker can't find this Wikipedia page; from known model history
+lexus,is250,XE20,pre,2006,2008,Lexus IS (XE20),
+lexus,is250,XE20,facelift,2009,2010,Lexus IS (XE20),photo review: 2009 refresh is visible
+lexus,is250,XE20,facelift2,2011,2013,Lexus IS (XE20),photo review: 2011 refresh is visible
+lexus,is250,XE30,single,2014,2015,Lexus IS (XE30),decided: checker can't find this Wikipedia page; from known model history. The IS250 name ended after 2015
+cadillac,sts,Seville 4th gen,single,1992,1997,Cadillac Seville (K-body FWD);Cadillac Seville STS,decided: checker can't find this Wikipedia page; from known model history. Before 2005 the STS was a trim of the Seville
+cadillac,sts,Seville 5th gen,single,1998,2004,Cadillac Seville (1998–2004),decided: checker can't find this Wikipedia page; from known model history
+cadillac,sts,STS,pre,2005,2007,Cadillac STS,
+cadillac,sts,STS,facelift,2008,2011,Cadillac STS,decided: checker can't find this Wikipedia page; from known model history (2008 new grille and front)
+toyota,solara,XV20,pre,1999,2001,Toyota Camry Solara (XV20),
+toyota,solara,XV20,facelift,2002,2003,Toyota Camry Solara (XV20),photo review: 2002 update is visible
+toyota,solara,XV30,pre,2004,2006,Toyota Camry Solara (XV30),
+toyota,solara,XV30,facelift,2007,2008,Toyota Camry Solara (XV30),
+mazda,rx8,SE3P,pre,2004,2008,Mazda RX-8 (2003),
+mazda,rx8,SE3P,facelift,2009,2011,Mazda RX-8 (facelift),decided: Commons has a separate facelift category
+pontiac,transam,2nd gen,single,1970,1981,Pontiac Trans Am (2nd generation),decided: same as the Firebird (classic generation level)
+pontiac,transam,3rd gen,pre,1982,1984,Pontiac Trans Am (3rd generation),
+pontiac,transam,3rd gen,facelift,1985,1990,Pontiac Trans Am (3rd generation),decided: same as the Firebird (1985 restyled nose)
+pontiac,transam,3rd gen,facelift2,1991,1992,Pontiac Trans Am (3rd generation),decided: same as the Firebird (1991 restyled nose)
+pontiac,transam,4th gen,pre,1993,1997,Pontiac Trans Am (4th generation),
+pontiac,transam,4th gen,facelift,1998,2002,Pontiac Trans Am (4th generation),decided: checker can't find this Wikipedia page; from known model history (same as the Firebird)
+dodge,intrepid,1st gen,single,1993,1997,Dodge Intrepid (first generation),
+dodge,intrepid,2nd gen,single,1998,2004,Dodge Intrepid (second generation),
+ford,escort,1st gen,single,1981,1990,"Ford Escort (NA, first generation)",decided: too few VMMRdb photos to be worth splitting (5)
+ford,escort,2nd gen,single,1991,1996,"Ford Escort (NA, second generation)",decided: checker can't find this Wikipedia page; from known model history
+ford,escort,3rd gen,single,1997,2003,"Ford Escort (NA, third generation)",decided: checker can't find this Wikipedia page; from known model history. The ZX2 coupe (1998-2003) is mixed in
+acura,tsx,CL9,pre,2004,2005,Acura TSX CL9,
+acura,tsx,CL9,facelift,2006,2008,Acura TSX CL9,decided: checker can't find this Wikipedia page; from known model history (2006 new front)
+acura,tsx,CU2,pre,2009,2010,Acura TSX CU2,
+acura,tsx,CU2,facelift,2011,2014,Acura TSX CU2,decided: checker can't find this Wikipedia page; from known model history (2011 new front)
+jaguar,xj,Series I/II,single,1969,1978,Jaguar XJ Mark I;Jaguar XJ Mark II,decided: classic car (pre-1980) = generation level only
+jaguar,xj,Series III,single,1979,1987,Jaguar XJ Series III,decided: checker can't find this Wikipedia page; from known model history
+jaguar,xj,XJ40,single,1988,1994,Jaguar XJ40,decided: the 1990 US change was headlamps on some trims; only 66 photos
+jaguar,xj,X300,pre,1995,1997,Jaguar XJ (X300),
+jaguar,xj,X300,facelift,1998,2003,Jaguar XJ (X308),photo review: 1998 (X308) change is visible
+jaguar,xj,X350,pre,2004,2007,Jaguar XJ (X350),
+jaguar,xj,X350,facelift,2008,2009,Jaguar XJ (X358),
+jaguar,xj,X351,pre,2011,2015,Jaguar XJ (X351),
+jaguar,xj,X351,facelift,2016,2019,Jaguar XJ (X351),decided: Wikipedia says facelift for the 2016 model year
+honda,element,YH2,pre,2003,2006,Honda Element,
+honda,element,YH2,facelift,2007,2008,"Honda Element (YH2, facelift);Honda Element",decided: checker can't find this Wikipedia page; from known model history (2007 new front)
+honda,element,YH2,facelift2,2009,2011,"Honda Element (YH2, facelift);Honda Element",photo review: 2009 front change is visible
+ford,edge,1st gen,pre,2007,2010,Ford Edge (first generation),
+ford,edge,1st gen,facelift,2011,2014,Ford Edge (first generation),
+ford,edge,2nd gen,pre,2015,2018,Ford Edge (second generation),
+ford,edge,2nd gen,facelift,2019,2024,Ford Edge (second generation),
+landrover,rangerover,Classic,single,1987,1995,Range Rover Classic,decided: too few VMMRdb photos to be worth splitting (23). US sales began in 1987
+landrover,rangerover,P38A,single,1996,2002,Land Rover Range Rover (2nd generation),decided: too few VMMRdb photos to be worth splitting (53); the 1999 changes were small
+landrover,rangerover,L322,pre,2003,2005,Land Rover Range Rover (3rd generation),the Range Rover Sport (2006+) may be mixed in
+landrover,rangerover,L322,facelift,2006,2009,Land Rover Range Rover (3rd generation),
+landrover,rangerover,L322,facelift2,2010,2012,Land Rover Range Rover (3rd generation),
+landrover,rangerover,L405,pre,2013,2017,Land Rover Range Rover (4th generation),
+landrover,rangerover,L405,facelift,2018,2021,Land Rover Range Rover (4th generation),
+landrover,rangerover,L460,single,2022,2026,Land Rover Range Rover (5th generation),
+bmw,330i,E46,pre,2001,2001,BMW E46,
+bmw,330i,E46,facelift,2002,2005,BMW E46,decided: checker can't find this Wikipedia page; from known model history. The sedan facelift came for 2002; coupes changed for 2004
+bmw,330i,E90,single,2006,2006,BMW E90,"decided: the 330i was sold only for 2006, before the 2009 facelift"
+chevrolet,lumina,1st gen,single,1990,1994,Chevrolet Lumina (W-body),the Lumina APV minivan may be mixed in
+chevrolet,lumina,2nd gen,single,1995,2001,Chevrolet Lumina (W-body),
+scion,xb,XP30,single,2004,2006,Scion xB (XP30),decided: checker can't find this Wikipedia page; from known model history
+scion,xb,E150,pre,2008,2010,Scion xB (E150),
+scion,xb,E150,facelift,2011,2015,Scion xB (E150),decided: checker can't find this Wikipedia page; from known model history (2011 new front)
+ford,f100,1948,single,1948,1952,Ford F-1 (1948),decided: classic car (pre-1980) = generation level only
+ford,f100,1953,single,1953,1956,Ford F-100 (1953),decided: classic car (pre-1980) = generation level only
+ford,f100,1957,single,1957,1960,Ford F-100 (1957),decided: classic car (pre-1980) = generation level only
+ford,f100,1961,single,1961,1966,Ford F-100 (1961),decided: classic car (pre-1980) = generation level only
+ford,f100,1967,single,1967,1972,Ford F-100 (1967),decided: classic car (pre-1980) = generation level only
+ford,f100,1973,single,1973,1979,Ford F-100 (1973),decided: classic car (pre-1980) = generation level only
+ford,f100,1980,single,1980,1983,Ford F-100 (1980),the F-100 name ended after 1983
+bmw,x3,E83,pre,2004,2006,BMW E83,
+bmw,x3,E83,facelift,2007,2010,BMW E83,
+bmw,x3,F25,pre,2011,2014,BMW F25,
+bmw,x3,F25,facelift,2015,2017,BMW F25,decided: Wikipedia has a 2014 LCI section (2015 model year)
+mercedes benz,e350,W211,pre,2006,2006,Mercedes-Benz type 211,the E350 name started in 2006
+mercedes benz,e350,W211,facelift,2007,2009,Mercedes-Benz type 211,decided: checker can't find this Wikipedia page; from known model history (2007 new front)
+mercedes benz,e350,W212,pre,2010,2013,Mercedes-Benz type 212,the coupe (C207) is mixed in
+mercedes benz,e350,W212,facelift,2014,2016,Mercedes-Benz type 212,
+lexus,gs300,S140,single,1993,1997,Lexus GS (S140),decided: checker can't find this Wikipedia page; from known model history
+lexus,gs300,S160,pre,1998,2000,Lexus GS (S160),
+lexus,gs300,S160,facelift,2001,2005,Lexus GS (S160),decided: checker can't find this Wikipedia page; from known model history (2001 new headlights)
+lexus,gs300,S190,single,2006,2006,Lexus GS (S190),decided: the GS300 was sold only for 2006; the 2009 refresh was the GS450h
+bmw,335i,E90/E92,pre,2007,2008,BMW E90;BMW E92;BMW E93,
+bmw,335i,E90/E92,facelift,2009,2011,BMW E90;BMW E92;BMW E93,the sedan facelift came for 2009; coupes changed for 2011. 2012-2013 skipped: E92 coupes and F30 sedans were both sold
+bmw,335i,F30,single,2014,2015,BMW F30,decided: the 2016 facelift came after the 335i became the 340i
+chevrolet,colorado,1st gen,single,2004,2012,Chevrolet Colorado (first generation),photo review: 2007/2009 grille change not visible
+chevrolet,colorado,2nd gen,pre,2015,2020,Chevrolet Colorado (second generation),
+chevrolet,colorado,2nd gen,facelift,2021,2022,Chevrolet Colorado (second generation),
+chevrolet,colorado,3rd gen,single,2023,2026,Chevrolet Colorado (third generation),
+gmc,acadia,1st gen,pre,2007,2012,GMC Acadia (first generation),
+gmc,acadia,1st gen,facelift,2013,2016,GMC Acadia (first generation),decided: checker can't find this Wikipedia page; from known model history (2013 new front)
+gmc,acadia,2nd gen,pre,2017,2019,GMC Acadia (second generation),
+gmc,acadia,2nd gen,facelift,2020,2023,GMC Acadia (second generation),decided: checker can't find this Wikipedia page; from known model history (2020 new front)
+gmc,acadia,3rd gen,single,2024,2026,GMC Acadia (third generation),decided: checker can't find this Wikipedia page; from known model history
+dodge,challenger,E-body,single,1970,1974,Dodge Challenger (E-body),decided: classic car (pre-1980) = generation level only
+dodge,challenger,Mitsubishi,single,1978,1983,Dodge Challenger (Mitsubishi-based),decided: checker can't find this Wikipedia page; from known model history
+dodge,challenger,LC,pre,2008,2014,Dodge Challenger (LC),
+dodge,challenger,LC,facelift,2015,2023,Dodge Challenger (LC),
+volkswagen,rabbit,Mk1,pre,1975,1980,Volkswagen Golf I;Volkswagen Rabbit (Type 17),
+volkswagen,rabbit,Mk1,facelift,1981,1984,Volkswagen Golf I;Volkswagen Rabbit (Type 17),photo review: 1981 facelift is visible. The Rabbit pickup is mixed in
+volkswagen,rabbit,Mk5,single,2006,2009,Volkswagen Golf V,decided: the facelift Wikipedia mentions is the wagon
+gmc,sonoma,1st gen,single,1991,1993,GMC S-15 - Sonoma,decided: checker can't find this Wikipedia page; from known model history. Before 1991 it was the S-15
+gmc,sonoma,2nd gen,pre,1994,1997,GMC Sonoma (2nd generation),
+gmc,sonoma,2nd gen,facelift,1998,2004,GMC Sonoma (2nd generation),decided: checker can't find this Wikipedia page; from known model history (same as the S-10: 1998 new front)
+ford,freestar,Freestar,single,2004,2007,Ford Freestar,
+cadillac,srx,Sigma,single,2004,2009,Cadillac SRX (Sigma),decided: checker can't find this Wikipedia page; from known model history
+cadillac,srx,Theta,pre,2010,2012,Cadillac SRX (Theta),
+cadillac,srx,Theta,facelift,2013,2016,Cadillac SRX (Theta),decided: checker can't find this Wikipedia page; from known model history (2013 new front)
+acura,rl,KA9,pre,1996,1998,Acura RL (KA9),
+acura,rl,KA9,facelift,1999,2001,Acura RL (KA9),
+acura,rl,KA9,facelift2,2002,2004,Acura RL (KA9),decided: checker can't find this Wikipedia page; from known model history (2002 new front)
+acura,rl,KB1,pre,2005,2008,Acura RL (KB1),
+acura,rl,KB1,facelift,2009,2010,Acura RL (KB2),
+acura,rl,KB1,facelift2,2011,2012,Acura RL (KB2),decided: checker can't find this Wikipedia page; from known model history (2011 new front)
+volkswagen,newbeetle,New Beetle,pre,1998,2005,Volkswagen New Beetle,
+volkswagen,newbeetle,New Beetle,facelift,2006,2010,Volkswagen New Beetle,
+volkswagen,newbeetle,A5,single,2012,2019,Volkswagen Beetle (A5),
+lexus,is300,XE10,single,2001,2005,Lexus IS (XE10),decided: checker can't find this Wikipedia page; from known model history
+nissan,titan,A60,pre,2004,2007,Nissan Titan (A60),
+nissan,titan,A60,facelift,2008,2015,Nissan Titan (A60),photo review: 2008 refresh is visible
+nissan,titan,A61,pre,2016,2019,Nissan Titan (A61),
+nissan,titan,A61,facelift,2020,2024,Nissan Titan (A61),
+buick,rendezvous,Rendezvous,single,2002,2007,Buick Rendezvous,decided: checker can't find this Wikipedia page; from known model history
+buick,lacrosse,W-body,single,2005,2009,Buick LaCrosse (W-body),decided: checker can't find this Wikipedia page; from known model history
+buick,lacrosse,Epsilon II,pre,2010,2013,Buick LaCrosse (Epsilon II),
+buick,lacrosse,Epsilon II,facelift,2014,2016,Buick LaCrosse (Epsilon II),decided: checker can't find this Wikipedia page; from known model history (2014 new front)
+buick,lacrosse,E2XX,single,2017,2019,Buick LaCrosse (E2XX),decided: checker can't find this Wikipedia page; from known model history
+bmw,323i,E36,single,1998,1998,BMW E36,the 1999 E36 323is coupes and convertibles are mixed with E46 sedans
+bmw,323i,E46,single,1999,2000,BMW E46,decided: checker can't find this Wikipedia page; from known model history
+bmw,323i,E90,single,2006,2011,BMW E90,decided: too few VMMRdb photos to be worth splitting (37)
+pontiac,vibe,1st gen,pre,2003,2004,Pontiac Vibe (first generation),
+pontiac,vibe,1st gen,facelift,2005,2008,Pontiac Vibe (first generation),photo review: 2005 update is visible
+pontiac,vibe,2nd gen,single,2009,2010,Pontiac Vibe (second generation),
+porsche,boxster,986,pre,1997,2002,Porsche 986,
+porsche,boxster,986,facelift,2003,2004,Porsche 986,
+porsche,boxster,987,pre,2005,2008,Porsche 987,
+porsche,boxster,987,facelift,2009,2012,Porsche 987,decided: checker can't find this Wikipedia page; from known model history (2009 new lights and bumpers)
+porsche,boxster,981,single,2013,2016,Porsche 981,
+porsche,boxster,982,single,2017,2026,Porsche 982,
+honda,s2000,AP1/AP2,pre,2000,2003,Honda S2000 (AP1),
+honda,s2000,AP1/AP2,facelift,2004,2009,Honda S2000 (AP2),decided: checker can't find this Wikipedia page; from known model history (2004 new bumpers and lights)
+infiniti,i30,A32,single,1996,1999,Infiniti I30 (A32),decided: the facelifts Wikipedia mentions are for other countries (the Japanese Cefiro)
+infiniti,i30,A33,single,2000,2001,Infiniti I30 (A33),decided: the facelifts Wikipedia mentions are for other countries (the Japanese Cefiro got the export bumpers). The I30 became the I35 for 2002
+ford,excursion,Excursion,pre,2000,2004,Ford Excursion (1999–2004),
+ford,excursion,Excursion,facelift,2005,2005,Ford Excursion (2004-2006),decided: Commons splits at the 2005 facelift
+chevrolet,uplander,Uplander,single,2005,2009,Chevrolet Uplander,decided: checker can't find this Wikipedia page; from known model history
+audi,s4,C4,single,1992,1994,Audi S4 C4,
+audi,s4,B5,single,2000,2002,Audi S4 B5,
+audi,s4,B6,single,2004,2005,Audi S4 B6,
+audi,s4,B7,single,2006,2008,Audi S4 B7,
+audi,s4,B8,pre,2010,2012,Audi S4 B8,
+audi,s4,B8,facelift,2013,2016,Audi S4 B8,
+audi,s4,B9,pre,2018,2019,Audi S4 (B9),
+audi,s4,B9,facelift,2020,2026,Audi S4 (B9),decided: Wikipedia says the facelift launched in 2019
+mitsubishi,outlander,1st gen,pre,2003,2004,Mitsubishi Outlander (first generation),the Outlander Sport is merged into this model by the trim rule
+mitsubishi,outlander,1st gen,facelift,2005,2006,Mitsubishi Outlander (first generation),photo review: 2005 update is visible
+mitsubishi,outlander,2nd gen,pre,2007,2009,Mitsubishi Outlander (second generation),
+mitsubishi,outlander,2nd gen,facelift,2010,2013,Mitsubishi Outlander (second generation),
+mitsubishi,outlander,3rd gen,pre,2014,2015,Mitsubishi Outlander (third generation),
+mitsubishi,outlander,3rd gen,facelift,2016,2021,Mitsubishi Outlander (third generation),decided: checker can't find this Wikipedia page; from known model history (2016 big new front)
+mitsubishi,outlander,4th gen,single,2022,2026,Mitsubishi Outlander (fourth generation),
+volkswagen,touareg,I,pre,2004,2007,Volkswagen Touareg I,
+volkswagen,touareg,I,facelift,2008,2010,Volkswagen Touareg I,decided: checker can't find this Wikipedia page; from known model history (2008 new grille and lights)
+volkswagen,touareg,II,pre,2011,2014,Volkswagen Touareg II,
+volkswagen,touareg,II,facelift,2015,2017,Volkswagen Touareg II,decided: checker can't find this Wikipedia page; from known model history (2015 new front)
