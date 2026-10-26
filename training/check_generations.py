@@ -210,6 +210,23 @@ def update_mentions(text):
     return snippets
 
 
+def missing_commons_categories(categories):
+    """
+    Return the Commons categories that don't exist (usually a typo in the table).
+
+    The API takes up to 50 titles per call, so we ask in chunks. A page that doesn't exist
+    comes back with a "missing" key.
+    """
+    categories = sorted(set(categories))
+    missing = []
+    for start in range(0, len(categories), 50):
+        chunk = categories[start:start + 50]
+        data = api_get(action="query", titles="|".join(f"Category:{c}" for c in chunk))
+        missing += [p["title"].removeprefix("Category:")
+                    for p in data["query"]["pages"].values() if "missing" in p]
+    return missing
+
+
 def mentioned_years(snippets):
     return {int(y) for s in snippets for y in YEAR.findall(s)}
 
@@ -267,6 +284,11 @@ def main():
 
     dataset_dir = project_path(load_config()["paths"]["dataset_dir"])
     max_year = load_config()["subset"]["max_year"]
+    print("Checking that every Commons category exists...")
+    for category in missing_commons_categories(
+            c for cats in table.commons_category for c in cats.split(";")):
+        print(f"  ⚠ COMMONS: no category named '{category}'")
+
     print("Counting VMMRdb photos...")
     counts = vmmrdb_year_counts(dataset_dir)
 

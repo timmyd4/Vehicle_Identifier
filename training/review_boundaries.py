@@ -190,7 +190,10 @@ def main():
     if len(sys.argv) != 2:
         sys.exit("Usage: python training/review_boundaries.py <batch>   (e.g. batch2)")
     batch = sys.argv[1]
-    questions = json.loads((REVIEW_DIR / f"{batch}_questions.json").read_text(encoding="utf-8"))
+    questions_file = REVIEW_DIR / f"{batch}_questions.json"
+    if not questions_file.exists():
+        sys.exit(f"No questions for {batch} yet ({questions_file} doesn't exist).")
+    questions = json.loads(questions_file.read_text(encoding="utf-8"))
     answers_file = REVIEW_DIR / f"{batch}_answers.json"
 
     dataset_dir = project_path(load_config()["paths"]["dataset_dir"])
