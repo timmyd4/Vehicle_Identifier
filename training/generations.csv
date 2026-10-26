@@ -556,3 +556,294 @@ bmw,325i,E46,pre,1999,2001,BMW E46,1999 is mixed: E36 and E46 were both sold as 
 bmw,325i,E46,facelift,2002,2005,BMW E46,decided: checker can't find this Wikipedia page; from known model history. The coupe got its facelift only for 2004
 bmw,325i,E90,pre,2006,2008,BMW E90,
 bmw,325i,E90,facelift,2009,2011,BMW E90,
+subaru,forester,SF,pre,1998,2000,Subaru Forester (SF),
+subaru,forester,SF,facelift,2001,2002,Subaru Forester (SF),
+subaru,forester,SG,pre,2003,2005,Subaru Forester (SG),
+subaru,forester,SG,facelift,2006,2008,Subaru Forester (SG),
+subaru,forester,SH,single,2009,2013,Subaru Forester (SH),photo review: 2011 grille change not visible
+subaru,forester,SJ,pre,2014,2016,Subaru Forester (SJ),
+subaru,forester,SJ,facelift,2017,2018,Subaru Forester (SJ),
+subaru,forester,SK,pre,2019,2021,Subaru Forester (SK),
+subaru,forester,SK,facelift,2022,2024,Subaru Forester (SK),
+subaru,forester,SL,single,2025,2026,Subaru Forester (SL),
+volkswagen,beetle,Type 1,single,1950,1979,Volkswagen Type 1,decided: classic car (pre-1980) = generation level only
+volkswagen,beetle,New Beetle,pre,1998,2005,Volkswagen New Beetle,
+volkswagen,beetle,New Beetle,facelift,2006,2010,Volkswagen New Beetle,
+volkswagen,beetle,A5,single,2012,2019,Volkswagen Beetle (A5),
+nissan,murano,Z50,single,2003,2007,Nissan Murano (Z50),"decided: Wikipedia says 2006 changed the tail lights and equipment, not the front"
+nissan,murano,Z51,pre,2009,2010,Nissan Murano (Z51),
+nissan,murano,Z51,facelift,2011,2014,Nissan Murano (Z51),decided: Wikipedia says 2011 refreshed fascias and new headlights
+nissan,murano,Z52,pre,2015,2018,Nissan Murano (Z52),
+nissan,murano,Z52,facelift,2019,2024,Nissan Murano (Z52),
+nissan,murano,Z53,single,2025,2026,Nissan Murano (Z53),
+toyota,rav4,XA10,single,1996,2000,Toyota RAV4 (XA10),photo review: 1998 facelift not visible
+toyota,rav4,XA20,pre,2001,2003,Toyota RAV4 (XA20),
+toyota,rav4,XA20,facelift,2004,2005,Toyota RAV4 (XA20),
+toyota,rav4,XA30,pre,2006,2008,Toyota RAV4 (XA30),
+toyota,rav4,XA30,facelift,2009,2012,Toyota RAV4 (XA30),
+toyota,rav4,XA40,pre,2013,2015,Toyota RAV4 (XA40),
+toyota,rav4,XA40,facelift,2016,2018,Toyota RAV4 (XA40),
+toyota,rav4,XA50,single,2019,2025,Toyota RAV4 (XA50),decided: the 2021/2022 updates were small or for other countries
+toyota,rav4,XA60,single,2026,2026,Toyota RAV4 (XA60),
+bmw,x5,E53,pre,2000,2003,BMW E53,
+bmw,x5,E53,facelift,2004,2006,BMW E53,
+bmw,x5,E70,pre,2007,2010,BMW E70,
+bmw,x5,E70,facelift,2011,2013,BMW E70,
+bmw,x5,F15,single,2014,2018,BMW F15,
+bmw,x5,G05,pre,2019,2023,BMW G05,
+bmw,x5,G05,facelift,2024,2026,BMW G05,
+dodge,neon,1st gen,single,1995,1999,Dodge Neon (first generation),
+dodge,neon,2nd gen,pre,2000,2002,Dodge Neon (second generation),
+dodge,neon,2nd gen,facelift,2003,2005,Dodge Neon (second generation),
+cadillac,escalade,GMT435,single,1999,2000,Cadillac Escalade (GMT435),decided: checker can't find this Wikipedia page; from known model history
+cadillac,escalade,GMT820,single,2002,2006,Cadillac Escalade (GMT820),decided: checker can't find this Wikipedia page; from known model history
+cadillac,escalade,GMT926,single,2007,2014,Cadillac Escalade (GMT926),decided: checker can't find this Wikipedia page; from known model history
+cadillac,escalade,K2UL,single,2015,2020,Cadillac Escalade (GMTK2UL),decided: checker can't find this Wikipedia page; from known model history
+cadillac,escalade,T1UL,pre,2021,2024,Cadillac Escalade (GMTT1UL),
+cadillac,escalade,T1UL,facelift,2025,2026,Cadillac Escalade (GMTT1UL),decided: checker can't find this Wikipedia page; from known model history (2025 refresh)
+gmc,envoy,Jimmy Envoy,single,1998,2000,GMC Jimmy Envoy,decided: checker can't find this Wikipedia page; from known model history
+gmc,envoy,GMT360,single,2002,2009,GMC Envoy (GMT360),decided: checker can't find this Wikipedia page; from known model history
+hyundai,accent,X3,single,1995,1999,Hyundai Accent (X3),decided: too few VMMRdb photos to be worth splitting (25)
+hyundai,accent,LC,pre,2000,2002,Hyundai Accent (LC),
+hyundai,accent,LC,facelift,2003,2005,Hyundai Accent (LC),
+hyundai,accent,MC,single,2006,2011,Hyundai Accent (MC),
+hyundai,accent,RB,single,2012,2017,Hyundai Accent (RB),decided: the facelifts Wikipedia mentions are for other countries
+hyundai,accent,HC,single,2018,2022,Hyundai Accent (HC),decided: the facelifts Wikipedia mentions are for other countries
+nissan,versa,C11,single,2007,2011,Nissan Versa (C11),decided: checker can't find this Wikipedia page; from known model history
+nissan,versa,N17,pre,2012,2014,Nissan Versa (N17),the Versa Note hatchback (2014-2019) is a separate Commons category and may be mixed into VMMRdb
+nissan,versa,N17,facelift,2015,2019,Nissan Versa (N17),decided: checker can't find this Wikipedia page; from known model history (2015 new front)
+nissan,versa,N18,pre,2020,2022,Nissan Versa (N18),
+nissan,versa,N18,facelift,2023,2026,Nissan Versa (N18),decided: checker can't find this Wikipedia page; from known model history (2023 new front)
+acura,mdx,1st gen,pre,2001,2003,Acura MDX (1st generation),
+acura,mdx,1st gen,facelift,2004,2006,Acura MDX (1st generation),decided: checker can't find this Wikipedia page; from known model history
+acura,mdx,2nd gen,pre,2007,2009,Acura MDX (2nd generation),
+acura,mdx,2nd gen,facelift,2010,2013,Acura MDX (2nd generation),decided: checker can't find this Wikipedia page; from known model history
+acura,mdx,3rd gen,pre,2014,2016,Acura MDX (3rd generation),
+acura,mdx,3rd gen,facelift,2017,2020,Acura MDX (3rd generation),decided: checker can't find this Wikipedia page; from known model history
+acura,mdx,4th gen,pre,2022,2024,Acura MDX (4th generation),
+acura,mdx,4th gen,facelift,2025,2026,Acura MDX (4th generation),decided: checker can't find this Wikipedia page; from known model history
+dodge,dakota,1st gen,pre,1987,1990,Dodge Dakota (first generation),
+dodge,dakota,1st gen,facelift,1991,1996,Dodge Dakota (first generation),photo review: 1991 new front is visible
+dodge,dakota,2nd gen,single,1997,2004,Dodge Dakota (second generation),
+dodge,dakota,3rd gen,pre,2005,2007,Dodge Dakota (third generation),
+dodge,dakota,3rd gen,facelift,2008,2011,Dodge Dakota (third generation),
+cadillac,deville,1950-1953,single,1950,1953,1950-1953 Cadillac DeVille,decided: classic car (pre-1980) = generation level only
+cadillac,deville,1954-1956,single,1954,1956,1954-1956 Cadillac DeVille,decided: classic car (pre-1980) = generation level only
+cadillac,deville,1957-1958,single,1957,1958,1957-1958 Cadillac DeVille,decided: classic car (pre-1980) = generation level only
+cadillac,deville,1959-1960,single,1959,1960,1959-1960 Cadillac DeVille,decided: classic car (pre-1980) = generation level only
+cadillac,deville,1961-1964,single,1961,1964,1961-1964 Cadillac DeVille,decided: classic car (pre-1980) = generation level only
+cadillac,deville,1965-1970,single,1965,1970,1965-1970 Cadillac DeVille,decided: classic car (pre-1980) = generation level only
+cadillac,deville,1971-1976,single,1971,1976,1971-1976 Cadillac DeVille,decided: classic car (pre-1980) = generation level only
+cadillac,deville,1977-1984,single,1977,1984,1977-1984 Cadillac DeVille,decided: mostly pre-1980; generation level only
+cadillac,deville,C-body,pre,1985,1988,1985-1993 Cadillac DeVille (C-body FWD),
+cadillac,deville,C-body,facelift,1989,1993,1985-1993 Cadillac DeVille (C-body FWD),photo review: 1989 restyle is visible
+cadillac,deville,K-body,pre,1994,1996,1994-1999 Cadillac DeVille (K-body),
+cadillac,deville,K-body,facelift,1997,1999,1994-1999 Cadillac DeVille (K-body),photo review: 1997 update is visible
+cadillac,deville,G platform,single,2000,2005,2000-2005 Cadillac DeVille (G platform),decided: checker can't find this Wikipedia page; from known model history
+cadillac,deville,DTS,single,2006,2011,Cadillac DTS,the DeVille was renamed DTS for 2006
+honda,pilot,1st gen,pre,2003,2005,Honda Pilot (first generation),
+honda,pilot,1st gen,facelift,2006,2008,Honda Pilot (first generation),
+honda,pilot,2nd gen,pre,2009,2011,Honda Pilot (second generation),
+honda,pilot,2nd gen,facelift,2012,2015,Honda Pilot (second generation),
+honda,pilot,3rd gen,pre,2016,2018,Honda Pilot (third generation),
+honda,pilot,3rd gen,facelift,2019,2022,Honda Pilot (third generation),
+honda,pilot,4th gen,pre,2023,2025,Honda Pilot (fourth generation),
+honda,pilot,4th gen,facelift,2026,2026,Honda Pilot (fourth generation),decided: Wikipedia says refreshed for the 2026 model year
+toyota,avalon,XX10,pre,1995,1997,Toyota Avalon (XX10),
+toyota,avalon,XX10,facelift,1998,1999,Toyota Avalon (XX10),
+toyota,avalon,XX20,pre,2000,2002,Toyota Avalon (XX20),
+toyota,avalon,XX20,facelift,2003,2004,Toyota Avalon (XX20),
+toyota,avalon,XX30,pre,2005,2007,Toyota Avalon (XX30),
+toyota,avalon,XX30,facelift,2008,2010,Toyota Avalon (XX30),
+toyota,avalon,XX30,facelift2,2011,2012,Toyota Avalon (XX30),
+toyota,avalon,XX40,pre,2013,2015,Toyota Avalon (XX40),
+toyota,avalon,XX40,facelift,2016,2018,Toyota Avalon (XX40),
+toyota,avalon,XX50,single,2019,2022,Toyota Avalon (XX50),decided: the US Avalon ended in 2022; later facelifts were China-only
+mitsubishi,galant,6th gen,single,1989,1993,Mitsubishi Galant (6th generation),decided: too few VMMRdb photos to be worth splitting (5)
+mitsubishi,galant,7th gen,pre,1994,1995,Mitsubishi Galant (7th generation),
+mitsubishi,galant,7th gen,facelift,1996,1998,Mitsubishi Galant (7th generation),decided: Wikipedia says new front bumper for the 1996 model year
+mitsubishi,galant,8th gen,pre,1999,2001,Mitsubishi Galant (8th generation),
+mitsubishi,galant,8th gen,facelift,2002,2003,Mitsubishi Galant (8th generation),photo review: 2002 facelift is visible
+mitsubishi,galant,9th gen,pre,2004,2008,Mitsubishi Galant (9th generation),decided: Wikipedia says the 2006 changes were the interior
+mitsubishi,galant,9th gen,facelift,2009,2012,Mitsubishi Galant (9th generation),decided: Wikipedia says the facelift returned for 2009
+cadillac,cts,1st gen,single,2003,2007,Cadillac CTS (1st generation),decided: checker can't find this Wikipedia page; from known model history
+cadillac,cts,2nd gen,single,2008,2013,Cadillac CTS (2nd generation),decided: checker can't find this Wikipedia page; from known model history
+cadillac,cts,3rd gen,single,2014,2019,Cadillac CTS (3rd generation),decided: checker can't find this Wikipedia page; from known model history
+pontiac,g6,G6,single,2005,2010,Pontiac G6,photo review: 2009 update not visible
+nissan,xterra,WD22,pre,2000,2001,Nissan Xterra (WD22),
+nissan,xterra,WD22,facelift,2002,2004,Nissan Xterra (WD22),
+nissan,xterra,N50,pre,2005,2008,Nissan Xterra (N50),
+nissan,xterra,N50,facelift,2009,2015,Nissan Xterra (N50),decided: Wikipedia has a 2009 facelift section
+mazda,3,BK,single,2004,2009,Mazda3 (BK),photo review: 2007 update not visible
+mazda,3,BL,single,2010,2013,Mazda3 (BL),
+mazda,3,BM,pre,2014,2016,Mazda3 (BM),
+mazda,3,BM,facelift,2017,2018,Mazda3 (BN),decided: Commons files the facelift (BN) separately
+mazda,3,BP,single,2019,2026,Mazda3 (BP),"decided: the 2023 changes were trim levels, not looks"
+chrysler,pacifica,CS,pre,2004,2006,Chrysler Pacifica (CS),
+chrysler,pacifica,CS,facelift,2007,2008,Chrysler Pacifica (CS),decided: checker can't find this Wikipedia page; from known model history (2007 new front)
+chrysler,pacifica,RU,pre,2017,2020,Chrysler Pacifica (RU),
+chrysler,pacifica,RU,facelift,2021,2026,Chrysler Pacifica (RU),
+mazda,6,GG,single,2003,2008,Mazda6 (GG),photo review: 2006 facelift not visible
+mazda,6,GH,single,2009,2013,Mazda6 (GH),
+mazda,6,GJ/GL,pre,2014,2017,Mazda6 (GJ/GL),
+mazda,6,GJ/GL,facelift,2018,2021,Mazda6 (GJ/GL),decided: checker can't find this Wikipedia page; from known model history (2018 new front)
+pontiac,grandam,1st gen,single,1973,1975,Pontiac Grand Am (A-body),decided: classic car (pre-1980) = generation level only
+pontiac,grandam,2nd gen,single,1978,1980,Pontiac Grand Am (A/G-body),decided: classic car (pre-1980) = generation level only
+pontiac,grandam,3rd gen,single,1985,1991,Pontiac Grand Am (N-body),decided: too few VMMRdb photos to be worth splitting (8)
+pontiac,grandam,4th gen,pre,1992,1995,Pontiac Grand Am (N-body),
+pontiac,grandam,4th gen,facelift,1996,1998,Pontiac Grand Am (N-body),photo review: 1996 update is visible
+pontiac,grandam,5th gen,single,1999,2005,Pontiac Grand Am (N-body),decided: checker can't find this Wikipedia page; from known model history
+subaru,impreza,1st gen,pre,1993,1996,Subaru Impreza (first generation),
+subaru,impreza,1st gen,facelift,1997,2001,Subaru Impreza (first generation),photo review: 1997 new front is visible
+subaru,impreza,2nd gen,pre,2002,2003,Subaru Impreza (second generation),round headlights ("bug eye")
+subaru,impreza,2nd gen,facelift,2004,2005,Subaru Impreza (second generation),
+subaru,impreza,2nd gen,facelift2,2006,2007,Subaru Impreza (second generation),
+subaru,impreza,3rd gen,pre,2008,2009,Subaru Impreza (third generation),
+subaru,impreza,3rd gen,facelift,2010,2011,Subaru Impreza (third generation),photo review: 2010 grille change is visible
+subaru,impreza,4th gen,single,2012,2016,Subaru Impreza (fourth generation),
+subaru,impreza,5th gen,single,2017,2023,Subaru Impreza (fifth generation),
+subaru,impreza,6th gen,single,2024,2026,Subaru Impreza (sixth generation),
+bmw,328i,E36,single,1992,1998,BMW E36,same generations as the 325i
+bmw,328i,E46,pre,1999,2001,BMW E46,1999 is mixed: E36 and E46 were both sold as 1999 models
+bmw,328i,E46,facelift,2002,2005,BMW E46,decided: checker can't find this Wikipedia page; from known model history. The coupe got its facelift only for 2004
+bmw,328i,E90,pre,2006,2008,BMW E90;BMW E92;BMW E93,E92/E93 = coupe and convertible
+bmw,328i,E90,facelift,2009,2011,BMW E90;BMW E92;BMW E93,
+bmw,328i,F30,pre,2012,2015,BMW F30,
+bmw,328i,F30,facelift,2016,2018,BMW F30,decided: Wikipedia has a 2015 LCI facelift section (2016 US models)
+bmw,328i,G20,pre,2019,2022,BMW G20,
+bmw,328i,G20,facelift,2023,2026,BMW G20,
+kia,sedona,1st gen,single,2002,2005,Kia Carnival (KV-Ⅱ),decided: the Korean facelift happened before US sales began
+kia,sedona,2nd gen,pre,2006,2010,Kia Carnival (VQ),
+kia,sedona,2nd gen,facelift,2011,2014,Kia Carnival (VQ),decided: Wikipedia shows a 2011 US facelift
+kia,sedona,3rd gen,pre,2015,2018,Kia Carnival (YP),
+kia,sedona,3rd gen,facelift,2019,2021,Kia Carnival (YP),
+kia,sedona,Carnival,single,2022,2026,Kia Carnival (KA4),decided: checker can't find this Wikipedia page; from known model history
+mercury,mountaineer,1st gen,single,1997,2001,Mercury Mountaineer (first generation),photo review: 1999 update not visible
+mercury,mountaineer,2nd gen,single,2002,2005,Mercury Mountaineer (second generation),
+mercury,mountaineer,3rd gen,single,2006,2010,Mercury Mountaineer (third generation),
+audi,a6,C4,single,1995,1997,Audi A6 C4,decided: too few VMMRdb photos to be worth splitting (17); the facelift Wikipedia mentions is the Audi 100 becoming the A6
+audi,a6,C5,pre,1998,2001,Audi A6 C5,
+audi,a6,C5,facelift,2002,2004,Audi A6 C5,
+audi,a6,C6,pre,2005,2008,Audi A6 C6,
+audi,a6,C6,facelift,2009,2011,Audi A6 C6,
+audi,a6,C7,pre,2012,2015,Audi A6 C7,
+audi,a6,C7,facelift,2016,2018,Audi A6 C7,decided: Wikipedia has a C7 facelift section (2016 US models)
+audi,a6,C8,single,2019,2025,Audi A6 C8,
+audi,a6,C9,single,2026,2026,Audi A6 C9,
+scion,tc,AT10,pre,2005,2007,Scion tC (AT10),
+scion,tc,AT10,facelift,2008,2010,Scion tC (AT10),decided: checker can't find this Wikipedia page; from known model history
+scion,tc,AT20,pre,2011,2013,Scion tC (AT20),
+scion,tc,AT20,facelift,2014,2016,Scion tC (AT20),decided: checker can't find this Wikipedia page; from known model history
+mercury,grandmarquis,1975,single,1975,1978,Mercury Grand Marquis (1975),decided: classic car (pre-1980) = generation level only
+mercury,grandmarquis,1983,single,1983,1987,Mercury Grand Marquis (1983),decided: Commons splits the Panther years like this
+mercury,grandmarquis,1988,single,1988,1991,Mercury Grand Marquis (1988),decided: Commons splits the Panther years like this
+mercury,grandmarquis,1992,single,1992,1997,Mercury Grand Marquis (1992),decided: Commons splits the Panther years like this
+mercury,grandmarquis,1998,single,1998,2002,Mercury Grand Marquis (1998),decided: Commons splits the Panther years like this
+mercury,grandmarquis,2003,single,2003,2011,Mercury Grand Marquis (2003),decided: Commons splits the Panther years like this
+chevrolet,equinox,1st gen,single,2005,2009,Chevrolet Equinox (first generation),
+chevrolet,equinox,2nd gen,pre,2010,2015,Chevrolet Equinox (second generation),
+chevrolet,equinox,2nd gen,facelift,2016,2017,Chevrolet Equinox (second generation),
+chevrolet,equinox,3rd gen,pre,2018,2021,Chevrolet Equinox (third generation),
+chevrolet,equinox,3rd gen,facelift,2022,2024,Chevrolet Equinox (third generation),
+chevrolet,equinox,4th gen,single,2025,2026,Chevrolet Equinox (fourth generation),
+lincoln,towncar,Continental Town Car,single,1973,1980,Lincoln Continental Town Car,decided: classic car (pre-1980) = generation level only
+lincoln,towncar,1981,single,1981,1989,Lincoln Town Car (1981),decided: 1985 update was small and there are only 59 VMMRdb photos
+lincoln,towncar,1990,pre,1990,1994,Lincoln Town Car (1990),
+lincoln,towncar,1990,facelift,1995,1997,Lincoln Town Car (1990),photo review: 1995 update is visible
+lincoln,towncar,1998,single,1998,2002,Lincoln Town Car (1998),decided: the 2003 change was a new generation (already its own row)
+lincoln,towncar,2003,single,2003,2011,Lincoln Town Car (2003),decided: checker can't find this Wikipedia page; from known model history
+toyota,tundra,1st gen,pre,2000,2002,Toyota Tundra (XK30/XK40),
+toyota,tundra,1st gen,facelift,2003,2006,Toyota Tundra (XK30/XK40),photo review: 2003 update is visible
+toyota,tundra,2nd gen,pre,2007,2013,Toyota Tundra (XK50),
+toyota,tundra,2nd gen,facelift,2014,2021,Toyota Tundra (XK50),decided: checker can't find this Wikipedia page; from known model history (2014 new front)
+toyota,tundra,3rd gen,single,2022,2026,Toyota Tundra (XK70),decided: Wikipedia's facelift is for 2027 models
+chevrolet,montecarlo,1st gen,single,1970,1972,Chevrolet Monte Carlo (A-body),decided: classic car (pre-1980) = generation level only
+chevrolet,montecarlo,2nd gen,single,1973,1977,Chevrolet Monte Carlo (A-body),decided: classic car (pre-1980) = generation level only
+chevrolet,montecarlo,3rd gen,single,1978,1980,Chevrolet Monte Carlo (A/G-body),decided: classic car (pre-1980) = generation level only
+chevrolet,montecarlo,4th gen,single,1981,1988,Chevrolet Monte Carlo (G-body),decided: checker can't find this Wikipedia page; from known model history
+chevrolet,montecarlo,5th gen,single,1995,1999,Chevrolet Monte Carlo (W-body),decided: checker can't find this Wikipedia page; from known model history
+chevrolet,montecarlo,6th gen,pre,2000,2005,Chevrolet Monte Carlo (W-body),
+chevrolet,montecarlo,6th gen,facelift,2006,2007,Chevrolet Monte Carlo (W-body),photo review: 2006 new front is visible
+kia,optima,MS,pre,2001,2003,Kia Optima (MS),
+kia,optima,MS,facelift,2004,2006,Kia Optima (MS),photo review: 2004 update is visible
+kia,optima,MG,pre,2007,2008,Kia Optima (MG),
+kia,optima,MG,facelift,2009,2010,Kia Optima (MG),decided: checker can't find this Wikipedia page; from known model history (2009 new grille)
+kia,optima,TF,pre,2011,2013,Kia Optima (TF),
+kia,optima,TF,facelift,2014,2015,Kia Optima (TF),
+kia,optima,JF,pre,2016,2018,Kia Optima (JF),
+kia,optima,JF,facelift,2019,2020,Kia Optima (JF),
+kia,optima,K5,pre,2021,2024,Kia K5,the Optima was renamed K5 in the US for 2021
+kia,optima,K5,facelift,2025,2026,Kia K5,decided: checker can't find this Wikipedia page; from known model history (2025 refresh)
+mitsubishi,lancer,CS,pre,2002,2003,Mitsubishi Lancer (2000),
+mitsubishi,lancer,CS,facelift,2004,2007,Mitsubishi Lancer (2000),decided: checker can't find this Wikipedia page; from known model history (2004 new front; 2005 marker lights are a small change)
+mitsubishi,lancer,CY0,single,2008,2017,Mitsubishi Lancer CY0,decided: checker can't find this Wikipedia page; from known model history
+lincoln,navigator,1st gen,single,1998,2002,Lincoln Navigator (first generation),
+lincoln,navigator,2nd gen,single,2003,2006,Lincoln Navigator (second generation),decided: 2005 changes were small
+lincoln,navigator,3rd gen,pre,2007,2014,Lincoln Navigator (third generation),
+lincoln,navigator,3rd gen,facelift,2015,2017,Lincoln Navigator (third generation),
+lincoln,navigator,4th gen,pre,2018,2021,Lincoln Navigator (fourth generation),
+lincoln,navigator,4th gen,facelift,2022,2024,Lincoln Navigator (fourth generation),
+lincoln,navigator,5th gen,single,2025,2026,Lincoln Navigator (fifth generation),
+volkswagen,gti,Golf I,single,1983,1984,Volkswagen Golf I GTI,decided: checker can't find this Wikipedia page; from known model history
+volkswagen,gti,Golf II,single,1985,1992,Volkswagen Golf II GTI,decided: checker can't find this Wikipedia page; from known model history
+volkswagen,gti,Golf III,single,1995,1998,Volkswagen Golf III GTI,decided: checker can't find this Wikipedia page; from known model history
+volkswagen,gti,Golf IV,single,1999,2005,Volkswagen Golf IV GTI,decided: checker can't find this Wikipedia page; from known model history
+volkswagen,gti,Golf V,single,2006,2009,Volkswagen Golf V GTI,decided: checker can't find this Wikipedia page; from known model history
+volkswagen,gti,Golf VI,single,2010,2014,Volkswagen Golf VI GTI,decided: checker can't find this Wikipedia page; from known model history
+volkswagen,gti,Golf VII,single,2015,2021,Volkswagen Golf VII GTI,decided: checker can't find this Wikipedia page; from known model history
+volkswagen,gti,Golf VIII,single,2022,2026,Volkswagen Golf VIII GTI,decided: checker can't find this Wikipedia page; from known model history
+toyota,sequoia,1st gen,pre,2001,2004,Toyota Sequoia (XK30/XK40),
+toyota,sequoia,1st gen,facelift,2005,2007,Toyota Sequoia (XK30/XK40),
+toyota,sequoia,2nd gen,pre,2008,2017,Toyota Sequoia (XK60),
+toyota,sequoia,2nd gen,facelift,2018,2022,Toyota Sequoia (XK60),
+toyota,sequoia,3rd gen,single,2023,2026,Toyota Sequoia (XK80),decided: Wikipedia's facelift is for 2027 models
+hyundai,santafe,SM,pre,2001,2004,Hyundai Santa Fe (SM),
+hyundai,santafe,SM,facelift,2005,2006,Hyundai Santa Fe (SM),decided: checker can't find this Wikipedia page; from known model history
+hyundai,santafe,CM,pre,2007,2009,Hyundai Santa Fe (CM),
+hyundai,santafe,CM,facelift,2010,2012,Hyundai Santa Fe (CM),decided: checker can't find this Wikipedia page; from known model history
+hyundai,santafe,DM,pre,2013,2016,Hyundai Santa Fe (DM),
+hyundai,santafe,DM,facelift,2017,2018,Hyundai Santa Fe (DM),decided: checker can't find this Wikipedia page; from known model history
+hyundai,santafe,TM,pre,2019,2020,Hyundai Santa Fe (TM),
+hyundai,santafe,TM,facelift,2021,2023,Hyundai Santa Fe (TM),decided: checker can't find this Wikipedia page; from known model history
+hyundai,santafe,MX5,single,2024,2026,Hyundai Santa Fe (MX5),decided: checker can't find this Wikipedia page; from known model history
+kia,sorento,BL,pre,2003,2006,Kia Sorento (BL),
+kia,sorento,BL,facelift,2007,2009,Kia Sorento (BL),
+kia,sorento,XM,pre,2011,2013,Kia Sorento (XM),
+kia,sorento,XM,facelift,2014,2015,Kia Sorento (XM),
+kia,sorento,UM,pre,2016,2018,Kia Sorento (UM),
+kia,sorento,UM,facelift,2019,2020,Kia Sorento (UM),decided: Wikipedia has a 2017 facelift section (2019 US models)
+kia,sorento,MQ4,pre,2021,2023,Kia Sorento (MQ4),
+kia,sorento,MQ4,facelift,2024,2026,Kia Sorento (MQ4),
+chevrolet,aveo,T200,single,2004,2006,Chevrolet Aveo (T200),decided: the facelifts Wikipedia mentions are for other countries
+chevrolet,aveo,T250,single,2007,2011,Chevrolet Aveo (T250),decided: checker can't find this Wikipedia page; from known model history
+saturn,vue,1st gen,pre,2002,2005,Saturn VUE (first generation),
+saturn,vue,1st gen,facelift,2006,2007,Saturn VUE (first generation),
+saturn,vue,2nd gen,single,2008,2010,Saturn VUE (second generation),
+ford,crown victoria,1955,single,1955,1955,Ford Crown Victoria (1955),decided: classic car (pre-1980) = generation level only
+ford,crown victoria,1956,single,1956,1956,Ford Crown Victoria (1956),decided: classic car (pre-1980) = generation level only
+ford,crown victoria,LTD Crown Victoria,single,1983,1991,Ford LTD Crown Victoria,decided: too few VMMRdb photos to be worth splitting (20)
+ford,crown victoria,1992,pre,1992,1994,Ford Crown Victoria (1992),
+ford,crown victoria,1992,facelift,1995,1997,Ford Crown Victoria (1992),photo review: 1995 update is visible
+ford,crown victoria,1998,single,1998,2011,Ford Crown Victoria (1998),
+chevrolet,hhr,HHR,single,2006,2011,Chevrolet HHR,
+ford,bronco,1st gen,single,1966,1977,Ford Bronco (1st generation),decided: classic car (pre-1980) = generation level only
+ford,bronco,2nd gen,single,1978,1979,Ford Bronco (2nd generation),decided: classic car (pre-1980) = generation level only
+ford,bronco,3rd gen,single,1980,1986,Ford Bronco (3rd generation),decided: 1982 only swapped the hood lettering for the Ford oval
+ford,bronco,4th gen,single,1987,1991,Ford Bronco (4th generation),
+ford,bronco,5th gen,single,1992,1996,Ford Bronco (5th generation),
+ford,bronco,6th gen,single,2021,2026,Ford Bronco (6th generation),decided: the facelifts Wikipedia mentions are older generations
+acura,integra,1st gen,single,1986,1989,Acura Integra DA1 DA3,decided: too few VMMRdb photos to be worth splitting (11)
+acura,integra,2nd gen,single,1990,1993,Acura Integra DA9/DB1/DB2/DA5,photo review: 1992 facelift not visible
+acura,integra,3rd gen,pre,1994,1997,Acura Integra DC1/DC2/DC4,
+acura,integra,3rd gen,facelift,1998,2001,Acura Integra DC1/DC2/DC4,decided: Wikipedia says new front bumper from 1998 outside Japan
+acura,integra,5th gen,single,2023,2026,Acura Integra DE4,
+nissan,350z,Z33,single,2003,2009,Nissan 350Z,photo review: 2006 update not visible
+kia,spectra,1st gen,single,2000,2003,Kia Spectra (S-II),decided: Wikipedia calls the 2001 facelift slight
+kia,spectra,LD,single,2004,2009,Kia Spectra (LD),decided: checker can't find this Wikipedia page; from known model history
+mazda,mx5_miata,NA,single,1990,1997,Mazda MX-5 (NA),
+mazda,mx5_miata,NB,pre,1999,2000,Mazda MX-5 (NB),
+mazda,mx5_miata,NB,facelift,2001,2005,Mazda MX-5 (NB),
+mazda,mx5_miata,NC,pre,2006,2008,Mazda MX-5 (NC),
+mazda,mx5_miata,NC,facelift,2009,2012,Mazda MX-5 (NC),decided: Wikipedia has a 2009 facelift (NC2) section
+mazda,mx5_miata,NC,facelift2,2013,2015,Mazda MX-5 (NC),decided: checker can't find this Wikipedia page; from known model history (2013 new front bumper)
+mazda,mx5_miata,ND,single,2016,2026,Mazda MX-5 (ND),decided: checker can't find this Wikipedia page; from known model history
