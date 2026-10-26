@@ -1,0 +1,86 @@
+# Car generations: the labels we train on (make + model + generation + facelift phase).
+#
+# One row = one "look" of a car: a generation, or one half of a generation when a facelift
+# changed the front. Scripts use this table to:
+#   - label VMMRdb photos: folder toyota_highlander_2015 -> 2015 falls in XU50 pre -> that label
+#   - know which Wikimedia Commons category holds photos of each generation
+#   - label Commons photos by date: a photo taken before a facelift's first model year minus 1
+#     can't show the facelift (2017 models went on sale in 2016, so "before 2016" is safe)
+#
+# Columns:
+#   make, model       spelled like VMMRdb folders (lowercase). Trims and body styles like
+#                     corolla_s or civic_coupe are merged into the base model, so only base models here.
+#   generation        the usual name (chassis code like XU50, or "10th gen" when there's no code)
+#   phase             pre = before the facelift, facelift = after it, facelift2/3 = later facelifts,
+#                     single = no facelift we care about
+#   first_year,       US MODEL years (what's on the title, not the calendar year it went on sale).
+#   last_year         Current generations end at 2026 for now. Years no row covers aren't trained on.
+#   commons_category  where Wikimedia Commons keeps this generation's photos; several are separated
+#                     by ";". When pre and facelift rows share one category, those photos need the
+#                     photo-date rule or hand labeling.
+#   notes             anything uncertain. "CHECK" = I'm not sure, verify against Wikipedia.
+#
+# Lines starting with # are comments; scripts read this file with pandas.read_csv(comment="#").
+make,model,generation,phase,first_year,last_year,commons_category,notes
+toyota,highlander,XU20,single,2001,2007,Toyota Highlander (XU20),photo review: 2004 update not visible
+toyota,highlander,XU40,pre,2008,2010,Toyota Highlander (XU40),
+toyota,highlander,XU40,facelift,2011,2013,Toyota Highlander (XU40),
+toyota,highlander,XU50,pre,2014,2016,Toyota Highlander (XU50),
+toyota,highlander,XU50,facelift,2017,2019,Toyota Highlander (XU50),
+toyota,highlander,XU70,single,2020,2026,Toyota Highlander (XU70),2023 update was mostly engine/interior; treated as one look
+toyota,corolla,E80,single,1984,1987,Toyota Corolla (E80),photo review: 1985 facelift not visible on US cars
+toyota,corolla,E90,pre,1988,1989,Toyota Corolla (E90),
+toyota,corolla,E90,facelift,1990,1992,Toyota Corolla (E90),photo review: 1989 facelift is visible (larger bumpers)
+toyota,corolla,E100,single,1993,1997,Toyota Corolla (E100),photo review: 1996 facelift not visible
+toyota,corolla,E110,pre,1998,2000,Toyota Corolla (E110),
+toyota,corolla,E110,facelift,2001,2002,Toyota Corolla (E110),
+toyota,corolla,E130,pre,2003,2004,Toyota Corolla (E120),US car is E130; Commons files it under E120 with the world version
+toyota,corolla,E130,facelift,2005,2008,Toyota Corolla (E120),
+toyota,corolla,E140,pre,2009,2010,Toyota Corolla (E140),
+toyota,corolla,E140,facelift,2011,2013,Toyota Corolla (E140),
+toyota,corolla,E170,pre,2014,2016,Toyota Corolla (E170),
+toyota,corolla,E170,facelift,2017,2019,Toyota Corolla (E170),
+toyota,corolla,E210,single,2020,2026,Toyota Corolla (E210),sedan; the hatchback started a year earlier (2019). Photo review: 2023 update not visible
+honda,civic,4th gen,single,1988,1991,Honda Civic (1987),Commons names Civic generations by launch year. Photo review: 1990 refresh not visible
+honda,civic,5th gen,single,1992,1995,Honda Civic (1991),
+honda,civic,6th gen,pre,1996,1998,Honda Civic (1995),
+honda,civic,6th gen,facelift,1999,2000,Honda Civic (1995),
+honda,civic,7th gen,pre,2001,2003,Honda Civic (2000),
+honda,civic,7th gen,facelift,2004,2005,Honda Civic (2000),
+honda,civic,8th gen,pre,2006,2008,Honda Civic (2005),
+honda,civic,8th gen,facelift,2009,2011,Honda Civic (2005),
+honda,civic,9th gen,pre,2012,2012,Honda Civic (2011),sedan was refreshed for 2013 but the coupe only for 2014
+honda,civic,9th gen,facelift,2013,2015,Honda Civic (2011),2013 coupe still has the old face: VMMRdb civic_coupe 2013 photos count as pre
+honda,civic,10th gen,pre,2016,2018,Honda Civic (2015),
+honda,civic,10th gen,facelift,2019,2021,Honda Civic (2015),
+honda,civic,11th gen,pre,2022,2024,Honda Civic (2021),
+honda,civic,11th gen,facelift,2025,2026,Honda Civic (2021),
+toyota,camry,V20,single,1987,1991,Toyota Camry (V20),
+toyota,camry,XV10,pre,1992,1994,Toyota Camry (XV10),
+toyota,camry,XV10,facelift,1995,1996,Toyota Camry (XV10),
+toyota,camry,XV20,pre,1997,1999,Toyota Camry (XV20),
+toyota,camry,XV20,facelift,2000,2001,Toyota Camry (XV20),
+toyota,camry,XV30,pre,2002,2004,Toyota Camry (XV30),
+toyota,camry,XV30,facelift,2005,2006,Toyota Camry (XV30),
+toyota,camry,XV40,pre,2007,2009,Toyota Camry (XV40),
+toyota,camry,XV40,facelift,2010,2011,Toyota Camry (XV40),
+toyota,camry,XV50,pre,2012,2014,Toyota Camry (XV50),
+toyota,camry,XV50,facelift,2015,2017,Toyota Camry (XV50),big facelift: almost every body panel changed
+toyota,camry,XV70,pre,2018,2020,Toyota Camry (XV70),
+toyota,camry,XV70,facelift,2021,2024,Toyota Camry (XV70),
+toyota,camry,XV80,single,2025,2026,Toyota Camry (XV80),
+ford,mustang,1st gen,pre,1964,1966,Ford Mustang (1964–1966),the first cars were sold as 1964½ models; classic Mustangs changed looks about every 2 years
+ford,mustang,1st gen,facelift,1967,1968,1967 Ford Mustang;1968 Ford Mustang,
+ford,mustang,1st gen,facelift2,1969,1970,1969 Ford Mustang;1970 Ford Mustang,
+ford,mustang,1st gen,facelift3,1971,1973,Ford Mustang (1971-1973),
+ford,mustang,Mustang II,single,1974,1978,Ford Mustang II,
+ford,mustang,Fox,pre,1979,1986,Ford Mustang (1979-1986),the 1985 restyle was smaller (new nose); Commons splits at 1987 too
+ford,mustang,Fox,facelift,1987,1993,Ford Mustang (1987-1993),
+ford,mustang,SN95,pre,1994,1998,Ford Mustang IV,
+ford,mustang,SN95,facelift,1999,2004,Ford Mustang (1999-2004),"New Edge"; Commons has its own subcategory
+ford,mustang,S197,pre,2005,2009,Ford Mustang V (2005-2009),Commons has its own subcategory
+ford,mustang,S197,facelift,2010,2012,Ford Mustang (2010-2014),
+ford,mustang,S197,facelift2,2013,2014,Ford Mustang (2010-2014),new headlights and grille for 2013
+ford,mustang,S550,pre,2015,2017,Ford Mustang VI,Commons also has 2015 Ford Mustang / 2017 Ford Mustang subcategories
+ford,mustang,S550,facelift,2018,2023,Ford Mustang VI,
+ford,mustang,S650,single,2024,2026,Ford Mustang VII,
