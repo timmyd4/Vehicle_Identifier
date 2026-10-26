@@ -1271,3 +1271,191 @@ volkswagen,touareg,I,pre,2004,2007,Volkswagen Touareg I,
 volkswagen,touareg,I,facelift,2008,2010,Volkswagen Touareg I,decided: checker can't find this Wikipedia page; from known model history (2008 new grille and lights)
 volkswagen,touareg,II,pre,2011,2014,Volkswagen Touareg II,
 volkswagen,touareg,II,facelift,2015,2017,Volkswagen Touareg II,decided: checker can't find this Wikipedia page; from known model history (2015 new front)
+toyota,landcruiser,J40/J55,single,1960,1980,Toyota Land Cruiser (J40);Toyota Land Cruiser (J55),decided: classic car (pre-1980) = generation level only. The J40 and the J55 wagon were sold side by side
+toyota,landcruiser,J60,pre,1981,1987,Toyota Land Cruiser (J60),1981-1983 are mixed with the last J40s
+toyota,landcruiser,J60,facelift,1988,1990,Toyota Land Cruiser (J60),decided: checker can't find this Wikipedia page; from known model history. The 1988 FJ62 got square headlights
+toyota,landcruiser,J80,single,1991,1997,Toyota Land Cruiser (J80),decided: checker can't find this Wikipedia page; from known model history
+toyota,landcruiser,J100,pre,1998,2005,Toyota Land Cruiser (J100),
+toyota,landcruiser,J100,facelift,2006,2007,Toyota Land Cruiser (J100),decided: checker can't find this Wikipedia page; from known model history (2006 new front; earlier changes were small)
+toyota,landcruiser,J200,pre,2008,2015,Toyota Land Cruiser (J200),
+toyota,landcruiser,J200,facelift,2016,2021,Toyota Land Cruiser (J200),decided: checker can't find this Wikipedia page; from known model history (2016 new front)
+toyota,landcruiser,J250,single,2024,2026,Toyota Land Cruiser (J250),decided: checker can't find this Wikipedia page; from known model history
+jaguar,x-type,X400,single,2002,2008,Jaguar X-Type,decided: checker can't find this Wikipedia page; from known model history (the 2008 update has almost no photos)
+volvo,v70,1st gen,single,1998,2000,Volvo V70 LW,
+volvo,v70,P2,pre,2001,2004,Volvo V70 P2,
+volvo,v70,P2,facelift,2005,2007,Volvo V70 P2,decided: checker can't find this Wikipedia page; from known model history (2005 new lights and bumpers)
+volvo,v70,P24,single,2008,2010,Volvo V70 P24,decided: checker can't find this Wikipedia page; from known model history
+mercedes benz,c300,W204,pre,2008,2011,Mercedes-Benz type 204,
+mercedes benz,c300,W204,facelift,2012,2014,Mercedes-Benz type 204,
+mercedes benz,c300,W205,pre,2015,2018,Mercedes-Benz type 205,
+mercedes benz,c300,W205,facelift,2019,2021,Mercedes-Benz type 205,
+mercedes benz,c300,W206,single,2022,2026,Mercedes-Benz type 206,
+oldsmobile,cutlass,F-85 Y-body,single,1961,1963,Oldsmobile F-85 Cutlass (Y-body),decided: classic car (pre-1980) = generation level only
+oldsmobile,cutlass,A-body 1964,single,1964,1967,Oldsmobile Cutlass (A-body),decided: classic car (pre-1980) = generation level only
+oldsmobile,cutlass,A-body 1968,single,1968,1972,Oldsmobile Cutlass (A-body),decided: classic car (pre-1980) = generation level only
+oldsmobile,cutlass,A-body 1973,single,1973,1977,Oldsmobile Cutlass (A-body),decided: classic car (pre-1980) = generation level only
+oldsmobile,cutlass,G-body,pre,1978,1980,Oldsmobile Cutlass (A/G-body),
+oldsmobile,cutlass,G-body,facelift,1981,1988,Oldsmobile Cutlass (A/G-body),decided: Wikipedia says 1981 mid-cycle redesign. The Cutlass name also covered the Ciera and Calais in these years
+oldsmobile,cutlass,W-body era,single,1989,1996,Oldsmobile Cutlass Supreme;Oldsmobile Cutlass Ciera,decided: these years mix the Cutlass Supreme and Cutlass Ciera (different cars); labeled by era only
+oldsmobile,cutlass,N-body,single,1997,1999,Oldsmobile Cutlass (N-body),decided: checker can't find this Wikipedia page; from known model history
+lincoln,continental,1958,single,1958,1960,Lincoln Continental (third generation),decided: classic car (pre-1980) = generation level only
+lincoln,continental,1961,single,1961,1969,Lincoln Continental (fourth generation),decided: classic car (pre-1980) = generation level only
+lincoln,continental,1970,single,1970,1979,Lincoln Continental (fifth generation),decided: classic car (pre-1980) = generation level only
+lincoln,continental,1980,single,1980,1980,Lincoln Continental (sixth generation),
+lincoln,continental,1982,single,1982,1987,Lincoln Continental (seventh generation),
+lincoln,continental,1988,single,1988,1994,Lincoln Continental (eighth generation),decided: too few VMMRdb photos to be worth splitting (14)
+lincoln,continental,1995,pre,1995,1997,Lincoln Continental (ninth generation),
+lincoln,continental,1995,facelift,1998,2002,Lincoln Continental (ninth generation),
+jeep,patriot,MK74,pre,2007,2010,Jeep Patriot,
+jeep,patriot,MK74,facelift,2011,2017,Jeep Patriot,photo review: 2011 update is visible
+infiniti,fx35,S50,single,2003,2008,Infiniti FX (S50),photo review: 2006 update not visible
+infiniti,fx35,S51,single,2009,2012,Infiniti FX (S51),decided: checker can't find this Wikipedia page; from known model history
+kia,soul,AM,pre,2010,2011,Kia Soul (AM),
+kia,soul,AM,facelift,2012,2013,Kia Soul (AM),photo review: 2012 update is visible
+kia,soul,PS,pre,2014,2016,Kia Soul (PS),
+kia,soul,PS,facelift,2017,2019,Kia Soul (PS),
+kia,soul,SK3,pre,2020,2022,Kia Soul (SK3),
+kia,soul,SK3,facelift,2023,2025,Kia Soul (SK3),decided: Wikipedia has a 2023 facelift section
+dodge,journey,JC,pre,2009,2010,Dodge Journey (JC/JS),
+dodge,journey,JC,facelift,2011,2020,Dodge Journey (JC/JS),photo review: 2011 update is visible
+chevrolet,nova,1st gen,single,1962,1965,Chevrolet Chevy II Nova (first generation),decided: classic car (pre-1980) = generation level only
+chevrolet,nova,2nd gen,single,1966,1967,Chevrolet Chevy II Nova (second generation),decided: classic car (pre-1980) = generation level only
+chevrolet,nova,X-body,single,1968,1979,Chevrolet Nova (X-body);1968 Chevrolet Chevy II Nova,decided: classic car (pre-1980) = generation level only
+chevrolet,nova,S-body,single,1985,1988,Chevrolet Nova (S-body),decided: too few VMMRdb photos to be worth splitting (8)
+chevrolet,express,GMT600,pre,1996,2002,Chevrolet Express (1996–2002),
+chevrolet,express,GMT600,facelift,2003,2026,Chevrolet Express (2003+),decided: Commons splits at the 2003 facelift
+nissan,armada,TA60,pre,2004,2007,Nissan Armada (JA60),
+nissan,armada,TA60,facelift,2008,2015,Nissan Armada (JA60),decided: Wikipedia has a 2008 refresh section; same as its twin the Titan (photo review)
+nissan,armada,Y62,pre,2017,2020,Nissan Armada (Y62),
+nissan,armada,Y62,facelift,2021,2024,Nissan Armada (Y62),
+nissan,armada,Y63,single,2025,2026,Nissan Armada (Y63),
+gmc,sierra_2500,square body,pre,1973,1980,Chevrolet C/K (1973),decided: same split as the square-body Silverado
+gmc,sierra_2500,square body,facelift,1981,1987,Chevrolet C/K (1981),decided: same split as the square-body Silverado
+gmc,sierra_2500,GMT400,single,1988,2000,GMC Sierra (GMT400/GMT480),decided: checker can't find this Wikipedia page; from known model history. The heavy-duty trucks kept this body through 2000
+gmc,sierra_2500,GMT800,pre,2001,2002,GMC Sierra (GMT800/GMT880),
+gmc,sierra_2500,GMT800,facelift,2003,2006,GMC Sierra (GMT800/GMT880),decided: same as the Sierra 1500 (photo review: 2003 update is visible)
+gmc,sierra_2500,GMT900,single,2007,2014,GMC Sierra (GMT902/GMT912),decided: checker can't find this Wikipedia page; from known model history. 2007 is mixed with the old-body Classic
+gmc,sierra_2500,K2XX,single,2015,2019,GMC Sierra (GMTK2XX),decided: checker can't find this Wikipedia page; from known model history
+gmc,sierra_2500,T1XX,pre,2020,2023,GMC Sierra (GMTT1XX),
+gmc,sierra_2500,T1XX,facelift,2024,2026,GMC Sierra (GMTT1XX),decided: checker can't find this Wikipedia page; from known model history (2024 new front)
+oldsmobile,silhouette,1st gen,single,1990,1996,Oldsmobile Silhouette (first generation),decided: too few VMMRdb photos to be worth splitting (4)
+oldsmobile,silhouette,2nd gen,pre,1997,2000,Oldsmobile Silhouette (second generation),
+oldsmobile,silhouette,2nd gen,facelift,2001,2004,Oldsmobile Silhouette (second generation),photo review: 2001 facelift is visible
+chevrolet,caprice,1965,single,1965,1970,1965 Chevrolet Caprice;Chevrolet Caprice (1966–1970),decided: classic car (pre-1980) = generation level only
+chevrolet,caprice,1971,single,1971,1976,Chevrolet Caprice (1971–1976),decided: classic car (pre-1980) = generation level only
+chevrolet,caprice,1977,pre,1977,1979,Chevrolet Caprice (1977–1990),
+chevrolet,caprice,1977,facelift,1980,1985,Chevrolet Caprice (1977–1990),decided: checker can't find this Wikipedia page; from known model history (1980 restyle; only 2 photos before it)
+chevrolet,caprice,1977,facelift2,1986,1990,Chevrolet Caprice (1977–1990),photo review: 1986 new front end is visible
+chevrolet,caprice,1991,single,1991,1996,Chevrolet Caprice (1991–1996),
+chevrolet,astro,1st gen,single,1985,1994,Chevrolet Astro (first generation),
+chevrolet,astro,2nd gen,single,1995,2005,Chevrolet Astro (second generation),
+buick,parkavenue,Electra Park Avenue,single,1985,1990,Buick Electra Park Avenue,decided: too few VMMRdb photos to be worth splitting (7). Before 1991 it was the Electra Park Avenue
+buick,parkavenue,C-body,single,1991,1996,Buick Park Avenue (C-body),decided: checker can't find this Wikipedia page; from known model history
+buick,parkavenue,G-body,single,1997,2005,Buick Park Avenue (G-body),decided: checker can't find this Wikipedia page; from known model history
+mercedes benz,ml320,W163,pre,1998,2001,Mercedes-Benz W163,
+mercedes benz,ml320,W163,facelift,2002,2003,Mercedes-Benz W163,decided: checker can't find this Wikipedia page; from known model history (2002 new bumpers and lights)
+mercedes benz,ml320,W164,single,2007,2009,Mercedes-Benz W164,decided: checker can't find this Wikipedia page; from known model history. The ML320 CDI diesel
+ford,fiesta,Mk1,single,1978,1980,Ford Fiesta MK1,decided: classic car (pre-1980) = generation level only
+ford,fiesta,Mk6,pre,2011,2013,Ford Fiesta MK6,
+ford,fiesta,Mk6,facelift,2014,2019,Ford Fiesta MK6,decided: Wikipedia says the facelift came to North America as the 2014 model year
+bmw,535i,E28,single,1985,1988,BMW E28,decided: too few VMMRdb photos to be worth splitting (5)
+bmw,535i,E34,single,1989,1993,BMW E34,
+bmw,535i,E60,single,2008,2010,BMW E60,the 535i was only sold after the 2008 facelift
+bmw,535i,F10,pre,2011,2013,BMW F10,
+bmw,535i,F10,facelift,2014,2016,BMW F10,
+jeep,compass,MK,pre,2007,2010,Jeep Compass (MK),
+jeep,compass,MK,facelift,2011,2017,Jeep Compass (MK),2017 is mixed with the new MP Compass
+jeep,compass,MP,pre,2018,2021,Jeep Compass (MP),
+jeep,compass,MP,facelift,2022,2025,Jeep Compass (MP),
+gmc,suburban_1500,1960-1966,single,1960,1966,Chevrolet Suburban (1960-1966 C/K),decided: classic car (pre-1980) = generation level only
+gmc,suburban_1500,1967-1972,single,1967,1972,Chevrolet Suburban (1967-1972),decided: classic car (pre-1980) = generation level only
+gmc,suburban_1500,square body,pre,1973,1980,Chevrolet Suburban (1973-1980),decided: same split as the Chevrolet Suburban
+gmc,suburban_1500,square body,facelift,1981,1991,Chevrolet Suburban (1981-1991),decided: same split as the Chevrolet Suburban
+gmc,suburban_1500,GMT410,single,1992,1999,Chevrolet Suburban (GMT410),decided: same as the Chevrolet Suburban. From 2000 the GMC was called the Yukon XL
+ford,five hundred,D258,single,2005,2007,Ford Five Hundred,decided: checker can't find this Wikipedia page; from known model history
+infiniti,g37,V36,single,2008,2013,Infiniti G (V36),photo review: 2010 sedan update not visible. Coupes are mixed in
+jeep,commander,XK,single,2006,2010,Jeep Commander (XK),
+toyota,fjcruiser,XJ10,single,2007,2014,Toyota FJ Cruiser,
+cadillac,eldorado,8th gen,single,1967,1970,Cadillac Eldorado (8th generation),decided: classic car (pre-1980) = generation level only
+cadillac,eldorado,9th gen,single,1971,1978,Cadillac Eldorado (9th generation),decided: classic car (pre-1980) = generation level only
+cadillac,eldorado,10th gen,single,1979,1985,Cadillac Eldorado (10th generation),
+cadillac,eldorado,11th gen,pre,1986,1987,Cadillac Eldorado (11th generation),
+cadillac,eldorado,11th gen,facelift,1988,1991,Cadillac Eldorado (11th generation),
+cadillac,eldorado,12th gen,single,1992,2002,Cadillac Eldorado (12th generation),
+subaru,wrx,GD,pre,2002,2003,Subaru Impreza WRX (GD),"round headlights (""bug eye""), same as the Impreza"
+subaru,wrx,GD,facelift,2004,2005,Subaru Impreza WRX (GD),same as the Impreza
+subaru,wrx,GD,facelift2,2006,2007,Subaru Impreza WRX (GD),decided: checker can't find this Wikipedia page; from known model history (same as the Impreza)
+subaru,wrx,GE/GH,pre,2008,2010,Subaru Impreza WRX (GE);Subaru Impreza WRX (GH),
+subaru,wrx,GE/GH,facelift,2011,2014,Subaru Impreza WRX (GE);Subaru Impreza WRX (GH),decided: checker can't find this Wikipedia page; from known model history (2011 wide body from the STI)
+subaru,wrx,VA,pre,2015,2017,Subaru WRX (VA),
+subaru,wrx,VA,facelift,2018,2021,Subaru WRX (VA),decided: checker can't find this Wikipedia page; from known model history (2018 new front)
+subaru,wrx,VB,single,2022,2026,Subaru WRX (VB),decided: checker can't find this Wikipedia page; from known model history
+chevrolet,traverse,Lambda,pre,2009,2012,Chevrolet Traverse (Lambda),
+chevrolet,traverse,Lambda,facelift,2013,2017,Chevrolet Traverse (Lambda),decided: checker can't find this Wikipedia page; from known model history (2013 new front)
+chevrolet,traverse,C1XX,pre,2018,2020,Chevrolet Traverse (C1XX),
+chevrolet,traverse,C1XX,facelift,2021,2023,Chevrolet Traverse (C1XX),
+chevrolet,traverse,C1XX-2,single,2024,2026,Chevrolet Traverse (C1XX-2),decided: checker can't find this Wikipedia page; from known model history
+hummer,h2,H2,single,2003,2009,Hummer H2,decided: checker can't find this Wikipedia page; from known model history
+ford,e350,3rd gen,single,1975,1991,Ford Econoline (1975),decided: too few VMMRdb photos to be worth splitting (16)
+ford,e350,4th gen,pre,1992,1996,Ford Econoline (1992),
+ford,e350,4th gen,facelift,1997,2002,Ford Econoline (1992),
+ford,e350,4th gen,facelift2,2003,2007,Ford Econoline (1992),photo review: 2003 update is visible
+ford,e350,4th gen,facelift3,2008,2014,Ford E-Series (2008-2015),decided: Commons splits at the 2008 facelift
+chevrolet,tracker,1st gen,single,1989,1998,Chevrolet Tracker (1st generation),decided: too few VMMRdb photos to be worth splitting (23). Sold as the Geo Tracker until 1997
+chevrolet,tracker,2nd gen,single,1999,2004,Chevrolet Tracker (2nd generation),decided: checker can't find this Wikipedia page; from known model history
+mercedes benz,c240,W203,pre,2001,2004,Mercedes-Benz type 203,
+mercedes benz,c240,W203,facelift,2005,2005,Mercedes-Benz type 203,decided: same as the C230 (photo review: 2005 update is visible)
+mercedes benz,ml350,W163,single,2003,2005,Mercedes-Benz W163,decided: checker can't find this Wikipedia page; from known model history. The ML350 was only sold after the 2002 facelift
+mercedes benz,ml350,W164,pre,2006,2008,Mercedes-Benz W164,
+mercedes benz,ml350,W164,facelift,2009,2011,Mercedes-Benz W164,decided: checker can't find this Wikipedia page; from known model history (2009 new front)
+mercedes benz,ml350,W166,single,2012,2015,Mercedes-Benz W166 (2011),decided: checker can't find this Wikipedia page; from known model history. The M-Class became the GLE after 2015
+saturn,aura,Aura,single,2007,2009,Saturn Aura,decided: checker can't find this Wikipedia page; from known model history
+jaguar,s-type,X200,pre,2000,2004,Jaguar S-Type (1999),
+jaguar,s-type,X200,facelift,2005,2008,Jaguar S-Type (1999),decided: checker can't find this Wikipedia page; from known model history (2005 new front)
+porsche,911,G-series,single,1974,1988,Porsche 911 G-series,decided: mostly pre-1980; generation level only
+porsche,911,964,single,1989,1994,Porsche 964,
+porsche,911,993,single,1995,1998,Porsche 993,
+porsche,911,996,pre,1999,2001,Porsche 996,
+porsche,911,996,facelift,2002,2004,Porsche 996,decided: checker can't find this Wikipedia page; from known model history (2002 new headlights)
+porsche,911,997,pre,2005,2008,Porsche 997,
+porsche,911,997,facelift,2009,2011,Porsche 997,decided: checker can't find this Wikipedia page; from known model history. 2012 is skipped: the 997 and 991 were both sold
+porsche,911,991,pre,2013,2016,Porsche 991,
+porsche,911,991,facelift,2017,2019,Porsche 991,decided: checker can't find this Wikipedia page; from known model history
+porsche,911,992,single,2020,2026,Porsche 992,decided: the 992.2 update (2025) is small; no VMMRdb photos
+infiniti,qx4,R50,pre,1997,2000,Infiniti QX4,
+infiniti,qx4,R50,facelift,2001,2003,Infiniti QX4,photo review: 2001 update is visible
+dodge,dart,A-body 1963,single,1963,1966,Dodge Dart (A-body),decided: classic car (pre-1980) = generation level only
+dodge,dart,A-body 1967,single,1967,1976,Dodge Dart (A-body),decided: classic car (pre-1980) = generation level only
+dodge,dart,PF,single,2013,2016,Dodge Dart (2013),
+toyota,mr2,W10,single,1985,1989,Toyota MR2 (W10),
+toyota,mr2,W20,single,1991,1995,Toyota MR2 (W20),photo review: 1993 update not visible
+toyota,mr2,W30,pre,2000,2002,Toyota MR2 (W30),
+toyota,mr2,W30,facelift,2003,2005,Toyota MR2 (W30),decided: Wikipedia says major facelift for the 2003 US model year
+nissan,300zx,Z31,pre,1984,1986,Nissan 300ZX (Z31),
+nissan,300zx,Z31,facelift,1987,1989,Nissan 300ZX (Z31),photo review: 1987 update is visible
+nissan,300zx,Z32,single,1990,1996,Nissan 300ZX (Z32),decided: checker can't find this Wikipedia page; from known model history
+bmw,750i,E32,single,1988,1994,BMW E32,
+bmw,750i,E38,single,1995,2001,BMW E38,decided: too few VMMRdb photos to be worth splitting (3)
+bmw,750i,E65,single,2006,2008,BMW E65,decided: the 750i was only sold after the 2006 facelift
+bmw,750i,F01,pre,2009,2012,BMW F01,
+bmw,750i,F01,facelift,2013,2015,BMW F01,
+bmw,750i,G11,pre,2016,2019,BMW G11,
+bmw,750i,G11,facelift,2020,2022,BMW G11,
+mercedes benz,s430,W220,pre,2000,2002,Mercedes-Benz type 220,
+mercedes benz,s430,W220,facelift,2003,2006,Mercedes-Benz type 220,photo review: 2003 update is visible
+hyundai,tucson,JM,pre,2005,2008,Hyundai Tucson (JM),
+hyundai,tucson,JM,facelift,2009,2009,Hyundai Tucson (JM),decided: Wikipedia says 2009 restyling
+hyundai,tucson,LM,pre,2010,2013,Hyundai Tucson (LM),
+hyundai,tucson,LM,facelift,2014,2015,Hyundai Tucson (LM),
+hyundai,tucson,TL,pre,2016,2018,Hyundai Tucson (TL),
+hyundai,tucson,TL,facelift,2019,2021,Hyundai Tucson (TL),
+hyundai,tucson,NX4,pre,2022,2024,Hyundai Tucson (NX4),
+hyundai,tucson,NX4,facelift,2025,2026,Hyundai Tucson (NX4),
+mercedes benz,s500,W140,single,1994,1999,Mercedes-Benz W140,the S500 name started in 1994
+mercedes benz,s500,W220,pre,2000,2002,Mercedes-Benz type 220,
+mercedes benz,s500,W220,facelift,2003,2006,Mercedes-Benz type 220,photo review: 2003 update is visible (answered on the S430)
+cadillac,seville,K-body RWD,single,1976,1979,Cadillac Seville (K-body),decided: classic car (pre-1980) = generation level only
+cadillac,seville,bustleback,single,1980,1985,Cadillac Seville,decided: too few VMMRdb photos to be worth splitting (8)
+cadillac,seville,K-body FWD,single,1986,1991,Cadillac Seville (K-body FWD),decided: too few VMMRdb photos to be worth splitting (14)
+cadillac,seville,4th gen,single,1992,1997,Cadillac Seville (K-body FWD);Cadillac Seville STS,
+cadillac,seville,5th gen,single,1998,2004,Cadillac Seville (1998–2004),
