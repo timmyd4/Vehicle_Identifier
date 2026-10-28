@@ -26,7 +26,15 @@ tricks cut the wait (~0.7 s per photo -> see the measured rate it prints):
     instead of a new secure connection (several round trips of handshake) per photo.
   - A FEW WORKERS: 4 threads download at once, so while one waits for an answer the
     others are working. Kept at 4 on purpose: more would be hammering a non-profit's
-    servers, and Wikimedia answers "429 Too Many Requests" (we back off) or blocks scripts.
+    servers, and Wikimedia answers "429 Too Many Requests" or blocks scripts.
+
+SLOWING DOWN TOGETHER: when Wikimedia answers 429 to ANY worker, ALL workers pause (see
+pause_everyone()). If each worker only backed off on its own, the other three would keep
+asking during its wait, Wikimedia would keep saying no, and the 429s would never stop.
+Each 429 that comes soon after the last one doubles the pause (30 s, 60 s, ... up to 10
+min), and a long quiet spell resets it. A photo that still fails after many tries is
+skipped and counted as "failed"; the next run tries it again, so one bad photo can't stop
+an overnight run.
 
 RESUMING: a photo already on disk is skipped, so stop it any time (Ctrl+C) and run it
 again. Each download is written to a ".part" file and renamed only once it's complete, so
@@ -46,7 +54,6 @@ import urllib.parse
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 from common import load_config, project_path
-from commons_list import with_retries
 from wikimedia_check import USER_AGENT
 
 WORKERS = 4
@@ -55,6 +62,50 @@ WORKERS = 4
 # separate copy of the attributes, like a Java ThreadLocal: connections can't be shared,
 # because one connection carries one request at a time.
 _thread = threading.local()
+
+# The shared "everyone wait" state. All workers read and write it, so a Lock guards it
+# (like a Java synchronized block): without one, two workers could update it at once.
+_pause_lock = threading.Lock()
+_pause_until = 0.0     # time.time() when workers may send again
+_last_429 = 0.0        # when the last 429 came, to tell a burst from a one-off
+_pause_seconds = 30    # the next pause's length; doubles while 429s keep coming
+FIRST_PAUSE = 30
+LONGEST_PAUSE = 600
+QUIET_RESET = 900      # 15 min with no 429 -> start again from FIRST_PAUSE
+TRIES = 10             # per photo, before it's skipped until the next run
+
+
+class TooManyRequests(ConnectionError):
+    """Wikimedia said 429. retry_after = the seconds it asked us to wait (or None)."""
+    def __init__(self, retry_after):
+        super().__init__("HTTP 429")
+        self.retry_after = retry_after
+
+
+def pause_everyone(retry_after):
+    """A 429 arrived: make ALL workers wait before their next request."""
+    global _pause_until, _last_429, _pause_seconds
+    with _pause_lock:
+        now = time.time()
+        if now < _pause_until:
+            return  # already pausing: this request was sent before the pause began
+        if now - _last_429 > QUIET_RESET:
+            _pause_seconds = FIRST_PAUSE  # a long time since the last one: start small
+        wait = max(_pause_seconds, retry_after or 0)
+        _pause_until = now + wait
+        _last_429 = now
+        _pause_seconds = min(_pause_seconds * 2, LONGEST_PAUSE)
+        print(f"    Wikimedia says slow down (429): all workers pause {wait:.0f} s")
+
+
+def wait_while_paused():
+    """Sleep until the shared pause (if any) is over. Called before every request."""
+    while True:
+        with _pause_lock:
+            left = _pause_until - time.time()
+        if left <= 0:
+            return
+        time.sleep(left)
 
 
 def local_name(title, url):
@@ -88,8 +139,8 @@ def download(url, path):
     """Fetch one photo into path over this thread's open connection.
 
     Returns False if Commons no longer has the photo. Trouble worth retrying (network
-    errors, 429 "Too Many Requests", 5xx server errors) raises ConnectionError instead,
-    which with_retries() answers by waiting and trying again.
+    errors, 5xx server errors) raises ConnectionError instead, and 429 "Too Many Requests"
+    raises TooManyRequests; fetch() answers both by waiting and trying again.
     """
     parts = urllib.parse.urlsplit(url)  # "https://upload.wikimedia.org/a/b.jpg" -> host + path
     if getattr(_thread, "host", None) != parts.netloc:
@@ -103,7 +154,10 @@ def download(url, path):
         _thread.connection.close()  # broken: the next request reconnects by itself
         raise ConnectionError(error)
 
-    if response.status == 429 or response.status >= 500:
+    if response.status == 429:
+        retry_after = response.getheader("Retry-After", "")
+        raise TooManyRequests(int(retry_after) if retry_after.isdigit() else None)
+    if response.status >= 500:
         raise ConnectionError(f"HTTP {response.status}")
     if response.status != 200 or not response.getheader("Content-Type", "").startswith("image/"):
         return False  # 404 = deleted since it was listed; anything else isn't a photo
@@ -127,47 +181,66 @@ def main():
           f"(max {settings['max_per_category']} per category); {len(picked) - len(todo):,} "
           f"already downloaded, {len(todo):,} to go")
 
-    done, gone = download_all(todo, images_dir)
+    done, gone, failed = download_all(todo, images_dir)
     print(f"\nDone: {done:,} downloaded, {gone:,} no longer on Commons. Photos in {images_dir}")
+    if failed:
+        print(f"{failed:,} kept failing and were skipped: run this again later to fetch them.")
 
 
 def fetch(row, images_dir):
-    """One worker's job: download one photo (with retries). Runs on a worker thread."""
+    """One worker's job: download one photo. Runs on a worker thread.
+
+    Returns True (downloaded), False (gone from Commons) or None (kept failing; skipped
+    until the next run). A 429 pauses every worker; other trouble (a dropped connection, a
+    5xx server error) only makes this worker wait, longer each time (5, 10, 20 ... 120 s).
+    """
     path = images_dir / local_name(row["title"], row["thumb_url"])
     path.parent.mkdir(parents=True, exist_ok=True)
-    found = with_retries(download, row["thumb_url"], path)
-    time.sleep(0.1)  # be polite: a short pause between each worker's downloads
-    return found
+    for attempt in range(TRIES):
+        wait_while_paused()
+        try:
+            found = download(row["thumb_url"], path)
+            time.sleep(0.1)  # be polite: a short pause between each worker's downloads
+            return found
+        except TooManyRequests as error:
+            pause_everyone(error.retry_after)
+        except ConnectionError:
+            time.sleep(min(5 * 2 ** attempt, 120))
+    return None
 
 
 def download_all(rows, images_dir):
-    """Download rows with WORKERS threads; print progress. Returns (downloaded, gone).
+    """Download rows with WORKERS threads; print progress. Returns (downloaded, gone, failed).
 
     ThreadPoolExecutor is Python's version of Java's ExecutorService: submit() hands a job
     to the pool and returns a Future; as_completed() hands back each Future as it finishes.
     Only this main thread prints and counts, so the counters need no locking.
     """
-    done = gone = 0
+    done = gone = failed = 0
     started = time.time()
     with ThreadPoolExecutor(max_workers=WORKERS) as pool:
         futures = [pool.submit(fetch, row, images_dir) for row in rows]
         try:
             for future in as_completed(futures):
-                if future.result():  # result() also re-raises a worker's error here
+                result = future.result()  # result() also re-raises a worker's error here
+                if result is None:
+                    failed += 1
+                elif result:
                     done += 1
                 else:
                     gone += 1
-                if (done + gone) % 500 == 0:
-                    rate = (done + gone) / (time.time() - started)
-                    hours_left = (len(rows) - done - gone) / rate / 3600
-                    print(f"  {done + gone:,}/{len(rows):,}  {rate:.1f} photos/s  "
-                          f"({gone} gone from Commons)  ~{hours_left:.1f} h left")
+                finished = done + gone + failed
+                if finished % 500 == 0:
+                    rate = finished / (time.time() - started)
+                    hours_left = (len(rows) - finished) / rate / 3600
+                    print(f"  {finished:,}/{len(rows):,}  {rate:.1f} photos/s  "
+                          f"({gone} gone from Commons, {failed} failed)  ~{hours_left:.1f} h left")
         except KeyboardInterrupt:
             # Ctrl+C: drop the queued jobs so we don't wait for 100k of them to run.
             print("\nStopping after the downloads in progress (run again to resume)...")
             pool.shutdown(cancel_futures=True)
             raise
-    return done, gone
+    return done, gone, failed
 
 
 if __name__ == "__main__":
