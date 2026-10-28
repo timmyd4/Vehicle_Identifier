@@ -31,9 +31,9 @@ commons:
   presort:
     # The model that sorts, AND the class list it was trained with. They must match: the
     # model's output #i means row #i of THAT classes.csv.
-    # Run 3 now (it knows 234 more looks than run 2). Run 2 was: run2_generations / splits_run2_generations.
-    checkpoint: training/checkpoints/run3_commons/best.pt
-    splits_dir: data/splits_run3_commons
+    # Run 4 now (the best so far; knows the facelift-gap looks). Earlier: run3_commons, run2_generations.
+    checkpoint: training/checkpoints/run4_facelift/best.pt
+    splits_dir: data/splits_run4_facelift
     min_other_car: 0.5       # the sorter gives another car at least this much -> "different car?" review
     auto_share: 0.8          # a look with this much of the candidates' probability wins on its own
   # commons_looks.py: which MISSING looks (fewer than 50 photos) a human gets asked about.
