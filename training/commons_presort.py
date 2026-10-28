@@ -26,6 +26,8 @@ The rules, in order (the first that applies wins):
   c. the filename year fits exactly one candidate          -> auto (year)
      ...unless the model strongly prefers another one      -> review ("year vs model")
   d. the model strongly prefers one candidate              -> auto (model)
+     (c and d only trust the model about looks it HAS a class for: it can't vote for
+      a look it has never learned, so its "preference" against one means nothing)
   e. anything else                                         -> review (e.g. pre or facelift?)
 
 "Strongly prefers" = that look gets at least `auto_share` of the probability the model
@@ -165,17 +167,24 @@ def decide(title, categories, taken, probs, keys, looks_of_category, years_of_lo
     # c. The year picks exactly one.
     by_year = [c for c in candidates if year and years_of_look[c][0] <= year <= years_of_look[c][1]]
     if len(by_year) == 1:
-        if favorite != by_year[0] and share(favorite, candidates) >= settings["auto_share"]:
+        # The model may only overrule the year if it knows the year's look: otherwise it's
+        # "disagreeing" with an answer it can't give (same trap as rule d below).
+        if (favorite != by_year[0] and by_year[0] in p_look
+                and share(favorite, candidates) >= settings["auto_share"]):
             return done("review", "year vs model", favorite)
         return done("auto", "year", by_year[0])
     # d. The model strongly prefers one (among the year's candidates, if the year narrowed it).
+    #    ...but only if it KNOWS every one of them. A look without a class always gets 0%,
+    #    so "pre 100%, facelift 0%" for a model with no facelift class isn't a choice: it
+    #    would label every facelift photo "pre", and the facelift would never get the 50
+    #    photos it needs to become a class (the bug that hid the Highlander XU50 facelift).
     among = by_year or candidates
     best = max(among, key=lambda k: p_look.get(k, 0.0))
-    if share(best, among) >= settings["auto_share"]:
+    knows_all = all(k in p_look for k in among)
+    if knows_all and share(best, among) >= settings["auto_share"]:
         return done("auto", "model", best)
     # e. Nobody can decide.
-    known = any(p_look.get(k, 0.0) > 0 for k in among)
-    return done("review", "which look?" if known else "look unknown to model", best)
+    return done("review", "which look?" if knows_all else "look unknown to model", best)
 
 
 class Crops(Dataset):

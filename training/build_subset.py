@@ -280,9 +280,21 @@ def list_commons_images(commons_dir, table):
     labeling is one join with the table to get the look's years.
     """
     presort = pd.read_csv(commons_dir / "presort.csv", keep_default_na=False)
-    auto = presort[presort["status"] == "auto"]
-    print(f"Commons: {len(auto):,} auto-labeled photos (of {len(presort):,} sorted; "
-          f"the rest wait for the next model to sort them)")
+
+    # Looks a human picked on commons_looks.py replace the pre-sort's answer for that photo
+    # (a skipped photo stays out). They go in as status "human", next to the "auto" ones.
+    answers_file = commons_dir / "look_answers.json"
+    answers = json.loads(answers_file.read_text(encoding="utf-8")) if answers_file.exists() else {}
+    picked = {title: look for title, look in answers.items() if look is not None}
+    is_picked = presort["title"].isin(picked)
+    if is_picked.any():
+        looks = [picked[t] for t in presort.loc[is_picked, "title"]]
+        presort.loc[is_picked, ["make", "model", "generation", "phase"]] = looks
+        presort.loc[is_picked, "status"] = "human"
+
+    auto = presort[presort["status"].isin(["auto", "human"])]
+    print(f"Commons: {len(auto):,} labeled photos ({is_picked.sum():,} by a human) of {len(presort):,} "
+          f"sorted; the rest wait for the next model to sort them")
 
     # The group for the split: who TOOK the photo, on which day ("Jane|2019-05-04").
     # Not who uploaded it: bots like "Flickr upload bot" copy thousands of different
@@ -490,6 +502,12 @@ def main():
     # value_counts() counts rows per class_name, like SQL GROUP BY ... COUNT(*).
     class_sizes = df["class_name"].value_counts()
     keep = class_sizes[class_sizes >= settings["min_images_per_class"]].index
+    # Save every look's count, the dropped ones too: a look with 40 photos needs only 10
+    # more to become a class. commons_looks.py reads this to pick which looks to ask about.
+    if "generation" in df:
+        counts = (df.groupby(["make", "model", "generation", "phase", "class_name"]).size()
+                  .rename("num_images").reset_index().sort_values("num_images"))
+        counts.to_csv(splits_dir / "look_counts.csv", index=False)
     print(f"Dropped {len(class_sizes) - len(keep):,} classes with fewer than "
           f"{settings['min_images_per_class']} images ({(~df['class_name'].isin(keep)).sum():,} images)")
     df = df[df["class_name"].isin(keep)]

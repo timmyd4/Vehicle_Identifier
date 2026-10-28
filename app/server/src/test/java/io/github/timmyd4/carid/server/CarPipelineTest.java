@@ -57,9 +57,10 @@ class CarPipelineTest {
      * so they must be re-made after every retrain. When this test fails right after a new
      * export, that's the test correctly noticing the model changed, not necessarily a bug.
      *
-     * <p>Run 2 (generation labels, 2026-10-26): Java says Toyota Corolla (2009-2010) 91.4%,
-     * and predict.py says 91.2% with the same top 5 in the same order. The car is a 2009,
-     * so the full layered answer (E140, pre-facelift) is right.
+     * <p>Run 4 (facelift gap filled, 2026-10-28): Java says Toyota Corolla (2009-2010) 92.5%,
+     * predict.py 90.5%. (Run 3: Java 96.0%. Run 2: 91.4%.) The car is a 2009, so the full
+     * layered answer (E140, pre-facelift) is right. Second place isn't checked any more: every
+     * runner-up is ~0.0%, so their order is decoding noise (Java: Firebird, Python: Corolla).
      *
      * <p>Why Java and predict.py differ slightly: Java's JPEG decoder (ImageIO) and Python's
      * (PIL / libjpeg-turbo) turn the same file into slightly different pixels, mostly in
@@ -80,8 +81,7 @@ class CarPipelineTest {
 
         List<Prediction> top = biggest.predictions();
         assertEquals("Toyota Corolla (2009-2010)", top.get(0).name());
-        assertEquals(0.914, top.get(0).probability(), 0.005);
-        assertEquals("Scion TC (2005-2007)", top.get(1).name());
+        assertEquals(0.925, top.get(0).probability(), 0.005);
 
         LayeredAnswer answer = biggest.answer();
         assertEquals(LayeredAnswer.Level.LOOK, answer.level());
@@ -89,15 +89,21 @@ class CarPipelineTest {
     }
 
     @Test
-    void highlanderFindsAVehicle() throws Exception {
-        // No exact check. A 2017 Highlander is the XU50 generation, which the model has no
-        // class for (VMMRdb ends in 2016). Run 2 answers the nearest thing it knows, the
-        // XU40 facelift, at 75%: right model, wrong generation, and sure of it. That's
-        // open-set recognition failing. Newer training photos (Commons) are the real fix;
-        // keep this photo as a check for run 3.
+    void highlanderFaceliftIsRight() throws Exception {
+        // A 2017 Highlander is the XU50 FACELIFT (2017-2019). The history of this photo:
+        //   run 2: XU40 facelift 75%       wrong generation (no XU50 class at all)
+        //   run 3: XU50 pre-facelift 75.9% right generation, but no facelift class yet
+        //   run 4: XU50 facelift (predict.py 95.8%), after 48 hand-labeled facelift photos
+        //          on commons_looks.py brought the look to 58 photos (50 makes a class).
+        // Only the answer is checked, not the exact probability: it's far from any tie.
         List<CarResult> results = pipeline.identify(readPhoto("highlander_2017.jpg"), true);
         print("highlander_2017.jpg", results);
-        assertTrue(results.get(0).detected());
+
+        CarResult biggest = results.get(0);
+        assertTrue(biggest.detected());
+        assertEquals("Toyota Highlander (2017-2019)", biggest.predictions().get(0).name());
+        assertEquals(LayeredAnswer.Level.LOOK, biggest.answer().level());
+        assertEquals("Toyota Highlander, XU50, facelift (2017-2019)", biggest.answer().text());
     }
 
     private static RgbImage readPhoto(String name) throws IOException {
