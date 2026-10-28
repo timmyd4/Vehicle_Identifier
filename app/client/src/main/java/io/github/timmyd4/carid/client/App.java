@@ -20,7 +20,8 @@ import io.github.timmyd4.carid.client.IdentifyResult.Prediction;
 import io.github.timmyd4.carid.client.IdentifyResult.Vehicle;
 
 /**
- * A simple upload page: pick a car photo, see what the server thinks it is.
+ * A simple upload page: pick a car photo, see what the server thinks it is. Or press
+ * "Live camera" for the real-time view (LiveView).
  *
  * <p>Flow: button -> file picker -> upload the photo to POST /identify -> a popup window
  * shows the photo with a colored box around each vehicle, and the guesses in matching colors.
@@ -58,11 +59,20 @@ public class App implements EntryPoint {
         button.setWidth(160);
         button.addClickHandler(event -> picker.click());
 
+        // Live mode: the camera, with boxes and names on every car in view (see LiveView).
+        IButton live = new IButton("Live camera");
+        live.setWidth(160);
+        live.addClickHandler(event -> LiveView.open());
+
+        HLayout buttons = new HLayout(10);
+        buttons.setHeight(30);
+        buttons.setMembers(button, live);
+
         status.setHeight(30);
 
         VLayout page = new VLayout(10);
         page.setPadding(20);
-        page.setMembers(title, button, status);
+        page.setMembers(title, buttons, status);
         page.draw();
     }
 

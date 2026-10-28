@@ -97,4 +97,89 @@ final class Browser {
     static class JSON {
         public static native Object parse(String text);
     }
+
+    // ---------------------------------------------------------------------------------
+    // Live mode (LiveView.java): the camera, a <video> to show it, a <canvas> to grab frames.
+    // ---------------------------------------------------------------------------------
+
+    /** A JavaScript function with one argument. A lambda fits it: {@code value -> ...}. */
+    @JsFunction
+    interface Consumer<T> {
+        void accept(T value);
+    }
+
+    /**
+     * A value that arrives LATER, like Java's CompletableFuture. then(onDone, onError) says
+     * what to do when it arrives (or fails). Asking for the camera returns one, because the
+     * browser first asks the user "allow camera?" and we can't wait for that.
+     */
+    @JsType(isNative = true, namespace = JsPackage.GLOBAL)
+    static class Promise<T> {
+        public native Promise<Object> then(Consumer<T> onDone, Consumer<Object> onError);
+    }
+
+    /** The global {@code window}. Its static field is JavaScript's {@code window.navigator}. */
+    @JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "window")
+    static class Global {
+        public static Navigator navigator;
+    }
+
+    @JsType(isNative = true, namespace = JsPackage.GLOBAL)
+    static class Navigator {
+        /** The cameras and microphones. null on a page that isn't secure (plain http, not localhost). */
+        public MediaDevices mediaDevices;
+    }
+
+    @JsType(isNative = true, namespace = JsPackage.GLOBAL)
+    static class MediaDevices {
+        /** Asks the user for the camera; hands back its live stream. constraints = which camera, what size. */
+        public native Promise<MediaStream> getUserMedia(Object constraints);
+    }
+
+    /** The camera's live picture. Stopping its tracks turns the camera (and its light) off. */
+    @JsType(isNative = true, namespace = JsPackage.GLOBAL)
+    static class MediaStream {
+        public native MediaStreamTrack[] getTracks();
+    }
+
+    @JsType(isNative = true, namespace = JsPackage.GLOBAL)
+    static class MediaStreamTrack {
+        public native void stop();
+    }
+
+    /** A {@code <video>} element. Showing the camera = setting srcObject to its stream. */
+    @JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "HTMLVideoElement")
+    static class Video {
+        public Object srcObject;
+        public boolean muted;
+        public boolean autoplay;
+        public boolean playsInline;          // iPhones: play inside the page, not full screen
+        public int videoWidth;               // the camera's real resolution (0 until it starts)
+        public int videoHeight;
+        public int clientWidth;              // how wide it's SHOWN on screen, in screen pixels
+        public Callback onloadedmetadata;    // runs once the size is known: then we can grab frames
+    }
+
+    /** A {@code <canvas>}: an image we draw on. Here: copy one video frame, then turn it into a JPEG. */
+    @JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "HTMLCanvasElement")
+    static class Canvas {
+        public int width;
+        public int height;
+
+        public native Context2d getContext(String type);
+
+        /** Encodes the picture (e.g. "image/jpeg" at quality 0.8) and hands back the file bytes (a Blob). */
+        public native void toBlob(Consumer<Object> callback, String type, double quality);
+    }
+
+    @JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "CanvasRenderingContext2D")
+    static class Context2d {
+        public native void drawImage(Object image, double x, double y, double width, double height);
+    }
+
+    /** Any element, for its click handler (GWT's own Element class has no simple one). */
+    @JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "HTMLElement")
+    static class Clickable {
+        public Callback onclick;
+    }
 }
