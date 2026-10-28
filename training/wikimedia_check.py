@@ -30,6 +30,7 @@ import json
 import re
 import sys
 import time
+import urllib.error
 import urllib.parse
 import urllib.request
 from collections import Counter
@@ -69,12 +70,26 @@ def api_get(api_url=API_URL, **params):
     three; only the address changes (check_generations.py passes Wikipedia's and Wikidata's).
     """
     params.update(format="json", maxlag=5)  # maxlag: back off when Wikimedia's servers are busy
-    url = api_url + "?" + urllib.parse.urlencode(params)
-    request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
-    with urllib.request.urlopen(request, timeout=30) as response:
-        data = json.load(response)
-    time.sleep(0.2)  # be polite: one request at a time, with a short pause
-    return data
+    query = urllib.parse.urlencode(params)
+    if len(query) < 4000:
+        # GET: the parameters ride in the address. Preferred, because answers can be cached.
+        request = urllib.request.Request(api_url + "?" + query, headers={"User-Agent": USER_AGENT})
+    else:
+        # POST: the parameters go in the request body, which has no length limit. Needed
+        # when 50 long titles (accents become %C3%A9...) make the address too long (HTTP 414).
+        request = urllib.request.Request(api_url, data=query.encode("ascii"),
+                                         headers={"User-Agent": USER_AGENT})
+    for _ in range(10):
+        with urllib.request.urlopen(request, timeout=30) as response:
+            data = json.load(response)
+        time.sleep(0.2)  # be polite: one request at a time, with a short pause
+        # When the servers are busy, the answer is an error saying "maxlag" instead of data.
+        # The polite reaction is to wait and ask again, not to give up or retry at once.
+        if data.get("error", {}).get("code") != "maxlag":
+            return data
+        print("    Wikimedia is busy (maxlag); waiting 10 s")
+        time.sleep(10)
+    raise urllib.error.URLError("Wikimedia stayed busy (maxlag)")
 
 
 def category_members(category, member_type):

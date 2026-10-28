@@ -35,6 +35,21 @@ WHY A SEPARATE SCRIPT (not part of training)?
 No images are copied or modified. The CSVs only list paths relative to the
 dataset folder. Settings come from the `subset` section of training/config.yaml.
 
+COMMONS PHOTOS (run 3+, include_commons in config.yaml)
+------------------------------------------------------
+The photos commons_presort.py labeled "auto" join the VMMRdb photos. Their paths
+start with "../commons/images/": relative to data/VMMRdb, that's data/commons/images,
+so every script that opens dataset_dir / path finds them without changes.
+Each row also gets a "source" column (vmmrdb or commons).
+
+Two rules keep the exam honest when data is added:
+  - FROZEN TEST SET (keep_split_from): every VMMRdb photo goes into the same pile
+    it had in an earlier split. Run 2 and run 3 then take exactly the same exam on
+    the VMMRdb part, so their scores can be compared directly.
+  - GROUP SPLIT for Commons: all photos one person took on one day go into the
+    same pile. Someone who shot one car 30 times at a show would otherwise put near-
+    identical photos in train AND test, and the model would pass the exam from memory.
+
 Usage (from the project root):
     python training/build_subset.py
 
@@ -55,6 +70,9 @@ from sklearn.model_selection import train_test_split
 from tqdm import tqdm
 
 from common import car_model, load_config, load_generations, load_merges, parse_class_name, project_path
+
+# Where the Commons photos are, relative to the dataset folder (data/VMMRdb).
+COMMONS_PREFIX = "../commons/images/"
 
 
 # ---------------------------------------------------------------------------
@@ -235,13 +253,62 @@ def assign_generation_classes(df, table):
     # make+model grouping in the app sees one Corolla, not corolla + corolla_s.
     joined = joined.copy()
     joined["model"] = joined["base_model"]
-    joined["year_start"] = joined["first_year"]
-    joined["year_end"] = joined["last_year"]
-    years = joined["year_start"].astype(str)
-    has_range = joined["year_end"] > joined["year_start"]
-    years[has_range] = years[has_range] + "-" + joined.loc[has_range, "year_end"].astype(str)
-    joined["class_name"] = joined["make"] + "_" + joined["model"] + "_" + years
-    return joined
+    return add_look_class_names(joined)
+
+
+def add_look_class_names(df):
+    """Add year_start, year_end and class_name from each row's look (first_year, last_year).
+
+    Shared by VMMRdb and Commons photos, so the same look always gets the same name.
+    """
+    df["year_start"] = df["first_year"]
+    df["year_end"] = df["last_year"]
+    years = df["year_start"].astype(str)
+    has_range = df["year_end"] > df["year_start"]
+    years[has_range] = years[has_range] + "-" + df.loc[has_range, "year_end"].astype(str)
+    df["class_name"] = df["make"] + "_" + df["model"] + "_" + years
+    return df
+
+
+# ---------------------------------------------------------------------------
+# Commons photos (see COMMONS PHOTOS at the top)
+# ---------------------------------------------------------------------------
+def list_commons_images(commons_dir, table):
+    """Return the Commons photos commons_presort.py labeled "auto", with their looks' classes.
+
+    presort.csv already names each photo's look (make, model, generation, phase), so
+    labeling is one join with the table to get the look's years.
+    """
+    presort = pd.read_csv(commons_dir / "presort.csv", keep_default_na=False)
+    auto = presort[presort["status"] == "auto"]
+    print(f"Commons: {len(auto):,} auto-labeled photos (of {len(presort):,} sorted; "
+          f"the rest wait for the next model to sort them)")
+
+    # The group for the split: who TOOK the photo, on which day ("Jane|2019-05-04").
+    # Not who uploaded it: bots like "Flickr upload bot" copy thousands of different
+    # photographers' pictures to Commons in one day, which would lump strangers together.
+    # Falls back to the uploader / upload day for the ~1% of files missing the author or date.
+    manifest = pd.read_csv(commons_dir / "manifest.csv", keep_default_na=False,
+                           usecols=["title", "artist", "uploader", "uploaded", "taken"])
+    df = auto.merge(manifest, on="title")
+    who = df["artist"].where(df["artist"] != "", df["uploader"])
+    day = df["taken"].str.extract(r"(\d{4}-\d{2}-\d{2})")[0].fillna(df["uploaded"].str[:10])
+    df["group"] = who + "|" + day
+
+    # Join on all four parts of the look. A look renamed or removed from the table since
+    # the pre-sort simply doesn't match, and its photos are left out.
+    rows = table[["make", "model", "generation", "phase", "first_year", "last_year"]]
+    joined = df.merge(rows, on=["make", "model", "generation", "phase"])
+    if len(joined) < len(df):
+        print(f"Commons: dropped {len(df) - len(joined):,} photos whose look isn't in the table "
+              f"anymore (rerun commons_presort.py after changing generations.csv)")
+
+    joined["path"] = COMMONS_PREFIX + joined["file"]
+    joined["folder"] = "commons"
+    # The filename year, when the pre-sort found one (only kept for reference).
+    joined["year"] = pd.to_numeric(joined["year"], errors="coerce").astype("Int64")
+    joined["source"] = "commons"
+    return add_look_class_names(joined)
 
 
 # ---------------------------------------------------------------------------
@@ -314,6 +381,55 @@ def split_stratified(df, fractions, seed):
     return train, val, test
 
 
+def pile_by_hash(key, fractions):
+    """Put `key` in train, val or test based on a hash of it.
+
+    WHY a hash: the same key always lands in the same pile, on every run and on every
+    computer, whatever else is in the data. (Python's built-in hash() is NOT like this:
+    it changes every run, on purpose, for security. md5 never changes.)
+
+    HOW: the first 8 hex digits of md5 are a number from 0 to 16^8. Divided by 16^8,
+    that's a "random" fraction between 0 and 1: below 0.8 = train, below 0.9 = val, else test.
+    """
+    fraction = int(hashlib.md5(key.encode("utf-8")).hexdigest()[:8], 16) / 16 ** 8
+    if fraction < fractions["train"]:
+        return "train"
+    return "val" if fraction < fractions["train"] + fractions["val"] else "test"
+
+
+def split_all(df, settings):
+    """Deal every photo into a pile. Returns (train, val, test).
+
+    VMMRdb photos: the pile they had in keep_split_from (frozen test set); photos that
+    weren't in that split (e.g. folders a new merge brought in) go by a hash of their path.
+    Without keep_split_from, VMMRdb is split stratified, as in runs 1 and 2.
+    Commons photos: by a hash of their uploader + day group (group split).
+    """
+    vmmrdb = df[df["source"] == "vmmrdb"]
+    commons = df[df["source"] == "commons"].copy()
+
+    if settings.get("keep_split_from"):
+        old_dir = project_path(settings["keep_split_from"])
+        old_pile = {}
+        for pile in ("train", "val", "test"):
+            for path in pd.read_csv(old_dir / f"{pile}.csv")["path"]:
+                old_pile[path] = pile
+        vmmrdb = vmmrdb.copy()
+        vmmrdb["pile"] = [old_pile.get(p) or pile_by_hash(p, settings["split"]) for p in vmmrdb["path"]]
+        kept = vmmrdb["path"].isin(old_pile.keys()).sum()
+        print(f"VMMRdb: {kept:,} photos keep their pile from {settings['keep_split_from']}, "
+              f"{len(vmmrdb) - kept:,} new ones split by hash")
+    else:
+        train, val, test = split_stratified(vmmrdb, settings["split"], settings["seed"])
+        vmmrdb = pd.concat([train.assign(pile="train"), val.assign(pile="val"), test.assign(pile="test")])
+
+    commons["pile"] = [pile_by_hash(g, settings["split"]) for g in commons["group"]]
+    print(f"Commons: {commons['group'].nunique():,} photographer+day groups")
+
+    df = pd.concat([vmmrdb, commons])
+    return [df[df["pile"] == pile] for pile in ("train", "val", "test")]
+
+
 def main():
     config = load_config()
     settings = config["subset"]
@@ -350,6 +466,16 @@ def main():
         df = assign_generation_classes(df, load_generations())
     else:
         df = assign_classes(df, settings["year_bucket_size"], settings["max_year"])
+    df["source"] = "vmmrdb"
+
+    # Step 4b: add the Commons photos (already labeled; same size check as VMMRdb).
+    # VMMRdb comes FIRST in the table, so when step 5 finds the same photo in both,
+    # it keeps the VMMRdb copy and the frozen split stays intact.
+    if settings.get("include_commons"):
+        commons = list_commons_images(project_path(config["paths"]["commons_dir"]), load_generations())
+        commons = add_image_info(commons, dataset_dir)
+        big_enough = commons[["width", "height"]].min(axis=1) >= settings["min_image_side"]
+        df = pd.concat([df, commons[big_enough]], ignore_index=True)
 
     # Step 5: duplicates. This MUST happen before the split (step 7); otherwise
     # copies of the same photo could be dealt into different piles.
@@ -368,12 +494,12 @@ def main():
           f"{settings['min_images_per_class']} images ({(~df['class_name'].isin(keep)).sum():,} images)")
     df = df[df["class_name"].isin(keep)]
 
-    # Step 7: deal the cards into three piles.
-    train, val, test = split_stratified(df, settings["split"], settings["seed"])
+    # Step 7: deal the cards into three piles (see split_all for the rules).
+    train, val, test = split_all(df, settings)
 
     # Write the three piles. Only these columns are needed for training; sorting
     # by path makes the files easy to browse and diff.
-    columns = ["path", "class_name", "make", "model", "year"]
+    columns = ["path", "class_name", "make", "model", "year", "source"]
     for name, part in [("train", train), ("val", val), ("test", test)]:
         part.sort_values("path")[columns].to_csv(splits_dir / f"{name}.csv", index=False)
 
@@ -403,6 +529,9 @@ def main():
 
     print(f"\nFinal subset: {len(classes):,} classes, {len(df):,} images")
     print(f"  train {len(train):>7,}   val {len(val):>6,}   test {len(test):>6,}")
+    for source in ("vmmrdb", "commons"):
+        counts = [(part["source"] == source).sum() for part in (train, val, test)]
+        print(f"    {source:8} train {counts[0]:>7,}   val {counts[1]:>6,}   test {counts[2]:>6,}")
     print(f"  images per class: min {classes['num_images'].min()}, "
           f"median {int(classes['num_images'].median())}, max {classes['num_images'].max()}")
     print(f"Wrote CSVs to {splits_dir}")

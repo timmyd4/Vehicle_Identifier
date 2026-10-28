@@ -92,6 +92,7 @@ def display_name(class_name):
 MODEL_WORDS = {
     "es": "ES",
     "is": "IS",
+    "gti": "GTI",
 }
 
 

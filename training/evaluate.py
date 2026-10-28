@@ -138,6 +138,28 @@ def accuracy_report(test, class_names, top5_indices, car_names, best_car, table_
     }
 
 
+def report_by_source(test, class_names, top5_indices, car_names, best_car, table_models, merges):
+    """The same report, once per photo source ("vmmrdb", "commons").
+
+    WHY: run 3's test pile mixes VMMRdb photos (the frozen exam run 2 also took) with
+    Commons photos (new, harder: car shows, odd angles). One overall number could hide
+    run 3 getting WORSE on the old photos. The "vmmrdb" score is the fair one to put
+    next to run 2's; the "commons" score shows how it does on the new kind of photo.
+
+    HOW: test row i belongs to prediction row i, so the row numbers of each group pick
+    that group's predictions out of the big tensors (tensor[list of rows] = those rows).
+    Runs 1-2 have no source column: then there's nothing to split.
+    """
+    if "source" not in test:
+        return {}
+    reports = {}
+    for source, rows in test.groupby("source"):
+        picked = torch.tensor(rows.index.values)
+        reports[source] = accuracy_report(rows.copy(), class_names, top5_indices[picked],
+                                          car_names, best_car[picked], table_models, merges)
+    return reports
+
+
 def confused_pairs(test):
     """Count every (true class, predicted class) mix-up, most frequent first."""
     wrong = test[~test["correct_top1"]]
@@ -216,6 +238,9 @@ def main():
     test = pd.read_csv(test_csv)
     test["pred_confidence"] = top5_probs[:, 0].numpy()
     metrics = accuracy_report(test, class_names, top5_indices, car_names, best_car, table_models, merges)
+    by_source = report_by_source(test, class_names, top5_indices, car_names, best_car, table_models, merges)
+    if by_source:
+        metrics["by_source"] = by_source
 
     out_dir = project_path(config["paths"]["runs_dir"]) / args.out_name
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -235,6 +260,12 @@ def main():
           f"like the app)  <- compare runs with this")
     print(f"Class | car    top-1 {metrics['class_given_car']:.1%}   (right years/look, when the car is right)")
     print(f"Make only      top-1 {metrics['make_top1']:.1%}")
+
+    if by_source:
+        print("\nPer photo source (vmmrdb = the frozen exam run 2 also took):")
+        for source, m in by_source.items():
+            print(f"  {source:<8} {m['test_images']:>6,} images | make+model {m['make_model_summed_top1']:.1%} "
+                  f"(like the app) | exact {m['exact_top1']:.1%} | look given car {m['class_given_car']:.1%}")
 
     print("\nMost-confused pairs (true -> guessed, times):")
     for _, row in pairs.head(15).iterrows():

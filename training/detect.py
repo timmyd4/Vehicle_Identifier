@@ -79,7 +79,15 @@ def find_cars(detector, categories, image, device, labels=("car", "truck"), min_
     # Unlike our classifier, torchvision detectors take a LIST of images with
     # values 0.0-1.0 and do their own resizing and normalization internally.
     output = detector([to_tensor(image).to(device)])[0]
+    return cars_in_output(output, categories, labels, min_score)
 
+
+def cars_in_output(output, categories, labels=("car", "truck"), min_score=0.5):
+    """Turn one image's raw detector output into vehicle dicts, biggest first.
+
+    Separate from find_cars so commons_filter.py can run the detector on a whole batch
+    of images at once and then read each image's output with this.
+    """
     # output has three parallel tensors, one entry per detected object:
     #   boxes [N, 4], labels [N] (COCO category numbers), scores [N] (confidence 0-1)
     cars = []

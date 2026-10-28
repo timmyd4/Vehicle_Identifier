@@ -7,6 +7,34 @@ paths:
   runs_dir: training/runs    # generated output: reports, logs, charts
   checkpoints_dir: training/checkpoints   # saved model weights (best.pt, last.pt)
   models_dir: models         # exported files the Java app loads (export_onnx.py writes them)
+  commons_dir: data/commons  # Wikimedia Commons photos + their manifest (commons_list.py, commons_download.py)
+
+# commons_*.py: extra training photos from Wikimedia Commons (freely licensed).
+commons:
+  # Licenses we accept, by the start of Commons' license code: "cc-by-sa-4.0" starts with
+  # "cc-by-sa". All of these allow reuse; CC BY / CC BY-SA require crediting the author,
+  # which is why commons_list.py stores the author and license of every file.
+  allowed_licenses: [cc0, pd, cc-by-sa, cc-by]
+  min_width: 640             # skip files smaller than this (icons, tiny scans)
+  thumb_width: 800           # download this width, not the original (often 4000+ px, 5-10 MB)
+  # Download at most this many per category, so the Civic doesn't crowd out rare cars.
+  # 200 = ~120k files (~12 h). 400 would add ~50k, nearly all for popular cars VMMRdb already covers well.
+  max_per_category: 200
+  # commons_filter.py: which downloaded photos are worth training on (see its docstring).
+  filter:
+    min_score: 0.7           # the main vehicle must be clearly a vehicle (stricter than the app's 0.5).
+                             # 0.8 dropped good show-floor photos; junk that slips through gets caught in review
+    min_area: 0.10           # ...and fill at least 10% of the photo (not a car far down the street)
+    max_second_car: 0.8      # drop if another vehicle is nearly as big: which one is the label?
+                             # (0.5 dropped good photos with a car parked behind; the pre-sort catches wrong-car picks)
+  # commons_presort.py: when the clues agree enough to label a photo without a human.
+  presort:
+    # The model that sorts, AND the class list it was trained with. They must match: the
+    # model's output #i means row #i of THAT classes.csv. (After run 3: point both at run 3.)
+    checkpoint: training/checkpoints/run2_generations/best.pt
+    splits_dir: data/splits_run2_generations
+    min_other_car: 0.5       # run 2 gives another car at least this much -> "different car?" review
+    auto_share: 0.8          # a look with this much of the candidates' probability wins on its own
 
 # build_subset.py: which images and classes to train on, and how to split them.
 subset:
@@ -26,6 +54,11 @@ subset:
     val: 0.1
     test: 0.1
   seed: 42                   # fixed random seed so the split is the same every run
+  # Run 3+: also train on the Commons photos commons_presort.py labeled "auto".
+  include_commons: true
+  # FROZEN TEST SET: keep every VMMRdb photo in the pile it had in this earlier split, so
+  # this run and that one take exactly the same exam. "" = split VMMRdb fresh (runs 1-2).
+  keep_split_from: data/splits_run2_generations
 
 # train.py / evaluate.py / predict.py: the model and how images are fed to it.
 training:

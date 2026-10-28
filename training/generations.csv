@@ -904,10 +904,12 @@ ford,thunderbird,9th gen,facelift,1987,1988,Ford Thunderbird (ninth generation),
 ford,thunderbird,10th gen,pre,1989,1993,Ford Thunderbird (tenth generation),
 ford,thunderbird,10th gen,facelift,1994,1997,Ford Thunderbird (tenth generation),
 ford,thunderbird,11th gen,single,2002,2005,Ford Thunderbird (eleventh generation),
+volkswagen,golf,Golf I,pre,1975,1980,Volkswagen Golf I;Volkswagen Rabbit (Type 17),merged: rabbit (the US name of the Golf I)
+volkswagen,golf,Golf I,facelift,1981,1984,Volkswagen Golf I;Volkswagen Rabbit (Type 17),photo review: 1981 facelift is visible. The Rabbit pickup is mixed in; merged: rabbit (the US name of the Golf I)
 volkswagen,golf,Golf II,single,1985,1992,Volkswagen Golf II,decided: too few VMMRdb photos to be worth splitting (18). Before 1985 the US Golf was sold as the Rabbit
 volkswagen,golf,Golf III,single,1993,1998,Volkswagen Golf III,decided: too few VMMRdb photos to be worth splitting (63); the Mk4-style facelift was mostly outside the US
-volkswagen,golf,Golf IV,single,1999,2006,Volkswagen Golf IV,decided: the facelifts Wikipedia mentions are for other countries (Mk4.5 Brazil). 1999 is mixed: Golf III and IV were both sold
-volkswagen,golf,Golf V,single,2007,2009,Volkswagen Golf V,decided: too few VMMRdb photos to be worth splitting (28); the facelift Wikipedia mentions is the wagon. Sold as the Rabbit in the US
+volkswagen,golf,Golf IV,single,1999,2005,Volkswagen Golf IV,decided: the facelifts Wikipedia mentions are for other countries (Mk4.5 Brazil). 1999 is mixed: Golf III and IV were both sold; decided: 2006 left out (both the Golf IV and the Rabbit = Golf V were sold)
+volkswagen,golf,Golf V,single,2007,2009,Volkswagen Golf V,merged: rabbit (sold as the Rabbit in the US 2006-2009); decided: too few VMMRdb photos to be worth splitting; the facelift Wikipedia mentions is the wagon
 volkswagen,golf,Golf VI,single,2010,2014,Volkswagen Golf VI,decided: the facelift Wikipedia mentions is the wagon; US Golf VI ran 2010-2014
 volkswagen,golf,Golf VII,pre,2015,2017,Volkswagen Golf VII,
 volkswagen,golf,Golf VII,facelift,2018,2021,Volkswagen Golf VII,
@@ -1181,9 +1183,6 @@ dodge,challenger,E-body,single,1970,1974,Dodge Challenger (E-body),decided: clas
 dodge,challenger,Mitsubishi,single,1978,1983,Dodge Challenger (Mitsubishi-based),decided: checker can't find this Wikipedia page; from known model history
 dodge,challenger,LC,pre,2008,2014,Dodge Challenger (LC),
 dodge,challenger,LC,facelift,2015,2023,Dodge Challenger (LC),
-volkswagen,rabbit,Mk1,pre,1975,1980,Volkswagen Golf I;Volkswagen Rabbit (Type 17),
-volkswagen,rabbit,Mk1,facelift,1981,1984,Volkswagen Golf I;Volkswagen Rabbit (Type 17),photo review: 1981 facelift is visible. The Rabbit pickup is mixed in
-volkswagen,rabbit,Mk5,single,2006,2009,Volkswagen Golf V,decided: the facelift Wikipedia mentions is the wagon
 gmc,sonoma,1st gen,single,1991,1993,GMC S-15 - Sonoma,decided: checker can't find this Wikipedia page; from known model history. Before 1991 it was the S-15
 gmc,sonoma,2nd gen,pre,1994,1997,GMC Sonoma (2nd generation),
 gmc,sonoma,2nd gen,facelift,1998,2004,GMC Sonoma (2nd generation),decided: checker can't find this Wikipedia page; from known model history (same as the S-10: 1998 new front)
@@ -1433,9 +1432,9 @@ porsche,cayenne,PO536,pre,2019,2023,Porsche PO536,
 porsche,cayenne,PO536,facelift,2024,2026,Porsche PO536,decided: checker can't find this Wikipedia page; from known model history (2024 refresh)
 ford,contour,CDW27,pre,1995,1997,Ford Contour,
 ford,contour,CDW27,facelift,1998,2000,Ford Contour,photo review: 1998 update is visible
-toyota,pickup,3rd gen,single,1979,1983,Toyota Hilux (third generation),decided: mostly pre-1980; generation level only
-toyota,pickup,4th gen,single,1984,1988,Toyota Hilux (fourth generation),
-toyota,pickup,5th gen,single,1989,1995,Toyota Hilux (fifth generation),decided: the 1992 change was the grille emblem; the 1994 facelift was outside North America
+toyota,pickup,3rd gen,single,1979,1983,Toyota HiLux (N30/N40),decided: mostly pre-1980; generation level only
+toyota,pickup,4th gen,single,1984,1988,Toyota HiLux (N50/N60/N70),
+toyota,pickup,5th gen,single,1989,1995,Toyota HiLux (N80/N90/N100/N110),decided: the 1992 change was the grille emblem; the 1994 facelift was outside North America
 acura,rdx,TB1,pre,2007,2009,Acura RDX (TB1),
 acura,rdx,TB1,facelift,2010,2012,Acura RDX (TB1),photo review: 2010 update is visible
 acura,rdx,TB3,pre,2013,2015,"Acura RDX (TB3, TB4)",
