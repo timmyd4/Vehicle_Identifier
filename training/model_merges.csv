@@ -52,3 +52,97 @@ gmc,sierra_3500,sierra_hd,towing rating; same body
 chevrolet,c-k1500,silverado,same GMT400 truck under its older name
 volkswagen,newbeetle,beetle,same car under two VMMRdb names
 volkswagen,rabbit,golf,same car: the US name of the Golf I and Golf V
+lexus,gs300,gs,wave1: family name (GS300/350/400/430 differ by engine)
+lexus,gs350,gs,wave1
+lexus,gs400,gs,wave1
+lexus,gs430,gs,wave1
+lexus,ls400,ls,wave1: family name
+lexus,ls430,ls,wave1
+lexus,ls460,ls,wave1
+lexus,rx300,rx,wave1: family name
+lexus,rx330,rx,wave1
+lexus,rx350,rx,wave1
+lexus,rx400h,rx,wave1
+lexus,es330,es,wave1
+lexus,is350,is,wave1
+lexus,gx470,gx,wave1
+lexus,lx470,lx,wave1
+lexus,lx570,lx,wave1
+mercedes benz,sl500,sl,wave1: family name
+mercedes benz,sl450,sl,wave1
+mercedes benz,sl550,sl,wave1
+mercedes benz,sl600,sl,wave1
+mercedes benz,c220,c-class,wave1
+mercedes benz,c250,c-class,wave1
+mercedes benz,c280,c-class,wave1
+mercedes benz,c350,c-class,wave1
+mercedes benz,e300,e-class,wave1
+mercedes benz,e420,e-class,wave1
+mercedes benz,e430,e-class,wave1
+mercedes benz,e500,e-class,wave1
+mercedes benz,ce300,e-class,wave1
+mercedes benz,s320,s-class,wave1
+mercedes benz,s420,s-class,wave1
+mercedes benz,s550,s-class,wave1
+mercedes benz,s600,s-class,wave1
+mercedes benz,ml430,m-class,wave1
+mercedes benz,ml500,m-class,wave1
+mercedes benz,gl450,gl-class,wave1
+mercedes benz,gl550,gl-class,wave1
+mercedes benz,glk350,glk-class,wave1
+mercedes benz,gla250,gla-class,wave1
+mercedes benz,r350,r-class,wave1
+mercedes benz,cls500,cls-class,wave1
+mercedes benz,cls550,cls-class,wave1
+mercedes benz,slk230,slk-class,wave1
+mercedes benz,slk320,slk-class,wave1
+mercedes benz,slk350,slk-class,wave1
+bmw,318i,3 series,wave1
+bmw,320i,3 series,wave1
+bmw,325ci,3 series,wave1
+bmw,325e,3 series,wave1
+bmw,325xi,3 series,wave1
+bmw,328ic,3 series,wave1
+bmw,328is,3 series,wave1
+bmw,328xi,3 series,wave1
+bmw,330ci,3 series,wave1
+bmw,330xi,3 series,wave1
+bmw,3series,3 series,wave1
+bmw,735i,7 series,wave1
+bmw,745i,7 series,wave1
+bmw,7series,7 series,wave1
+bmw,525xi,5 series,wave1
+bmw,528xi,5 series,wave1
+bmw,530xi,5 series,wave1
+bmw,535xi,5 series,wave1
+bmw,545i,5 series,wave1
+bmw,550i,5 series,wave1
+bmw,128i,1 series,wave1
+bmw,135i,1 series,wave1
+bmw,428i,4 series,wave1
+bmw,640i,6 series,wave1
+bmw,645ci,6 series,wave1
+bmw,650i,6 series,wave1
+bmw,850i,8 series,wave1
+infiniti,i35,i30,wave1
+infiniti,fx45,fx35,wave1
+infiniti,m45,m35,wave1
+infiniti,g25,g,wave1
+landrover,lr3,discovery,wave1: LR3 = Discovery 3
+landrover,lr4,discovery,wave1: LR4 = Discovery 4
+landrover,lr2,freelander,wave1: LR2 = Freelander 2
+volvo,c70_convertible,c70,wave1
+mazda,speed3,3,wave1
+volkswagen,bug,beetle,wave1
+volkswagen,superbeetle,beetle,wave1
+volkswagen,cabrio,golf,wave1: Golf-based convertible
+volkswagen,cabriolet,golf,wave1: Golf-based convertible
+volkswagen,r32,golf,wave1
+jaguar,vandenplas,xj,wave1: XJ Vanden Plas
+ford,e150,e350,wave1: same van
+ford,e250,e350,wave1
+ford,e450,e350,wave1
+ford,f450,f250-f350,wave1: Super Duty (dually; truck checks later)
+gmc,k1500,sierra_1500,wave1
+gmc,suburban_2500,suburban_1500,wave1
+dodge,cummins,ram_hd,wave1: Ram HD with the Cummins badge

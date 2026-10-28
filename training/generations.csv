@@ -1008,7 +1008,7 @@ honda,prelude,3rd gen,pre,1988,1989,Honda Prelude (3rd generation),
 honda,prelude,3rd gen,facelift,1990,1991,Honda Prelude (3rd generation),decided: Wikipedia says the US facelift came for 1990
 honda,prelude,4th gen,single,1992,1996,Honda Prelude (4th generation),
 honda,prelude,5th gen,single,1997,2001,Honda Prelude (5th generation),photo review: 1999 refresh not visible
-lexus,rx300,XU10,single,1999,2003,Lexus RX (XU10),photo review: 2001 update not visible
+lexus,rx,XU10,single,1999,2003,Lexus RX (XU10),photo review: 2001 update not visible
 dodge,magnum,B-body,single,1978,1979,Dodge Magnum (B-Body),decided: classic car (pre-1980) = generation level only
 dodge,magnum,LX,pre,2005,2007,Dodge Magnum (LX),
 dodge,magnum,LX,facelift,2008,2008,Dodge Magnum (LX),decided: Wikipedia says 2008 got a facelift
@@ -1099,7 +1099,7 @@ suzuki,forenza,Forenza,single,2004,2008,Suzuki Forenza Sedan;Suzuki Forenza Wago
 lexus,is,XE20,pre,2006,2008,Lexus IS (XE20),merged: is250
 lexus,is,XE20,facelift,2009,2010,Lexus IS (XE20),merged: is250; photo review: 2009 refresh is visible
 lexus,is,XE20,facelift2,2011,2013,Lexus IS (XE20),merged: is250; photo review: 2011 refresh is visible
-lexus,is,XE30,single,2014,2015,Lexus IS (XE30),merged: is250; decided: checker can't find this Wikipedia page; from known model history. The IS250 name ended after 2015
+lexus,is,XE30,pre,2014,2016,Lexus IS (XE30),merged: is250; decided: checker can't find this Wikipedia page; from known model history. The IS250 name ended after 2015
 lexus,is,XE10,single,2001,2005,Lexus IS (XE10),merged: is300; decided: checker can't find this Wikipedia page; from known model history
 cadillac,sts,Seville 4th gen,single,1992,1997,Cadillac Seville (K-body FWD);Cadillac Seville STS,decided: checker can't find this Wikipedia page; from known model history. Before 2005 the STS was a trim of the Seville
 cadillac,sts,Seville 5th gen,single,1998,2004,Cadillac Seville (1998–2004),decided: checker can't find this Wikipedia page; from known model history
@@ -1166,10 +1166,10 @@ bmw,x3,E83,pre,2004,2006,BMW E83,
 bmw,x3,E83,facelift,2007,2010,BMW E83,
 bmw,x3,F25,pre,2011,2014,BMW F25,
 bmw,x3,F25,facelift,2015,2017,BMW F25,decided: Wikipedia has a 2014 LCI section (2015 model year)
-lexus,gs300,S140,single,1993,1997,Lexus GS (S140),decided: checker can't find this Wikipedia page; from known model history
-lexus,gs300,S160,pre,1998,2000,Lexus GS (S160),
-lexus,gs300,S160,facelift,2001,2005,Lexus GS (S160),decided: checker can't find this Wikipedia page; from known model history (2001 new headlights)
-lexus,gs300,S190,single,2006,2006,Lexus GS (S190),decided: the GS300 was sold only for 2006; the 2009 refresh was the GS450h
+lexus,gs,S140,single,1993,1997,Lexus GS (S140),decided: checker can't find this Wikipedia page; from known model history
+lexus,gs,S160,pre,1998,2000,Lexus GS (S160),
+lexus,gs,S160,facelift,2001,2005,Lexus GS (S160),decided: checker can't find this Wikipedia page; from known model history (2001 new headlights)
+lexus,gs,S190,single,2006,2011,Lexus GS (S190),decided: the GS300 was sold only for 2006; the 2009 refresh was the GS450h
 chevrolet,colorado,1st gen,single,2004,2012,Chevrolet Colorado (first generation),photo review: 2007/2009 grille change not visible
 chevrolet,colorado,2nd gen,pre,2015,2020,Chevrolet Colorado (second generation),
 chevrolet,colorado,2nd gen,facelift,2021,2022,Chevrolet Colorado (second generation),
@@ -1485,8 +1485,8 @@ plymouth,voyager,NS,single,1996,2000,Plymouth Voyager (NS),
 nissan,240sx,S13,single,1989,1994,Nissan 240SX (S13),photo review: 1991 update not visible. Coupes and hatchbacks are mixed in
 nissan,240sx,S14,pre,1995,1996,Nissan 240SX (S14),
 nissan,240sx,S14,facelift,1997,1998,Nissan 240SX (S14),decided: checker can't find this Wikipedia page; from known model history (1997 new front and lights)
-mercedes benz,sl500,R129,single,1994,2002,Mercedes-Benz R129,photo review: 1999 facelift not visible. The SL500 name started in 1994
-mercedes benz,sl500,R230,single,2003,2006,Mercedes-Benz R230,decided: the 2009 facelift came after the SL500 became the SL550
+mercedes benz,sl,R129,single,1994,2002,Mercedes-Benz R129,photo review: 1999 facelift not visible. The SL500 name started in 1994
+mercedes benz,sl,R230,pre,2003,2008,Mercedes-Benz R230,decided: the 2009 facelift came after the SL500 became the SL550
 mitsubishi,endeavor,Endeavor,pre,2004,2007,Mitsubishi Endeavor,
 mitsubishi,endeavor,Endeavor,facelift,2008,2011,Mitsubishi Endeavor,decided: checker can't find this Wikipedia page; from known model history (2008 new front)
 chrysler,crossfire,ZH,single,2004,2008,Chrysler Crossfire,decided: checker can't find this Wikipedia page; from known model history
@@ -1541,7 +1541,600 @@ mitsubishi,montero,1st gen,single,1983,1991,Mitsubishi Pajero (1st generation),d
 mitsubishi,montero,2nd gen,single,1992,2000,Mitsubishi Pajero (2nd generation),decided: only 9 VMMRdb photos before the 1997 changes
 mitsubishi,montero,3rd gen,pre,2001,2002,Mitsubishi Pajero (3rd generation),
 mitsubishi,montero,3rd gen,facelift,2003,2006,Mitsubishi Pajero (3rd generation),photo review: 2003 facelift is visible
-lexus,ls400,XF10,single,1990,1994,Lexus LS (XF10),photo review: 1993 update not visible
-lexus,ls400,XF20,pre,1995,1997,Lexus LS (XF20),
-lexus,ls400,XF20,facelift,1998,2000,Lexus LS (XF20),photo review: 1998 update is visible
+lexus,ls,XF10,single,1990,1994,Lexus LS (XF10),photo review: 1993 update not visible
+lexus,ls,XF20,pre,1995,1997,Lexus LS (XF20),
+lexus,ls,XF20,facelift,1998,2000,Lexus LS (XF20),photo review: 1998 update is visible
 oldsmobile,intrigue,Intrigue,single,1998,2002,Oldsmobile Intrigue,decided: checker can't find this Wikipedia page; from known model history
+tesla,model s,1st gen,pre,2012,2016,Tesla Model S (2012–2016),wave1
+tesla,model s,1st gen,facelift,2017,2020,Tesla Model S (2016–2021),wave1
+tesla,model s,1st gen,facelift2,2021,2026,Tesla Model S (2021–),wave1: 2021 refresh is subtle from outside
+tesla,model 3,1st gen,pre,2017,2023,Tesla Model 3 (2017–2023),wave1
+tesla,model 3,1st gen,facelift,2024,2026,Tesla Model 3 (2023–),wave1: Highland
+tesla,model x,1st gen,single,2016,2026,Tesla Model X (2016);Tesla Model X,wave1: 2022 refresh not visible outside
+tesla,model y,1st gen,pre,2020,2024,Tesla Model Y,wave1: top category also holds the 2025 subcategory
+tesla,model y,1st gen,facelift,2025,2026,Tesla Model Y (2025),wave1 CHECK: Juniper US model year
+tesla,cybertruck,1st gen,single,2024,2026,Tesla Cybertruck,wave1
+tesla,roadster,1st gen,single,2008,2012,Tesla Roadster (first generation),wave1
+genesis,g70,IK,pre,2019,2021,Genesis G70,wave1
+genesis,g70,IK,facelift,2022,2026,Genesis G70 Facelift,wave1
+genesis,g80,DH,single,2017,2020,Genesis G80 (DH),wave1
+genesis,g80,RG3,pre,2021,2024,Genesis G80 (RG3),wave1
+genesis,g80,RG3,facelift,2025,2026,Genesis G80 (RG3),wave1
+genesis,g90,HI,pre,2017,2019,Genesis G90 (HI),wave1
+genesis,g90,HI,facelift,2020,2022,Genesis G90 (HI),wave1: 2020 facelift changed the whole front
+genesis,g90,RS4,single,2023,2026,Genesis G90 (RS4),wave1
+genesis,gv60,JW,single,2023,2026,Genesis GV60,wave1
+genesis,gv70,JK1,single,2022,2026,Genesis GV70,wave1
+genesis,gv80,JX1,pre,2021,2024,Genesis GV80,wave1
+genesis,gv80,JX1,facelift,2025,2026,Genesis GV80,wave1
+rivian,r1t,1st gen,single,2022,2026,Rivian R1T,wave1
+rivian,r1s,1st gen,single,2022,2026,Rivian R1S,wave1
+polestar,polestar 2,1st gen,single,2021,2026,Polestar 2,wave1
+polestar,polestar 3,1st gen,single,2025,2026,Polestar 3,wave1
+lucid,air,1st gen,single,2022,2026,Lucid Air,wave1
+fiat,500,312,single,2012,2019,Fiat 500 (2007),wave1 CHECK: category name
+fiat,500l,330,single,2014,2020,Fiat 500L,wave1
+fiat,500x,334,single,2016,2023,Fiat 500X,wave1
+fiat,124 spider,348,single,2017,2020,Fiat 124 Spider (2016),wave1
+alfa romeo,giulia,952,single,2017,2026,Alfa Romeo Giulia (type 952),wave1
+alfa romeo,stelvio,949,single,2018,2026,Alfa Romeo Stelvio,wave1
+alfa romeo,4c,960,single,2015,2020,Alfa Romeo 4C Coupé;Alfa Romeo 4C Spider,wave1
+alfa romeo,tonale,965,single,2024,2026,Alfa Romeo Tonale,wave1
+maserati,ghibli,M157,single,2014,2024,Maserati Ghibli III,wave1
+maserati,levante,M161,single,2017,2024,Maserati Levante,wave1
+maserati,quattroporte,V,single,2005,2013,Maserati Quattroporte V,wave1
+maserati,quattroporte,VI,single,2014,2024,Maserati Quattroporte VI,wave1
+maserati,granturismo,I,single,2008,2019,Maserati GranTurismo I,wave1
+maserati,granturismo,II,single,2024,2026,Maserati GranTurismo II,wave1
+maserati,grecale,M182,single,2023,2026,Maserati Grecale,wave1
+acura,ilx,DE,pre,2013,2015,Acura ILX,wave1
+acura,ilx,DE,facelift,2016,2018,Acura ILX,wave1
+acura,ilx,DE,facelift2,2019,2022,Acura ILX,wave1
+acura,tlx,UB1/2,pre,2015,2017,Acura TLX (UB1/2),wave1
+acura,tlx,UB1/2,facelift,2018,2020,Acura TLX (UB1/2),wave1
+acura,tlx,UB5,single,2021,2026,Acura TLX (second generation),wave1
+acura,rlx,KC2,pre,2014,2017,Acura RLX,wave1
+acura,rlx,KC2,facelift,2018,2020,Acura RLX,wave1: diamond grille
+acura,zdx,YB1,single,2010,2013,Acura ZDX (first generation),wave1
+acura,zdx,2nd gen,single,2024,2026,Acura ZDX (second generation),wave1
+acura,nsx,NA1/2,pre,1991,2001,Acura NSX (1st generation),wave1: pop-up headlights
+acura,nsx,NA1/2,facelift,2002,2005,Acura NSX (1st generation),wave1: fixed headlights
+acura,nsx,NC1,single,2017,2022,Acura NSX (2nd generation),wave1
+audi,a5,8T,pre,2008,2012,Audi A5 8T,wave1
+audi,a5,8T,facelift,2013,2017,Audi A5 8T,wave1
+audi,a5,F5,pre,2018,2019,Audi A5 F5,wave1
+audi,a5,F5,facelift,2020,2024,Audi A5 F5,wave1
+audi,a5,B10,single,2025,2026,Audi A5 B10,wave1
+audi,a7,4G,pre,2012,2014,Audi A7 4G,wave1
+audi,a7,4G,facelift,2015,2018,Audi A7 4G,wave1
+audi,a7,C8,single,2019,2026,Audi A7 C8,wave1
+audi,q3,8U,single,2015,2018,Audi Q3 8U,wave1: US got the facelifted 8U only
+audi,q3,F3,single,2019,2025,Audi Q3 F3,wave1
+audi,q3,FJ,single,2026,2026,Audi Q3 FJ,wave1
+audi,q5,8R,pre,2009,2012,Audi Q5 8R,wave1
+audi,q5,8R,facelift,2013,2017,Audi Q5 8R,wave1
+audi,q5,FY,pre,2018,2020,Audi Q5 FY,wave1
+audi,q5,FY,facelift,2021,2024,Audi Q5 FY,wave1
+audi,q5,GU,single,2025,2026,Audi Q5 GU,wave1
+audi,q7,4L,pre,2007,2009,Audi Q7 (4L),wave1
+audi,q7,4L,facelift,2010,2015,Audi Q7 (4L),wave1
+audi,q7,4M,pre,2017,2019,Audi Q7 (4M),wave1
+audi,q7,4M,facelift,2020,2026,Audi Q7 (4M),wave1
+audi,q8,4M,pre,2019,2023,Audi Q8,wave1
+audi,q8,4M,facelift,2024,2026,Audi Q8,wave1
+audi,r8,42,single,2008,2015,Audi R8 (1st generation),wave1
+audi,r8,4S,pre,2017,2019,Audi R8 (2nd generation),wave1
+audi,r8,4S,facelift,2020,2023,Audi R8 (2nd generation),wave1
+audi,tt,8N,single,2000,2006,Audi TT 8N,wave1
+audi,tt,8J,single,2008,2015,Audi TT 8J,wave1
+audi,tt,8S,single,2016,2023,Audi TT 8S,wave1
+audi,e-tron,GE,pre,2019,2023,Audi e-tron,wave1
+audi,e-tron,GE,facelift,2024,2024,Audi Q8 e-tron,wave1: renamed Q8 e-tron
+audi,e-tron gt,F8,single,2022,2026,Audi e-tron GT,wave1
+audi,q4 e-tron,F4,single,2022,2026,Audi Q4 e-tron,wave1
+audi,a8,D5,pre,2019,2023,Audi A8 D5,wave1
+audi,a8,D5,facelift,2024,2026,Audi A8 D5,wave1
+bmw,1 series,E82/E88,single,2008,2013,BMW E82;BMW E88,wave1: US 128i/135i coupe and convertible
+bmw,2 series,F22/F23,single,2014,2021,BMW F22;BMW F23,wave1: 2018 LCI subtle
+bmw,2 series,G42,single,2022,2026,BMW G42,wave1
+bmw,4 series,F32,single,2014,2020,BMW F32;BMW F33;BMW F36,wave1: 2018 LCI subtle
+bmw,4 series,G22,pre,2021,2024,BMW G22;BMW G23;BMW G26,wave1
+bmw,4 series,G22,facelift,2025,2026,BMW G22;BMW G23;BMW G26,wave1
+bmw,6 series,E63,pre,2004,2007,BMW 6 Series (2nd generation),wave1
+bmw,6 series,E63,facelift,2008,2010,BMW 6 Series (2nd generation),wave1
+bmw,6 series,F12,single,2012,2019,BMW 6 Series (3rd generation),wave1
+bmw,8 series,E31,single,1991,1997,BMW E31,wave1
+bmw,8 series,G15,single,2019,2026,BMW G14;BMW G15;BMW 8 Series Gran Coupé,wave1
+bmw,5 series,G30,pre,2017,2020,BMW G30,wave1
+bmw,5 series,G30,facelift,2021,2023,BMW G30,wave1
+bmw,5 series,G60,single,2024,2026,BMW G60,wave1
+bmw,7 series,G70,single,2023,2026,BMW G70,wave1 CHECK: category name
+bmw,x1,E84,single,2013,2015,BMW E84,wave1: US 2013-2015
+bmw,x1,F48,pre,2016,2019,BMW F48,wave1
+bmw,x1,F48,facelift,2020,2022,BMW F48,wave1
+bmw,x1,U11,single,2023,2026,BMW U11,wave1
+bmw,x2,F39,single,2018,2023,BMW F39,wave1
+bmw,x2,U10,single,2024,2026,BMW U10,wave1
+bmw,x3,G01,pre,2018,2021,BMW G01,wave1
+bmw,x3,G01,facelift,2022,2024,BMW G01,wave1
+bmw,x3,G45,single,2025,2026,BMW G45,wave1
+bmw,x4,F26,single,2015,2018,BMW F26,wave1
+bmw,x4,G02,pre,2019,2021,BMW G02,wave1
+bmw,x4,G02,facelift,2022,2025,BMW G02,wave1
+bmw,x6,E71,pre,2008,2011,BMW E71,wave1
+bmw,x6,E71,facelift,2012,2014,BMW E71,wave1
+bmw,x6,F16,single,2015,2019,BMW F16,wave1
+bmw,x6,G06,pre,2020,2023,BMW G06,wave1
+bmw,x6,G06,facelift,2024,2026,BMW G06,wave1
+bmw,x7,G07,pre,2019,2022,BMW G07,wave1
+bmw,x7,G07,facelift,2023,2026,BMW G07,wave1: split headlights
+bmw,i3,I01,single,2014,2021,BMW I01,wave1
+bmw,i4,G26,single,2022,2026,BMW i4,wave1
+bmw,i8,I12,single,2014,2020,BMW I12;BMW i8 Roadster,wave1
+bmw,ix,I20,single,2022,2026,BMW iX,wave1
+bmw,m2,F87,single,2016,2021,BMW M2 (F87),wave1
+bmw,m2,G87,single,2023,2026,BMW M2 (G87),wave1
+bmw,m4,F82,single,2015,2020,BMW M4 (F82);BMW M4 (F83),wave1
+bmw,m4,G82,single,2021,2026,BMW M4 (G82);BMW M4 (G83),wave1
+bmw,m5,E34,single,1991,1993,BMW M5 (E34),wave1
+bmw,m5,E39,single,2000,2003,BMW M5 (E39),wave1
+bmw,m5,E60,single,2006,2010,BMW M5 (E60),wave1
+bmw,m5,F10,single,2013,2016,BMW M5 (F10),wave1
+bmw,m5,F90,single,2018,2023,BMW M5 (F90),wave1
+bmw,m5,G90,single,2025,2026,BMW M5 (G90),wave1
+buick,encore,Gamma II,pre,2013,2016,Buick Encore (Gamma II),wave1
+buick,encore,Gamma II,facelift,2017,2022,Buick Encore (Gamma II),wave1
+buick,encore gx,1st gen,pre,2020,2023,Buick Encore GX,wave1
+buick,encore gx,1st gen,facelift,2024,2026,Buick Encore GX,wave1
+buick,envision,D2UX,single,2016,2020,Buick Envision (D2UX),wave1
+buick,envision,E2XX,single,2021,2026,Buick Envision (E2XX),wave1
+buick,envista,1st gen,single,2024,2026,Buick Envista,wave1
+buick,verano,1st gen,single,2012,2017,Buick Verano,wave1
+buick,cascada,1st gen,single,2016,2019,Buick Cascada,wave1
+buick,lucerne,1st gen,pre,2006,2008,Buick Lucerne,wave1
+buick,lucerne,1st gen,facelift,2009,2011,Buick Lucerne,wave1
+cadillac,ats,A1SL,pre,2013,2014,Cadillac ATS,wave1
+cadillac,ats,A1SL,facelift,2015,2019,Cadillac ATS,wave1: new wreath grille
+cadillac,ct4,1st gen,single,2020,2026,Cadillac CT4,wave1
+cadillac,ct5,1st gen,pre,2020,2024,Cadillac CT5,wave1
+cadillac,ct5,1st gen,facelift,2025,2026,Cadillac CT5,wave1
+cadillac,ct6,1st gen,pre,2016,2018,Cadillac CT6 (1st generation),wave1
+cadillac,ct6,1st gen,facelift,2019,2020,Cadillac CT6 (1st generation),wave1
+cadillac,xt4,1st gen,pre,2019,2023,Cadillac XT4,wave1
+cadillac,xt4,1st gen,facelift,2024,2025,Cadillac XT4,wave1
+cadillac,xt5,1st gen,single,2017,2026,Cadillac XT5 (1st generation),wave1
+cadillac,xt6,1st gen,single,2020,2025,Cadillac XT6,wave1
+cadillac,xts,1st gen,pre,2013,2017,Cadillac XTS,wave1
+cadillac,xts,1st gen,facelift,2018,2019,Cadillac XTS,wave1
+cadillac,lyriq,1st gen,single,2023,2026,Cadillac Lyriq,wave1
+cadillac,elr,1st gen,single,2014,2016,Cadillac ELR,wave1
+cadillac,xlr,1st gen,single,2004,2009,Cadillac XLR,wave1
+chevrolet,sonic,Gamma II,pre,2012,2016,Chevrolet Sonic (Gamma II),wave1
+chevrolet,sonic,Gamma II,facelift,2017,2020,Chevrolet Sonic (Gamma II),wave1
+chevrolet,spark,M300,single,2013,2015,Chevrolet Spark (M300),wave1
+chevrolet,spark,M400,pre,2016,2018,Chevrolet Spark (M400),wave1
+chevrolet,spark,M400,facelift,2019,2022,Chevrolet Spark (M400),wave1
+chevrolet,volt,1st gen,single,2011,2015,Chevrolet Volt (first generation),wave1
+chevrolet,volt,2nd gen,single,2016,2019,Chevrolet Volt (second generation),wave1
+chevrolet,bolt,1st gen,pre,2017,2021,Chevrolet Bolt (first generation),wave1
+chevrolet,bolt,1st gen,facelift,2022,2023,Chevrolet Bolt (first generation),wave1
+chevrolet,trax,1st gen,pre,2015,2016,Chevrolet Trax (first generation),wave1
+chevrolet,trax,1st gen,facelift,2017,2022,Chevrolet Trax (first generation),wave1
+chevrolet,trax,2nd gen,single,2024,2026,Chevrolet Trax (second generation),wave1
+chevrolet,blazer ev,1st gen,single,2024,2026,Chevrolet Blazer EV,wave1 CHECK: category name
+chevrolet,equinox ev,1st gen,single,2024,2026,Chevrolet Equinox EV,wave1 CHECK: category name
+chevrolet,silverado ev,1st gen,single,2024,2026,Chevrolet Silverado EV,wave1 CHECK: category name
+chrysler,aspen,1st gen,single,2007,2009,Chrysler Aspen,wave1
+dodge,hornet,1st gen,single,2023,2025,Dodge Hornet,wave1
+dodge,viper,SR II,single,1996,2002,Dodge Viper (SR II),wave1
+dodge,viper,ZB I,single,2003,2007,Dodge Viper (ZB I),wave1
+dodge,viper,ZB II,single,2008,2010,Dodge Viper (ZB II),wave1
+dodge,viper,VX I,single,2013,2017,Dodge Viper (VX I),wave1
+ford,maverick,P758,single,2022,2026,Ford Maverick (pickup truck),wave1: the 1970s Maverick folders fall outside these years
+ford,bronco sport,CX430,single,2021,2026,Ford Bronco Sport,wave1
+ford,ecosport,B515,single,2018,2022,Ford EcoSport (2nd generation),wave1
+ford,flex,D471,pre,2009,2012,Ford Flex,wave1
+ford,flex,D471,facelift,2013,2019,Ford Flex,wave1
+ford,c-max,2nd gen,single,2013,2018,Ford C-Max (Second generation),wave1
+ford,transit,V363,single,2015,2026,Ford Transit (2013– ),wave1
+ford,transit_connect,1st gen,single,2010,2013,Ford Transit Connect (1st generation: 2002–2013),wave1
+ford,transit_connect,2nd gen,single,2014,2023,Ford Transit Connect (2nd generation),wave1
+ford,gt,1st gen,single,2005,2006,Ford GT (1st generation),wave1
+ford,gt,2nd gen,single,2017,2022,Ford GT (2nd generation),wave1
+ford,mustang mach-e,1st gen,single,2021,2026,Ford Mustang Mach-E,wave1
+ford,f150 lightning,1st gen,single,2022,2026,Ford F-150 Lightning,wave1
+gmc,canyon,GMT355,single,2004,2012,GMC Canyon (GMT355),wave1
+gmc,canyon,GMT31XX,single,2015,2022,GMC Canyon (GMT31XX),wave1
+gmc,canyon,3rd gen,single,2023,2026,GMC Canyon (GMT31XX-2),wave1
+gmc,terrain,Theta,pre,2010,2015,GMC Terrain (Theta),wave1
+gmc,terrain,Theta,facelift,2016,2017,GMC Terrain (Theta),wave1
+gmc,terrain,D2UX,pre,2018,2021,GMC Terrain (D2UX),wave1
+gmc,terrain,D2UX,facelift,2022,2024,GMC Terrain (D2UX),wave1
+gmc,terrain,D2XX,single,2025,2026,GMC Terrain (D2XX),wave1
+gmc,savana,1st gen,single,1996,2002,GMC Savana (1996),wave1
+gmc,savana,2nd gen,single,2003,2026,GMC Savana (2003),wave1
+gmc,hummer ev,1st gen,single,2022,2026,GMC Hummer EV,wave1
+honda,hr-v,2nd gen,pre,2016,2018,Honda HR-V (2nd generation),wave1
+honda,hr-v,2nd gen,facelift,2019,2022,Honda HR-V (2nd generation),wave1
+honda,hr-v,3rd gen,single,2023,2026,Honda HR-V (3rd generation),wave1
+honda,passport,1st gen,single,1994,1997,Honda Passport (first generation),wave1: Isuzu Rodeo twin
+honda,passport,2nd gen,single,1998,2002,Honda Passport (second generation),wave1
+honda,passport,3rd gen,pre,2019,2021,Honda Passport (third generation),wave1
+honda,passport,3rd gen,facelift,2022,2025,Honda Passport (third generation),wave1
+honda,passport,4th gen,single,2026,2026,Honda Passport (fourth generation),wave1
+honda,insight,ZE1,single,2000,2006,Honda Insight (ZE1),wave1
+honda,insight,ZE2,single,2010,2014,Honda Insight (ZE2),wave1
+honda,insight,ZE4,single,2019,2022,Honda Insight (ZE4),wave1
+honda,clarity,ZC4,single,2017,2021,Honda Clarity FCV;Honda Clarity PHEV;Honda Clarity Electric,wave1
+honda,cr-z,ZF1,pre,2011,2012,Honda CR-Z (2010),wave1
+honda,cr-z,ZF1,facelift,2013,2015,Honda CR-Z (2012),wave1
+honda,cr-z,ZF1,facelift2,2016,2016,Honda CR-Z (2015),wave1
+honda,crosstour,TF,pre,2010,2012,Honda Accord Crosstour,wave1
+honda,crosstour,TF,facelift,2013,2015,Honda Accord Crosstour,wave1
+honda,prologue,1st gen,single,2024,2026,Honda Prologue,wave1
+hyundai,azera,TG,pre,2006,2009,Hyundai Azera (TG),wave1
+hyundai,azera,TG,facelift,2010,2011,Hyundai Azera (TG),wave1
+hyundai,azera,HG,single,2012,2017,Hyundai Azera (HG),wave1
+hyundai,veloster,FS,pre,2012,2015,Hyundai Veloster (FS),wave1
+hyundai,veloster,FS,facelift,2016,2017,Hyundai Veloster (FS),wave1
+hyundai,veloster,JS,single,2019,2022,Hyundai Veloster (JS),wave1
+hyundai,kona,OS,pre,2018,2021,Hyundai Kona (OS),wave1
+hyundai,kona,OS,facelift,2022,2023,Hyundai Kona (OS),wave1
+hyundai,kona,SX2,single,2024,2026,Hyundai Kona (SX2),wave1
+hyundai,palisade,LX2,pre,2020,2022,Hyundai Palisade (LX2),wave1
+hyundai,palisade,LX2,facelift,2023,2025,Hyundai Palisade (LX2),wave1
+hyundai,palisade,LX3,single,2026,2026,Hyundai Palisade (LX3),wave1
+hyundai,venue,QX,single,2020,2025,Hyundai Venue,wave1
+hyundai,santa cruz,NX4a,pre,2022,2024,Hyundai Santa Cruz,wave1
+hyundai,santa cruz,NX4a,facelift,2025,2026,Hyundai Santa Cruz,wave1
+hyundai,ioniq,AE,single,2017,2022,Hyundai Ioniq Electric;Hyundai Ioniq Hybrid;Hyundai Ioniq Plug-in,wave1
+hyundai,ioniq 5,NE,single,2022,2026,Hyundai Ioniq 5,wave1
+hyundai,ioniq 6,CE,pre,2023,2025,Hyundai Ioniq 6 (2022),wave1
+hyundai,ioniq 6,CE,facelift,2026,2026,Hyundai Ioniq 6 (2025),wave1
+hyundai,equus,VI,pre,2011,2013,Hyundai Equus (VI),wave1
+hyundai,equus,VI,facelift,2014,2016,Hyundai Equus (VI),wave1
+hyundai,veracruz,EN,single,2007,2012,Hyundai Veracruz,wave1
+infiniti,q50,V37,pre,2014,2017,Infiniti Q50,wave1
+infiniti,q50,V37,facelift,2018,2024,Infiniti Q50,wave1
+infiniti,q60,V37,single,2017,2022,Infiniti Q60 (V37),wave1
+infiniti,q70,Y51,single,2014,2019,Infiniti Q70;Infiniti Q70L,wave1: same car as the M37 (m35 rows)
+infiniti,qx50,J50,single,2008,2017,Infiniti EX (J50);Infiniti QX50 (J50),wave1: sold as EX35/EX37 until 2013
+infiniti,qx50,J55,single,2019,2025,Infiniti QX50 (J55),wave1
+infiniti,qx60,L50,pre,2013,2015,Infiniti QX60 (L50),wave1: sold as JX35 in 2013
+infiniti,qx60,L50,facelift,2016,2020,Infiniti QX60 (L50),wave1
+infiniti,qx60,L51,single,2022,2026,Infiniti QX60 (L51),wave1
+infiniti,qx80,Z62,pre,2014,2017,Infiniti QX80 (Z62),wave1
+infiniti,qx80,Z62,facelift,2018,2024,Infiniti QX80 (Z62),wave1
+infiniti,qx80,Z63,single,2025,2026,Infiniti QX80 (Z63),wave1
+infiniti,qx30,H15,single,2017,2019,Infiniti QX30,wave1
+infiniti,qx55,J55,single,2022,2025,Infiniti QX55,wave1
+jaguar,f-pace,X761,pre,2017,2020,Jaguar F-Pace,wave1
+jaguar,f-pace,X761,facelift,2021,2026,Jaguar F-Pace,wave1
+jaguar,e-pace,X540,single,2018,2024,Jaguar E-Pace,wave1
+jaguar,i-pace,X590,single,2019,2024,Jaguar I-Pace,wave1
+jaguar,f-type,X152,pre,2014,2020,Jaguar F-Type (2013–2019),wave1
+jaguar,f-type,X152,facelift,2021,2024,Jaguar F-Type (2019–2024),wave1
+jaguar,xe,X760,single,2017,2020,Jaguar XE,wave1
+jaguar,xf,X250,pre,2009,2011,Jaguar XF (X250),wave1
+jaguar,xf,X250,facelift,2012,2015,Jaguar XF (X250),wave1
+jaguar,xf,X260,pre,2016,2020,Jaguar XF (X260),wave1
+jaguar,xf,X260,facelift,2021,2024,Jaguar XF (X260),wave1
+jaguar,xk,X100,single,1997,2006,Jaguar XK (X100),wave1
+jaguar,xk,X150,single,2007,2015,Jaguar XK (X150),wave1
+jeep,renegade,BU,pre,2015,2018,Jeep Renegade,wave1
+jeep,renegade,BU,facelift,2019,2023,Jeep Renegade,wave1
+jeep,gladiator,JT,single,2020,2026,Jeep Gladiator (JT),wave1
+jeep,wagoneer,WS,single,2022,2026,Jeep Wagoneer (WS),wave1
+kia,forte,TD,single,2010,2013,Kia Forte (TD),wave1
+kia,forte,YD,pre,2014,2016,Kia Forte (YD),wave1
+kia,forte,YD,facelift,2017,2018,Kia Forte (YD),wave1
+kia,forte,BD,pre,2019,2021,Kia Forte (BD),wave1
+kia,forte,BD,facelift,2022,2024,Kia Forte (BD),wave1
+kia,cadenza,VG,single,2014,2016,Kia Cadenza (VG),wave1
+kia,cadenza,YG,single,2017,2020,Kia Cadenza (YG),wave1
+kia,k900,KH,single,2015,2020,Kia K900,wave1
+kia,stinger,CK,pre,2018,2021,Kia Stinger,wave1
+kia,stinger,CK,facelift,2022,2023,Kia Stinger,wave1
+kia,telluride,ON,pre,2020,2022,Kia Telluride (ON),wave1
+kia,telluride,ON,facelift,2023,2026,Kia Telluride (ON),wave1
+kia,niro,DE,pre,2017,2019,Kia Niro (DE),wave1
+kia,niro,DE,facelift,2020,2022,Kia Niro (DE),wave1
+kia,niro,SG2,single,2023,2026,Kia Niro (SG2),wave1
+kia,seltos,SP2,pre,2021,2023,Kia Seltos (SP2),wave1
+kia,seltos,SP2,facelift,2024,2026,Kia Seltos (SP2),wave1
+kia,carnival,KA4,pre,2022,2024,Kia Carnival (KA4),wave1
+kia,carnival,KA4,facelift,2025,2026,Kia Carnival (KA4),wave1
+kia,ev6,CV,pre,2022,2024,Kia EV6 (2021–2024),wave1
+kia,ev6,CV,facelift,2025,2026,Kia EV6 (2024–),wave1
+kia,ev9,MV,single,2024,2026,Kia EV9,wave1
+kia,k5,DL3,pre,2021,2024,Kia K5 (DL3),wave1
+kia,k5,DL3,facelift,2025,2026,Kia K5 (DL3),wave1
+kia,rondo,UN,single,2007,2010,Kia Rondo (UN),wave1
+kia,borrego,HM,single,2009,2011,Kia Borrego,wave1
+landrover,discovery,Series I,single,1994,1998,Land Rover Discovery Series I,wave1
+landrover,discovery,Series II,single,1999,2004,Land Rover Discovery Series II,wave1
+landrover,discovery,LR3,single,2005,2009,Land Rover Discovery 3;Land Rover LR3,wave1: sold as LR3 in the US
+landrover,discovery,LR4,single,2010,2016,Land Rover Discovery 4;Land Rover LR4,wave1: sold as LR4 in the US
+landrover,discovery,L462,pre,2017,2020,Land Rover Discovery 5,wave1
+landrover,discovery,L462,facelift,2021,2026,Land Rover Discovery 5,wave1
+landrover,discovery_sport,L550,pre,2015,2019,Land Rover Discovery Sport,wave1
+landrover,discovery_sport,L550,facelift,2020,2026,Land Rover Discovery Sport,wave1
+landrover,defender,L663,single,2020,2026,Land Rover Defender (L663),wave1
+landrover,freelander,L314,single,2002,2005,Land Rover Freelander (1st generation),wave1
+landrover,freelander,L359,pre,2008,2012,Land Rover Freelander (2nd generation),wave1: sold as LR2 in the US
+landrover,freelander,L359,facelift,2013,2015,Land Rover Freelander (2nd generation),wave1
+landrover,rangerover_sport,L320,pre,2006,2009,Range Rover Sport Series I,wave1
+landrover,rangerover_sport,L320,facelift,2010,2013,Range Rover Sport Series I,wave1
+landrover,rangerover_sport,L494,pre,2014,2017,Range Rover Sport Series II,wave1
+landrover,rangerover_sport,L494,facelift,2018,2022,Range Rover Sport Series II,wave1
+landrover,rangerover_sport,L461,single,2023,2026,Range Rover Sport Series III,wave1
+landrover,rangerover_evoque,L538,pre,2012,2015,Range Rover Evoque (L538),wave1
+landrover,rangerover_evoque,L538,facelift,2016,2019,Range Rover Evoque (L538),wave1
+landrover,rangerover_evoque,L551,single,2020,2026,Range Rover Evoque (L551),wave1
+landrover,rangerover_velar,L560,single,2018,2026,Land Rover Range Rover Velar,wave1
+lexus,ct,ZWA10,pre,2011,2013,Lexus CT 200h (ZWA10),wave1
+lexus,ct,ZWA10,facelift,2014,2017,Lexus CT 200h (ZWA10),wave1
+lexus,gx,J120,single,2003,2009,Lexus GX 470 (UZJ120),wave1
+lexus,gx,J150,pre,2010,2013,Lexus GX (J150),wave1
+lexus,gx,J150,facelift,2014,2019,Lexus GX (J150),wave1
+lexus,gx,J150,facelift2,2020,2023,Lexus GX (J150),wave1
+lexus,gx,J250,single,2024,2026,Lexus GX (J250),wave1
+lexus,lx,J80,single,1996,1997,Lexus LX (J80),wave1
+lexus,lx,J100,pre,1998,2002,Lexus LX (J100),wave1
+lexus,lx,J100,facelift,2003,2007,Lexus LX (J100),wave1
+lexus,lx,J200,pre,2008,2012,Lexus LX (J200),wave1
+lexus,lx,J200,facelift,2013,2015,Lexus LX (J200),wave1
+lexus,lx,J200,facelift2,2016,2021,Lexus LX (J200),wave1
+lexus,lx,J310,single,2022,2026,Lexus LX (J310),wave1
+lexus,nx,AZ10,pre,2015,2017,Lexus NX (AZ10),wave1
+lexus,nx,AZ10,facelift,2018,2021,Lexus NX (AZ10),wave1
+lexus,nx,AZ20,single,2022,2026,Lexus NX (AZ20),wave1
+lexus,rc,XC10,pre,2015,2018,Lexus RC (XC10),wave1
+lexus,rc,XC10,facelift,2019,2025,Lexus RC (XC10),wave1
+lexus,lc,Z100,single,2018,2026,Lexus LC 500 (URZ100);Lexus LC 500h (GWZ100),wave1
+lexus,ux,ZA10,single,2019,2026,Lexus UX,wave1
+lexus,rz,XEBM,single,2023,2026,Lexus RZ,wave1
+lexus,tx,AA10,single,2024,2026,Lexus TX,wave1
+lexus,hs,ANF10,single,2010,2012,Lexus HS 250h (ANF10),wave1
+lexus,is,XE30,facelift,2017,2020,Lexus IS (XE30),wave1
+lexus,is,XE30,facelift2,2021,2026,Lexus IS (XE30),wave1
+lexus,gs,L10,pre,2013,2015,Lexus GS (L10),wave1
+lexus,gs,L10,facelift,2016,2020,Lexus GS (L10),wave1
+lexus,ls,XF30,pre,2001,2003,Lexus LS (XF30),wave1
+lexus,ls,XF30,facelift,2004,2006,Lexus LS (XF30),wave1
+lexus,ls,XF40,pre,2007,2009,Lexus LS (XF40),wave1
+lexus,ls,XF40,facelift,2010,2012,Lexus LS (XF40),wave1
+lexus,ls,XF40,facelift2,2013,2017,Lexus LS (XF40),wave1
+lexus,ls,XF50,pre,2018,2020,Lexus LS (XF50),wave1
+lexus,ls,XF50,facelift,2021,2026,Lexus LS (XF50),wave1
+lexus,rx,XU30,single,2004,2009,Lexus RX (XU30),wave1
+lexus,rx,AL10,pre,2010,2012,Lexus RX (AL10),wave1
+lexus,rx,AL10,facelift,2013,2015,Lexus RX (AL10),wave1
+lexus,rx,AL20,pre,2016,2019,Lexus RX (AL20),wave1
+lexus,rx,AL20,facelift,2020,2022,Lexus RX (AL20),wave1
+lexus,rx,ALA10,single,2023,2026,"Lexus RX (AL10, 2022)",wave1
+lincoln,mkc,1st gen,single,2015,2019,Lincoln MKC,wave1
+lincoln,mks,1st gen,pre,2009,2012,Lincoln MKS,wave1
+lincoln,mks,1st gen,facelift,2013,2016,Lincoln MKS,wave1
+lincoln,mkt,1st gen,pre,2010,2012,Lincoln MKT,wave1
+lincoln,mkt,1st gen,facelift,2013,2019,Lincoln MKT,wave1
+lincoln,mkx,CD3,pre,2007,2010,Lincoln MKX (CD3),wave1
+lincoln,mkx,CD3,facelift,2011,2015,Lincoln MKX (CD3),wave1
+lincoln,mkx,CD4,single,2016,2018,Lincoln MKX (CD4),wave1
+lincoln,mkz,CD3,pre,2007,2009,Lincoln MKZ (CD3),wave1: 2006 was the Zephyr
+lincoln,mkz,CD3,facelift,2010,2012,Lincoln MKZ (CD3),wave1
+lincoln,mkz,CD4,pre,2013,2016,Lincoln MKZ (CD4),wave1
+lincoln,mkz,CD4,facelift,2017,2020,Lincoln MKZ (CD4),wave1
+lincoln,nautilus,U540,single,2019,2023,Lincoln Nautilus (U540),wave1
+lincoln,nautilus,CDX707,single,2024,2026,Lincoln Nautilus (CDX707),wave1
+lincoln,corsair,1st gen,single,2020,2026,Lincoln Corsair,wave1
+mazda,cx3,DK,single,2016,2021,Mazda CX-3,wave1
+mazda,cx30,DM,single,2020,2026,Mazda CX-30,wave1
+mazda,cx5,KE,pre,2013,2015,Mazda CX-5 (KE),wave1
+mazda,cx5,KE,facelift,2016,2016,Mazda CX-5 (KE),wave1
+mazda,cx5,KF,pre,2017,2021,Mazda CX-5 (KF),wave1
+mazda,cx5,KF,facelift,2022,2025,Mazda CX-5 (KF),wave1
+mazda,cx5,KM,single,2026,2026,Mazda CX-5 (KM),wave1
+mazda,cx50,1st gen,single,2023,2026,Mazda CX-50,wave1
+mazda,cx7,ER,pre,2007,2009,Mazda CX-7,wave1
+mazda,cx7,ER,facelift,2010,2012,Mazda CX-7,wave1
+mazda,cx9,TB,pre,2007,2009,Mazda CX-9 (TB),wave1
+mazda,cx9,TB,facelift,2010,2012,Mazda CX-9 (TB),wave1
+mazda,cx9,TB,facelift2,2013,2015,Mazda CX-9 (TB),wave1
+mazda,cx9,TC,single,2016,2023,Mazda CX-9 (TC),wave1
+mazda,cx90,1st gen,single,2024,2026,Mazda CX-90,wave1
+mazda,2,DE,single,2011,2014,Mazda2 (DE/DH),wave1
+mercedes benz,s-class,W221,pre,2007,2009,Mercedes-Benz type 221,wave1
+mercedes benz,s-class,W221,facelift,2010,2013,Mercedes-Benz type 221,wave1
+mercedes benz,s-class,W222,pre,2014,2017,Mercedes-Benz type 222,wave1
+mercedes benz,s-class,W222,facelift,2018,2020,Mercedes-Benz type 222,wave1
+mercedes benz,s-class,W223,single,2021,2026,Mercedes-Benz type 223,wave1
+mercedes benz,e-class,W213,pre,2017,2020,Mercedes-Benz type 213,wave1
+mercedes benz,e-class,W213,facelift,2021,2023,Mercedes-Benz type 213,wave1
+mercedes benz,e-class,W214,single,2024,2026,Mercedes-Benz type 214,wave1
+mercedes benz,sl,R230,facelift,2009,2012,Mercedes-Benz R230,wave1
+mercedes benz,sl,R231,pre,2013,2016,Mercedes-Benz R231,wave1
+mercedes benz,sl,R231,facelift,2017,2020,Mercedes-Benz R231,wave1
+mercedes benz,sl,R232,single,2022,2026,Mercedes-AMG SL-Class,wave1
+mercedes benz,gle-class,W166,single,2016,2019,Mercedes-Benz W166 (2015),wave1: the M-Class renamed
+mercedes benz,gle-class,W167,pre,2020,2023,Mercedes-Benz W167,wave1
+mercedes benz,gle-class,W167,facelift,2024,2026,Mercedes-Benz W167,wave1
+mercedes benz,gl-class,X164,pre,2007,2009,Mercedes-Benz X164,wave1
+mercedes benz,gl-class,X164,facelift,2010,2012,Mercedes-Benz X164,wave1
+mercedes benz,gl-class,X166,single,2013,2016,Mercedes-Benz X166 (2012),wave1
+mercedes benz,gls-class,X166,single,2017,2019,Mercedes-Benz X166 (2016),wave1: the GL renamed
+mercedes benz,gls-class,X167,pre,2020,2023,Mercedes-Benz X167,wave1
+mercedes benz,gls-class,X167,facelift,2024,2026,Mercedes-Benz X167,wave1
+mercedes benz,glk-class,X204,pre,2010,2012,Mercedes-Benz X204,wave1
+mercedes benz,glk-class,X204,facelift,2013,2015,Mercedes-Benz X204,wave1
+mercedes benz,glc-class,X253,pre,2016,2019,Mercedes-Benz X253,wave1
+mercedes benz,glc-class,X253,facelift,2020,2022,Mercedes-Benz X253,wave1
+mercedes benz,glc-class,X254,single,2023,2026,Mercedes-Benz X254,wave1
+mercedes benz,gla-class,X156,pre,2015,2017,Mercedes-Benz X156,wave1
+mercedes benz,gla-class,X156,facelift,2018,2020,Mercedes-Benz X156,wave1
+mercedes benz,gla-class,H247,pre,2021,2023,Mercedes-Benz H247,wave1
+mercedes benz,gla-class,H247,facelift,2024,2026,Mercedes-Benz H247,wave1
+mercedes benz,glb-class,X247,pre,2020,2023,Mercedes-Benz X247,wave1
+mercedes benz,glb-class,X247,facelift,2024,2025,Mercedes-Benz X247,wave1
+mercedes benz,cla-class,C117,pre,2014,2016,Mercedes-Benz type 117,wave1
+mercedes benz,cla-class,C117,facelift,2017,2019,Mercedes-Benz type 117,wave1
+mercedes benz,cla-class,C118,pre,2020,2023,Mercedes-Benz type 118,wave1
+mercedes benz,cla-class,C118,facelift,2024,2025,Mercedes-Benz type 118,wave1
+mercedes benz,a-class,V177,single,2019,2022,Mercedes-Benz type 177,wave1
+mercedes benz,cls-class,C219,pre,2006,2008,Mercedes-Benz C219,wave1
+mercedes benz,cls-class,C219,facelift,2009,2011,Mercedes-Benz C219,wave1
+mercedes benz,cls-class,C218,pre,2012,2014,Mercedes-Benz C218,wave1
+mercedes benz,cls-class,C218,facelift,2015,2018,Mercedes-Benz C218,wave1
+mercedes benz,cls-class,C257,single,2019,2023,Mercedes-Benz C257,wave1
+mercedes benz,slk-class,R170,pre,1998,2000,Mercedes-Benz R170,wave1
+mercedes benz,slk-class,R170,facelift,2001,2004,Mercedes-Benz R170,wave1
+mercedes benz,slk-class,R171,pre,2005,2008,Mercedes-Benz R171,wave1
+mercedes benz,slk-class,R171,facelift,2009,2011,Mercedes-Benz R171,wave1
+mercedes benz,slk-class,R172,pre,2012,2016,Mercedes-Benz R172 (2011),wave1
+mercedes benz,slk-class,R172,facelift,2017,2020,Mercedes-Benz R172 (2011),wave1: renamed SLC
+mercedes benz,amg gt,C190,single,2016,2026,Mercedes-AMG GT,wave1
+mercedes benz,g-class,W463,single,2002,2026,Mercedes-Benz W463,wave1: the 2019 redesign kept the same shape
+mercedes benz,r-class,W251,pre,2006,2010,Mercedes-Benz W251;Mercedes-Benz V251,wave1
+mercedes benz,r-class,W251,facelift,2011,2012,Mercedes-Benz W251;Mercedes-Benz V251,wave1
+mercedes benz,eqs,V297,single,2022,2026,Mercedes-Benz V297,wave1: sedan
+mercedes benz,eqs suv,X296,single,2023,2026,Mercedes-Benz X296,wave1
+mercedes benz,eqe,V295,single,2023,2026,Mercedes-Benz V295,wave1: sedan
+mercedes benz,eqe suv,X294,single,2023,2026,Mercedes-Benz X294,wave1
+mercedes benz,sprinter,NCV3,pre,2007,2013,Mercedes-Benz Sprinter - 2nd generation (2006-2018),wave1
+mercedes benz,sprinter,NCV3,facelift,2014,2018,Mercedes-Benz Sprinter - 2nd generation (2006-2018),wave1
+mercedes benz,sprinter,VS30,single,2019,2026,Mercedes-Benz Sprinter (3rd generation),wave1
+mercedes benz,metris,W447,single,2016,2023,Mercedes-Benz Metris (W447),wave1
+mini,clubman,R55,single,2008,2014,Mini Clubman (BMW),wave1
+mini,clubman,F54,single,2016,2024,Mini Clubman (BMW),wave1
+mini,countryman,R60,pre,2011,2014,Mini Countryman (R60),wave1
+mini,countryman,R60,facelift,2015,2016,Mini Countryman (R60),wave1
+mini,countryman,F60,pre,2017,2020,Mini Countryman (F60),wave1
+mini,countryman,F60,facelift,2021,2024,Mini Countryman (F60),wave1
+mini,countryman,U25,single,2025,2026,Mini Countryman (U25),wave1
+mini,paceman,R61,single,2013,2016,Mini Paceman (R61),wave1
+mitsubishi,mirage,CA,single,1991,1996,Mitsubishi Mirage (1991),wave1
+mitsubishi,mirage,CJ,single,1997,2002,Mitsubishi Mirage (1995),wave1
+mitsubishi,mirage,A05A,pre,2014,2016,Mitsubishi Mirage (2012),wave1
+mitsubishi,mirage,A05A,facelift,2017,2020,Mitsubishi Mirage (2012),wave1
+mitsubishi,mirage,A05A,facelift2,2021,2024,Mitsubishi Mirage (2012),wave1
+mitsubishi,i-miev,HA3,single,2012,2017,Mitsubishi i-MiEV (North America),wave1
+nissan,370z,Z34,single,2009,2020,Nissan 370Z Coupe;Nissan 370Z Roadster,wave1: 2013 and 2018 updates subtle
+nissan,juke,F15,pre,2011,2014,Nissan Juke (F15),wave1
+nissan,juke,F15,facelift,2015,2017,Nissan Juke (F15),wave1
+nissan,cube,Z12,single,2009,2014,Nissan Cube (Z12),wave1
+nissan,gtr,R35,pre,2009,2016,Nissan GT-R,wave1
+nissan,gtr,R35,facelift,2017,2024,Nissan GT-R,wave1
+nissan,leaf,ZE0,single,2011,2017,Nissan Leaf (ZE0),wave1
+nissan,leaf,ZE1,single,2018,2025,Nissan Leaf (ZE1),wave1
+nissan,leaf,ZE2,single,2026,2026,Nissan Leaf (ZE2),wave1
+nissan,kicks,P15,pre,2018,2020,Nissan Kicks (P15),wave1
+nissan,kicks,P15,facelift,2021,2024,Nissan Kicks (P15),wave1
+nissan,kicks,P16,single,2025,2026,Nissan Kicks (P16),wave1
+nissan,nv200,M20,single,2013,2021,Nissan NV200,wave1
+nissan,z,RZ34,single,2023,2026,Nissan Z (RZ34),wave1
+nissan,ariya,FE0,single,2023,2026,Nissan Ariya,wave1
+porsche,macan,95B,pre,2015,2018,Porsche Macan (95B),wave1
+porsche,macan,95B,facelift,2019,2021,Porsche Macan (95B),wave1
+porsche,macan,95B,facelift2,2022,2024,Porsche Macan (95B),wave1
+porsche,macan,XAB,single,2025,2026,Porsche Macan (XAB),wave1: electric
+porsche,panamera,970,pre,2010,2013,Porsche 970,wave1
+porsche,panamera,970,facelift,2014,2016,Porsche 970,wave1
+porsche,panamera,971,pre,2017,2020,Porsche 971,wave1
+porsche,panamera,971,facelift,2021,2023,Porsche 971,wave1
+porsche,panamera,972,single,2024,2026,Porsche 972,wave1
+porsche,taycan,Y1A,pre,2020,2024,Porsche Taycan,wave1
+porsche,taycan,Y1A,facelift,2025,2026,Porsche Taycan,wave1
+porsche,cayman,987c,pre,2006,2008,Porsche 987c,wave1
+porsche,cayman,987c,facelift,2009,2012,Porsche 987c,wave1
+porsche,cayman,981c,single,2014,2016,Porsche 981c,wave1
+porsche,cayman,982c,single,2017,2025,Porsche 982c,wave1
+ram,promaster,VF,pre,2014,2022,Ram ProMaster (2014),wave1
+ram,promaster,VF,facelift,2023,2026,Ram ProMaster (2023),wave1
+ram,promaster city,263,single,2015,2022,Ram ProMaster City,wave1
+subaru,brz,ZC6,pre,2013,2016,Subaru BRZ (ZC6),wave1
+subaru,brz,ZC6,facelift,2017,2020,Subaru BRZ (ZC6),wave1
+subaru,brz,ZD8,single,2022,2026,Subaru BRZ (ZD8),wave1
+subaru,crosstrek,GP,pre,2013,2015,Subaru XV (GP);Subaru XV Crosstrek,wave1: sold as XV Crosstrek until 2015
+subaru,crosstrek,GP,facelift,2016,2017,Subaru XV (GP);Subaru XV Crosstrek,wave1
+subaru,crosstrek,GT,pre,2018,2020,Subaru Crosstrek (GT);Subaru XV (GT),wave1
+subaru,crosstrek,GT,facelift,2021,2023,Subaru Crosstrek (GT);Subaru XV (GT),wave1
+subaru,crosstrek,GU,single,2024,2026,Subaru Crosstrek (GU),wave1
+subaru,ascent,WM,pre,2019,2022,Subaru Ascent,wave1
+subaru,ascent,WM,facelift,2023,2026,Subaru Ascent,wave1
+subaru,tribeca,WX,pre,2006,2007,Subaru Tribeca (2005),wave1: B9 Tribeca
+subaru,tribeca,WX,facelift,2008,2014,Subaru Tribeca (2007),wave1
+subaru,solterra,1st gen,single,2023,2026,Subaru Solterra,wave1
+scion,frs,ZN6,single,2013,2016,Scion FR-S,wave1
+scion,xd,P110,single,2008,2014,Scion xD,wave1
+scion,iq,J10,single,2012,2015,Scion iQ,wave1
+toyota,86,ZN6,pre,2013,2016,Toyota 86,wave1: GT86 photos from outside the US; same look as the Scion FR-S
+toyota,86,ZN6,facelift,2017,2020,Toyota 86 (facelift),wave1
+toyota,86,ZN8,single,2022,2026,Toyota GR86,wave1: GR86
+toyota,c-hr,AX10,pre,2018,2019,Toyota C-HR (AX10/AX50),wave1
+toyota,c-hr,AX10,facelift,2020,2022,Toyota C-HR (AX10/AX50),wave1
+toyota,venza,AV10,pre,2009,2012,Toyota Venza (AV10),wave1
+toyota,venza,AV10,facelift,2013,2015,Toyota Venza (AV10),wave1
+toyota,venza,XU80,single,2021,2024,Toyota Venza (XU80),wave1
+toyota,supra,A70,single,1986,1992,Toyota Supra (A70),wave1
+toyota,supra,A80,single,1993,1998,Toyota Supra (A80),wave1
+toyota,supra,A90,single,2020,2026,Toyota GR Supra,wave1
+toyota,mirai,JPD10,single,2016,2020,Toyota Mirai (JPD10),wave1
+toyota,mirai,JPD20,single,2021,2026,Toyota Mirai (JPD20),wave1
+toyota,crown,S235,single,2023,2026,Toyota Crown (S230),wave1 CHECK: US Crown crossover; category holds all S230 bodies
+toyota,grand highlander,AS10,single,2024,2026,Toyota Grand Highlander,wave1
+toyota,corolla cross,XG10,single,2022,2026,Toyota Corolla Cross,wave1 CHECK: category name
+toyota,bz4x,EA10,pre,2023,2025,Toyota bZ4X,wave1
+toyota,bz4x,EA10,facelift,2026,2026,Toyota bZ4X (2025),wave1
+volkswagen,tiguan,5N,pre,2009,2011,Volkswagen Tiguan I,wave1
+volkswagen,tiguan,5N,facelift,2012,2017,Volkswagen Tiguan I,wave1
+volkswagen,tiguan,AD1,pre,2018,2021,Volkswagen Tiguan II,wave1
+volkswagen,tiguan,AD1,facelift,2022,2024,Volkswagen Tiguan II,wave1
+volkswagen,tiguan,3rd gen,single,2025,2026,Volkswagen Tiguan III,wave1
+volkswagen,atlas,CA1,pre,2018,2023,Volkswagen Atlas,wave1
+volkswagen,atlas,CA1,facelift,2024,2026,Volkswagen Atlas,wave1
+volkswagen,atlas cross sport,CA1,single,2020,2026,Volkswagen Atlas Cross Sport,wave1
+volkswagen,arteon,3H,single,2019,2023,Volkswagen Arteon,wave1
+volkswagen,cc,35,pre,2009,2012,Volkswagen CC (1st generation),wave1
+volkswagen,cc,35,facelift,2013,2017,Volkswagen CC (1st generation);Volkswagen CC (2nd generation),wave1
+volkswagen,eos,1F,pre,2007,2011,Volkswagen Eos (2006),wave1
+volkswagen,eos,1F,facelift,2012,2016,Volkswagen Eos (2010),wave1
+volkswagen,taos,1st gen,single,2022,2026,Volkswagen Taos,wave1
+volkswagen,id.4,1st gen,single,2021,2026,Volkswagen ID.4,wave1
+volkswagen,routan,RT,single,2009,2014,Volkswagen Routan,wave1
+volvo,xc40,536,pre,2019,2022,Volvo XC40,wave1
+volvo,xc40,536,facelift,2023,2026,Volvo XC40,wave1
+volvo,xc60,Y20,pre,2010,2013,Volvo XC60 (Y20),wave1
+volvo,xc60,Y20,facelift,2014,2017,Volvo XC60 (Y20),wave1
+volvo,xc60,SPA,pre,2018,2021,Volvo XC60 (SPA),wave1
+volvo,xc60,SPA,facelift,2022,2026,Volvo XC60 (SPA),wave1
+volvo,v60,Y20,single,2015,2018,Volvo V60 (Y20),wave1
+volvo,v60,SPA,single,2019,2025,Volvo V60 (SPA),wave1
+volvo,v90,SPA,single,2017,2021,Volvo V90 (2016),wave1
+volvo,s90,P90,single,1997,1998,Volvo S90 (P90),wave1
+volvo,s90,SPA,pre,2017,2020,Volvo S90 (SPA),wave1
+volvo,s90,SPA,facelift,2021,2025,Volvo S90 (SPA),wave1
+volvo,c30,533,pre,2008,2010,Volvo C30,wave1
+volvo,c30,533,facelift,2011,2013,Volvo C30,wave1
+volvo,c40,539,single,2022,2024,Volvo C40,wave1
+volvo,ex30,1st gen,single,2025,2026,Volvo EX30,wave1
+volvo,ex90,1st gen,single,2025,2026,Volvo EX90,wave1
+volvo,v50,545,pre,2005,2007,Volvo V50,wave1
+volvo,v50,545,facelift,2008,2011,Volvo V50,wave1
+volvo,c70,N,single,1998,2004,Volvo C70 N,wave1
+volvo,c70,M,pre,2006,2009,Volvo C70 M,wave1
+volvo,c70,M,facelift,2010,2013,Volvo C70 M,wave1
+saab,9-7x,GMT360,single,2005,2009,Saab 9-7X,wave1
+suzuki,kizashi,RE,single,2010,2013,Suzuki Kizashi,wave1
+suzuki,sx4,1st gen,single,2007,2013,Suzuki SX4 (1st generation),wave1
+suzuki,grand_vitara,1st gen,single,1999,2005,Suzuki Grand Vitara (1st generation),wave1
+suzuki,grand_vitara,2nd gen,single,2006,2013,Suzuki Grand Vitara (2nd generation),wave1
+suzuki,equator,D40,single,2009,2012,Suzuki Equator,wave1
+pontiac,g8,Zeta,single,2008,2009,Pontiac G8,wave1
+pontiac,solstice,Kappa,single,2006,2010,Pontiac Solstice,wave1
+pontiac,torrent,Theta,single,2006,2009,Pontiac Torrent,wave1
+saturn,outlook,Lambda,single,2007,2010,Saturn Outlook,wave1
+saturn,sky,Kappa,single,2007,2010,Saturn Sky,wave1
+saturn,relay,U-body,single,2005,2007,Saturn Relay,wave1
+saturn,astra,H,single,2008,2009,Saturn Astra,wave1
+mercury,milan,CD3,pre,2006,2009,Mercury Milan,wave1
+mercury,milan,CD3,facelift,2010,2011,Mercury Milan,wave1
