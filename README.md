@@ -13,22 +13,28 @@ photos I collected as a [free dataset](https://huggingface.co/datasets/timdwms/u
 flowchart LR
     subgraph Data
         A[Wikimedia Commons<br/>222k photos] --> B[Filter<br/>Faster R-CNN drops<br/>bad photos]
-        B --> C[Auto-label<br/>keep labels where<br/>clues agree]
+        B --> C[Auto-label<br/>older model, category<br/>and year must agree]
         V[VMMRdb<br/>264k photos] --> D
         C --> D[Dataset<br/>404k photos<br/>1,505 classes]
     end
     subgraph Training
         D --> E[Fine-tune ConvNeXt-Tiny<br/>RTX 4090, ~2 h]
-        E --> F[Export to ONNX]
+        E --> M[New model<br/>run 6]
+        M --> F[Export to ONNX]
     end
+    M == "each model labels the<br/>next run's new photos" ==> C
     subgraph App
         P[Phone photo<br/>or live video] --> G[Faster R-CNN<br/>finds each car]
         G --> H[ConvNeXt-Tiny<br/>names it]
         F --> H
         H --> I[Toyota Highlander<br/>XU50 facelift]
     end
-    E -. labels the next<br/>round of photos .-> C
 ```
+
+The first models (runs 1-2) learned from VMMRdb alone. After that, **each model helped
+label the new photos for the next one**: run 2 sorted the Commons photos for run 3, and run 5
+sorted them for run 6. A photo only got a label automatically when the older model, its
+Commons category and the year in its filename agreed.
 
 ## Technologies
 
