@@ -6,13 +6,14 @@ e.g. *"Toyota Highlander, XU50, facelift (2017-2019)"*. It only answers as deep 
 
 ## Highlights
 
-- **96.1% make + model accuracy** on a held-out test set of 33,044 photos (97.9% make only);
-  when the car is right, the generation/facelift is right **96.5%** of the time. 1,122 classes.
+- **95.8% make + model accuracy** on a held-out test set of 37,964 photos (97.7% make only);
+  when the car is right, the generation/facelift is right **96.9%** of the time. 1,465 classes.
+  Adding 343 new looks cost nothing on the frozen exam every run takes (97.2% before and after).
 - **Live camera mode:** boxes and names every car in view in real time.
 - **Full pipeline, built from scratch:** a car detector (Faster R-CNN) crops each vehicle, and a
   ConvNeXt-Tiny classifier (PyTorch, trained on an RTX 4090) names it. The model is exported to
   ONNX and served by a **Java 17 Spring Boot** API with a GWT/SmartGWT web client.
-- **334k training photos:** VMMRdb plus ~100k freely licensed Wikimedia Commons photos, which I
+- **380k photos:** VMMRdb plus ~130k freely licensed Wikimedia Commons photos, which I
   downloaded, filtered with the detector, de-duplicated and labeled automatically. Only photos
   where the clues disagree go to a human.
 - **Hand-built label table** of ~2,100 car "looks" (generation + facelift years) for 560+ models,
