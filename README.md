@@ -8,6 +8,20 @@ it sees. If it isn't sure about a detail, it stops before that detail. So you mi
 "Toyota Highlander" without a generation, or just "Not sure", instead of a confident wrong
 answer.
 
+## At a glance
+
+- 95.8% make + model accuracy (97.7% make only) on 37,964 test photos, across 1,465 classes
+- Gets the generation and facelift right 96.9% of the time when the make + model is right
+- Live camera mode on a phone: boxes and names every car in view in real time
+- Two models: a Faster R-CNN detector finds the cars, and a ConvNeXt-Tiny classifier I
+  trained names them
+- Trained in Python/PyTorch on an RTX 4090, served by a Java 17 Spring Boot app through
+  ONNX Runtime
+- 382k training photos: VMMRdb plus about 130k Wikimedia Commons photos that I downloaded,
+  cleaned and labeled automatically
+- Hand-written table of about 2,100 car generations and facelifts for 560+ models, checked
+  against the US government's NHTSA vehicle list
+
 ## How it works
 
 1. A car detector (Faster R-CNN, pretrained) finds each car in the picture and crops it out.
