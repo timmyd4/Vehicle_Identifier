@@ -20,6 +20,10 @@ commons:
   # Download at most this many per category, so the Civic doesn't crowd out rare cars.
   # 200 = ~120k files (~12 h). 400 would add ~50k, nearly all for popular cars VMMRdb already covers well.
   max_per_category: 200
+  # Cars first sold in new_from_year or later get the bigger cap: VMMRdb stops at 2016, so
+  # Commons is nearly all they learn from. 800 adds ~37k photos (~2 h) for ~430 categories.
+  max_per_category_new: 800
+  new_from_year: 2015
   # commons_filter.py: which downloaded photos are worth training on (see its docstring).
   filter:
     min_score: 0.7           # the main vehicle must be clearly a vehicle (stricter than the app's 0.5).
@@ -31,9 +35,9 @@ commons:
   presort:
     # The model that sorts, AND the class list it was trained with. They must match: the
     # model's output #i means row #i of THAT classes.csv.
-    # Run 4 now (the best so far; knows the facelift-gap looks). Earlier: run3_commons, run2_generations.
-    checkpoint: training/checkpoints/run4_facelift/best.pt
-    splits_dir: data/splits_run4_facelift
+    # Run 5 now (knows the wave-1 cars). Earlier: run4_facelift, run3_commons, run2_generations.
+    checkpoint: training/checkpoints/run5_wave1/best.pt
+    splits_dir: data/splits_run5_wave1
     min_other_car: 0.5       # the sorter gives another car at least this much -> "different car?" review
     auto_share: 0.8          # a look with this much of the candidates' probability wins on its own
   # commons_looks.py: which MISSING looks (fewer than 50 photos) a human gets asked about.

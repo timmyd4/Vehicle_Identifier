@@ -7,6 +7,11 @@ manifest.csv (from commons_list.py) lists every usable photo: its license, its a
 the address of a ~800 px copy. This script picks up to `max_per_category` photos per
 category and downloads those copies into data/commons/images/.
 
+NEWER CARS GET MORE: VMMRdb stops at 2016, so a car first sold in 2015 or later
+(`new_from_year`) has few or no VMMRdb photos and learns almost only from Commons. Its
+categories get the bigger cap `max_per_category_new`. Older cars keep the small cap:
+VMMRdb already has hundreds of photos of them.
+
 Run it only after commons_list.py has printed "Done": the pick depends on the full list.
 
 WHICH PHOTOS: a seeded random pick per category, not the first 200 alphabetically. Sorted
@@ -53,7 +58,7 @@ import time
 import urllib.parse
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-from common import load_config, project_path
+from common import load_config, load_generations, project_path
 from wikimedia_check import USER_AGENT
 
 WORKERS = 4
@@ -115,12 +120,35 @@ def local_name(title, url):
     return f"{digest[:2]}/{digest}{extension}"
 
 
-def pick_files(rows, max_per_category):
+def category_caps(settings):
+    """Return {category: cap} for the categories of newer cars; others use the normal cap.
+
+    A category counts as "new" when every look it's used for starts in new_from_year or
+    later (its OLDEST look decides). Mixed ones, like a generation from 2012-2018, keep
+    the small cap: VMMRdb already has their early years.
+    """
+    table = load_generations()
+    caps = {}
+    for categories, first_year in zip(table["commons_category"], table["first_year"]):
+        for category in categories.split(";"):
+            if category:
+                oldest = min(first_year, caps.get(category, first_year))
+                caps[category] = oldest
+    return {c: settings["max_per_category_new"] for c, oldest in caps.items()
+            if oldest >= settings["new_from_year"]}
+
+
+def pick_files(rows, max_per_category, caps=None):
     """Choose up to max_per_category rows per category; return them (each photo once).
+
+    caps can raise the limit for some categories (see category_caps()). The shuffle
+    doesn't depend on the cap, so a bigger cap picks the same photos as before PLUS more:
+    nothing already downloaded goes to waste.
 
     A photo in two categories can be picked by both. It's only downloaded once, but it
     counts toward both caps, so popular shared photos don't use up extra space.
     """
+    caps = caps or {}
     by_category = {}
     for row in rows:
         for category in row["categories"].split(";"):
@@ -130,7 +158,7 @@ def pick_files(rows, max_per_category):
     for category, members in sorted(by_category.items()):
         members = sorted(members, key=lambda r: r["title"])  # same starting order every run
         random.Random(category).shuffle(members)              # a string seed is repeatable
-        for row in members[:max_per_category]:
+        for row in members[:caps.get(category, max_per_category)]:
             picked[row["title"]] = row
     return list(picked.values())
 
@@ -175,11 +203,13 @@ def main():
 
     with open(commons_dir / "manifest.csv", encoding="utf-8", newline="") as f:
         rows = list(csv.DictReader(f))
-    picked = pick_files(rows, settings["max_per_category"])
+    caps = category_caps(settings)
+    picked = pick_files(rows, settings["max_per_category"], caps)
     todo = [r for r in picked if not (images_dir / local_name(r["title"], r["thumb_url"])).exists()]
     print(f"Manifest: {len(rows):,} usable photos. Picked {len(picked):,} "
-          f"(max {settings['max_per_category']} per category); {len(picked) - len(todo):,} "
-          f"already downloaded, {len(todo):,} to go")
+          f"(max {settings['max_per_category']} per category, {settings['max_per_category_new']} "
+          f"for {len(caps)} categories of cars from {settings['new_from_year']} on); "
+          f"{len(picked) - len(todo):,} already downloaded, {len(todo):,} to go")
 
     done, gone, failed = download_all(todo, images_dir)
     print(f"\nDone: {done:,} downloaded, {gone:,} no longer on Commons. Photos in {images_dir}")
