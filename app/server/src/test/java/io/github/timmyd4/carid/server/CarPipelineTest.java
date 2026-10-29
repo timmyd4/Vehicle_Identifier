@@ -57,8 +57,8 @@ class CarPipelineTest {
      * so they must be re-made after every retrain. When this test fails right after a new
      * export, that's the test correctly noticing the model changed, not necessarily a bug.
      *
-     * <p>Run 5 (wave 1: 1,465 classes, 2026-10-28): Java says Toyota Corolla (2009-2010)
-     * 95.1%, predict.py 94.3%. (Run 4: Java 92.5%. Run 3: 96.0%. Run 2: 91.4%.) The car is a 2009, so the full
+     * <p>Run 6 (2015+ cars: 1,505 classes, 2026-10-29): Java says Toyota Corolla (2009-2010)
+     * 96.7%. (Run 5: Java 95.1%, predict.py 94.3%. Run 4: 92.5%. Run 3: 96.0%. Run 2: 91.4%.) The car is a 2009, so the full
      * layered answer (E140, pre-facelift) is right. Second place isn't checked any more: every
      * runner-up is ~0.0%, so their order is decoding noise (Java: Firebird, Python: Corolla).
      *
@@ -81,7 +81,7 @@ class CarPipelineTest {
 
         List<Prediction> top = biggest.predictions();
         assertEquals("Toyota Corolla (2009-2010)", top.get(0).name());
-        assertEquals(0.951, top.get(0).probability(), 0.005);
+        assertEquals(0.967, top.get(0).probability(), 0.005);
 
         LayeredAnswer answer = biggest.answer();
         assertEquals(LayeredAnswer.Level.LOOK, answer.level());
@@ -96,6 +96,7 @@ class CarPipelineTest {
         //   run 4: XU50 facelift (predict.py 95.8%), after 48 hand-labeled facelift photos
         //          on commons_looks.py brought the look to 58 photos (50 makes a class).
         //   run 5: still XU50 facelift (predict.py 91.5%, Java 89.6%) with 343 more classes.
+        //   run 6: still XU50 facelift (Java 95.0%) with 40 more classes.
         // Only the answer is checked, not the exact probability: it's far from any tie.
         List<CarResult> results = pipeline.identify(readPhoto("highlander_2017.jpg"), true);
         print("highlander_2017.jpg", results);
