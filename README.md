@@ -1,50 +1,107 @@
 # Car Identifier
 
-Identifies a car's **make, model, generation and facelift** from a photo or a live camera feed,
-e.g. *"Toyota Highlander, XU50, facelift (2017-2019)"*. It only answers as deep as it's sure
-(make → model → generation → facelift) and says "Not sure" instead of guessing.
+Point your phone at a car and it tells you what it is: make, model, generation and whether
+it's the facelift. For example: *"Toyota Highlander, XU50, facelift (2017-2019)"*.
 
-## Highlights
+It works on a single photo or on a live camera feed, where it draws a box around every car
+it sees. If it isn't sure about a detail, it stops before that detail. So you might get
+"Toyota Highlander" without a generation, or just "Not sure", instead of a confident wrong
+answer.
 
-- **95.8% make + model accuracy** on a held-out test set of 37,964 photos (97.7% make only);
-  when the car is right, the generation/facelift is right **96.9%** of the time. 1,465 classes.
-  Adding 343 new looks cost nothing on the frozen exam every run takes (97.2% before and after).
-- **Live camera mode:** boxes and names every car in view in real time.
-- **Full pipeline, built from scratch:** a car detector (Faster R-CNN) crops each vehicle, and a
-  ConvNeXt-Tiny classifier (PyTorch, trained on an RTX 4090) names it. The model is exported to
-  ONNX and served by a **Java 17 Spring Boot** API with a GWT/SmartGWT web client.
-- **380k photos:** VMMRdb plus ~130k freely licensed Wikimedia Commons photos, which I
-  downloaded, filtered with the detector, de-duplicated and labeled automatically. Only photos
-  where the clues disagree go to a human.
-- **Hand-built label table** of ~2,100 car "looks" (generation + facelift years) for 560+ models,
-  checked against the US government's NHTSA vehicle database for coverage.
-- **Leak-free evaluation:** a frozen test set shared by every training run, and Commons photos
-  split by photographer and day. Java-vs-Python parity tests and golden-value regression tests.
+## How it works
 
-## Repo layout
+1. A car detector (Faster R-CNN, pretrained) finds each car in the picture and crops it out.
+2. A classifier (ConvNeXt-Tiny, which I trained) looks at each crop and names the car.
+3. Both models are exported to ONNX and run inside a Java server, which also serves the web
+   page you use on your phone or PC.
+
+Training is done in Python with PyTorch. The app is Java.
+
+## Results
+
+Run 5, the current model: 1,465 classes, trained on 382,635 photos.
+
+| Test | Accuracy |
+|---|---|
+| Make only | 97.7% |
+| Make + model | 95.8% |
+| Exact class (make, model, generation, facelift) | 92.8% |
+| Generation/facelift, when make + model is right | 96.9% |
+
+The test set is 37,964 photos the model never saw during training.
+
+There's also a fixed exam set of VMMRdb photos that every training run is graded on, so runs
+can be compared fairly. Run 5 scores 97.2% make + model on it, the same as run 4, even though
+run 5 learned 343 extra car looks. On Wikimedia Commons photos alone (harder, more varied
+pictures) it scores 92.5%.
+
+To keep the test honest, photos from the same photographer on the same day all go in the same
+split. Otherwise the model could be tested on near-copies of photos it trained on.
+
+## Tech stack
+
+- **Training:** Python 3.13, PyTorch, timm (ConvNeXt-Tiny), torchvision (Faster R-CNN), ONNX
+- **Server:** Java 17, Spring Boot 4, Jetty, ONNX Runtime, built with Maven
+- **Web page:** GWT + SmartGWT (Java compiled to JavaScript)
+- **Phone access:** Tailscale, which gives the server a private HTTPS link so the phone
+  browser allows camera access
+- **Hardware:** trained on an RTX 4090 (24 GB), Ryzen 9 9950X3D, 61 GB RAM. One epoch takes
+  about 5.5 minutes and a full training run about 2 hours. The app itself runs fine without
+  a GPU.
+
+## Data
+
+- **VMMRdb** (Vehicle Make and Model Recognition dataset): about 285k photos. Used for
+  training only and not shared here.
+- **Wikimedia Commons:** about 130k freely licensed photos (CC0, public domain, CC BY,
+  CC BY-SA). A script downloads them, the car detector throws out ones without a clear car
+  (interiors, engines, badges), duplicates are removed, and they are labeled automatically.
+  Only photos where the clues disagree get checked by hand. Each photo's author, license and
+  source page are saved, and I plan to publish these photos with their labels as a public
+  dataset.
+- **Label table** (`training/generations.csv`): about 2,100 car "looks" (a generation or a
+  facelift, with its years) for 560+ models, written by hand.
+- **NHTSA vPIC:** the US government's vehicle list, used to check which models are still
+  missing.
+
+A full list of image sources is coming soon.
+
+## Running it
+
+You need Java 17+ and Maven. The trained model files go in `models/` (they're too big for
+git). `training/export_onnx.py` writes them there.
+
+```
+cd app
+mvn clean package
+java -jar server/target/car-identifier-server-0.1.0-SNAPSHOT.jar
+```
+
+Then open http://localhost:8080. The server only listens on your own PC. To use it from your
+phone, install Tailscale on both devices and run:
+
+```
+tailscale serve --bg 8080
+```
+
+To train your own model, see `training/requirements.txt` for setup. The settings are in
+`training/config.yaml`.
+
+## Folders
 
 | Folder | What's in it |
 |---|---|
-| `training/` | Python: data pipeline, label table (`generations.csv`), training, evaluation, ONNX export |
-| `app/` | Java: Spring Boot server (`server/`) and GWT/SmartGWT web client (`client/`), Maven build |
+| `training/` | Python: data download and cleanup, label table, training, evaluation, ONNX export |
+| `app/` | Java: Spring Boot server (`server/`) and web page (`client/`) |
+| `models/` | Exported model files the server loads (not in git) |
 | `docs/` | Notes |
 
 ## Screenshots
 
-*Coming soon: photos and a short clip of the upload page and live camera mode.*
-
-## Data
-
-*A full list of where every image came from is coming soon.* In short:
-
-- **VMMRdb** (Vehicle Make and Model Recognition dataset): ~285k photos, used for training only
-  and not redistributed here.
-- **Wikimedia Commons**: freely licensed photos (CC0 / public domain / CC BY / CC BY-SA). Each
-  photo's author, license and source page are recorded. I plan to publish these photos with
-  their labels and credits as a public dataset.
-- **NHTSA vPIC**: the US model list used to measure coverage.
+Coming soon.
 
 ## Status
 
-Work in progress: expanding to every car model sold in the US since 1990, then the next
-training run.
+Work in progress. Next up: more photos of 2015+ cars (the current model is weaker on new
+cars because there are fewer photos of them), then adding every car model sold in the US
+since 1990.
