@@ -12,7 +12,7 @@ photos I collected as a [free dataset](https://huggingface.co/datasets/timdwms/u
 ```mermaid
 flowchart LR
     subgraph Data
-        A[Wikimedia Commons<br/>222k photos] --> B[Filter<br/>car detector drops<br/>bad photos]
+        A[Wikimedia Commons<br/>222k photos] --> B[Filter<br/>Faster R-CNN drops<br/>bad photos]
         B --> C[Auto-label<br/>keep labels where<br/>clues agree]
         V[VMMRdb<br/>264k photos] --> D
         C --> D[Dataset<br/>404k photos<br/>1,505 classes]
@@ -22,8 +22,8 @@ flowchart LR
         E --> F[Export to ONNX]
     end
     subgraph App
-        P[Phone photo<br/>or live video] --> G[Detector finds<br/>each car]
-        G --> H[Classifier<br/>names it]
+        P[Phone photo<br/>or live video] --> G[Faster R-CNN<br/>finds each car]
+        G --> H[ConvNeXt-Tiny<br/>names it]
         F --> H
         H --> I[Toyota Highlander<br/>XU50 facelift]
     end
