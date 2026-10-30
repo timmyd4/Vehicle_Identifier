@@ -7,6 +7,16 @@ photos to training the model on my own GPU and serving it from a Java web app. I
 it never saw), and says "Not sure" instead of guessing. I also published the 222,832
 photos I collected as a [free dataset](https://huggingface.co/datasets/timdwms/us-car-models-1948-2026).
 
+## It even recognizes toy cars
+
+The model only ever trained on photos of real cars, but in live mode on my phone it names
+die-cast toy cars too, down to the generation:
+
+| | | | | |
+|:-:|:-:|:-:|:-:|:-:|
+| <img src="docs/images/toy-civic-ef.jpg" width="160"> | <img src="docs/images/toy-civic-eg.jpg" width="160"> | <img src="docs/images/toy-rx7.jpg" width="160"> | <img src="docs/images/toy-viper.jpg" width="160"> | <img src="docs/images/toy-taycan.jpg" width="160"> |
+| Honda Civic 4th gen (1988-1991) | Honda Civic 5th gen (1992-1995) | Mazda RX-7 FC (1986-1991) | Dodge Viper VX I (2013-2017) | Porsche Taycan (2020-2024) |
+
 ## How it works
 
 ```mermaid
