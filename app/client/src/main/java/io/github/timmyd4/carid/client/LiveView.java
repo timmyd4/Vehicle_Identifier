@@ -41,6 +41,8 @@ import io.github.timmyd4.carid.client.IdentifyResult.Vehicle;
 final class LiveView {
 
     private static final int FRAME_WIDTH = 640;
+    /** Boxes older than this are removed: on a slow connection they'd show where cars WERE. */
+    private static final int STALE_MILLIS = 1500;
     private static final String[] COLORS = {"#e53935", "#1e88e5", "#43a047", "#fb8c00", "#8e24aa"};
 
     private final Document document = Document.get();
@@ -53,6 +55,8 @@ final class LiveView {
     private MediaStream stream;
     private boolean running;
     private double lastAnswerTime;
+    private double sendTime;      // when the current frame was POSTed, to time the round trip
+    private int answerCount;      // goes up with every answer drawn (see clearIfStale)
 
     /** Open the live view over the page and start the camera. */
     static void open() {
@@ -134,14 +138,17 @@ final class LiveView {
                 draw((IdentifyResult) JSON.parse(request.responseText));
                 sendFrame();                    // step 3: straight on to the next frame
             } else {
+                boxes.setInnerHTML("");         // don't leave old boxes up while we retry
                 status.setInnerText("Server error " + request.status + ", retrying...");
                 retrySoon();
             }
         };
         request.onerror = () -> {
+            boxes.setInnerHTML("");
             status.setInnerText("Can't reach the server, retrying...");
             retrySoon();
         };
+        sendTime = System.currentTimeMillis();
         request.send(form);
     }
 
@@ -182,8 +189,29 @@ final class LiveView {
         double now = System.currentTimeMillis();
         String speed = lastAnswerTime > 0 ? Math.round(10000 / (now - lastAnswerTime)) / 10.0 + " updates/s, " : "";
         lastAnswerTime = now;
-        status.setInnerText(speed + "server " + Math.round(result.millis) + " ms"
-                + (result.vehicles.length == 0 ? " | no car in view" : ""));
+        // WHERE THE TIME GOES: the round trip (send -> answer) = the server's work + the network
+        // (uploading the frame, downloading the answer). The server reports its part, so the
+        // rest is the network. If "network" is the big number, a faster server won't help.
+        double network = Math.max(0, now - sendTime - result.millis);
+        status.setInnerText(speed + "server " + Math.round(result.millis) + " ms, network "
+                + Math.round(network) + " ms" + (result.vehicles.length == 0 ? " | no car in view" : ""));
+
+        // STALE BOXES: these boxes show where the cars were when the frame was taken. If
+        // the next answer is slow (bad signal), the camera may already point somewhere
+        // else, so take them down after STALE_MILLIS unless a newer answer replaced them.
+        int thisAnswer = ++answerCount;
+        Scheduler.get().scheduleFixedDelay(() -> {
+            clearIfStale(thisAnswer);
+            return false;   // run once
+        }, STALE_MILLIS);
+    }
+
+    /** Remove the boxes if answer number {@code drawn} is still the newest one on screen. */
+    private void clearIfStale(int drawn) {
+        if (running && answerCount == drawn) {
+            boxes.setInnerHTML("");
+            status.setInnerText("Waiting for the server (slow connection)...");
+        }
     }
 
     /** Close: stop the loop, turn the camera off, remove the view. */
