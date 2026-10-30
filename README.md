@@ -28,7 +28,7 @@ flowchart LR
         P[Phone photo<br/>or live video] --> G[Faster R-CNN<br/>finds each car]
         G --> H[ConvNeXt-Tiny<br/>names it]
         F --> H
-        H --> I[Toyota Highlander<br/>XU50 facelift]
+        H --> I[Ford F-150<br/>13th gen, facelift]
     end
 ```
 
