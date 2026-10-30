@@ -14,15 +14,16 @@ flowchart LR
     subgraph Data
         A[Wikimedia Commons<br/>222k photos] --> B[Filter<br/>Faster R-CNN drops<br/>bad photos]
         B --> C[Auto-label<br/>older model, category<br/>and year must agree]
+        O[Older model<br/>guesses each<br/>photo's car] --> C
         V[VMMRdb<br/>264k photos] --> D
         C --> D[Dataset<br/>404k photos<br/>1,505 classes]
     end
     subgraph Training
         D --> E[Fine-tune ConvNeXt-Tiny<br/>RTX 4090, ~2 h]
-        E --> M[New model<br/>run 6]
+        E --> M[Newest model<br/>run 6]
         M --> F[Export to ONNX]
     end
-    M == "each model labels the<br/>next run's new photos" ==> C
+    M == "becomes the older model<br/>for the next run" ==> O
     subgraph App
         P[Phone photo<br/>or live video] --> G[Faster R-CNN<br/>finds each car]
         G --> H[ConvNeXt-Tiny<br/>names it]
